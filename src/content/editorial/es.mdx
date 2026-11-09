@@ -1,0 +1,107 @@
+---
+title: "Calculadora de Edad: ¿Cuántos Años Tengo? (Edad Exacta)"
+description: "Calcula tu edad cronológica exacta hoy en años, meses, días y minutos. Herramienta privada y gratuita con cálculo de próximos hitos y datos astronómicos."
+lang: "es"
+author: "Equipo Editorial de Cronometría y Derecho Aplicado"
+lastUpdated: "2026-11-09"
+faq:
+  - q: "¿Cómo saber cuántos años tengo exactamente hoy por mi fecha de nacimiento?"
+    a: "Para saber cuántos años tienes exactamente hoy, introduce tu fecha de nacimiento en la calculadora. El sistema resta tu fecha natal de la fecha actual aplicando la regla de arrastre natural de días y meses, mostrándote tus años cumplidos, meses y días exactos."
+  - q: "¿Cómo se computa la edad en las oposiciones y convocatorias públicas?"
+    a: "En las oposiciones de la Administración Pública (en España y países hispanohablantes), los requisitos de edad deben cumplirse en la fecha exacta de finalización del plazo de presentación de instancias. Utilizar el modo 'Edad en Fecha Específica' permite verificar con exactitud el cumplimiento del baremo."
+  - q: "¿Qué establece el Código Civil sobre el cómputo de la edad?"
+    a: "El artículo 315 del Código Civil español determina que la mayor edad empieza a los dieciocho años cumplidos, incluyéndose por completo el día del nacimiento para el cómputo de los años. Criterios análogos rigen en los códigos civiles de Iberoamérica."
+  - q: "¿Cómo se calcula la edad de los nacidos el 29 de febrero en años no bisiestos?"
+    a: "En años comunes de 365 días, existen dos criterios interpretativos: el que sitúa el cumplimiento del año al finalizar el 28 de febrero y el que lo fija en el primer minuto del 1 de marzo. Nuestra calculadora adopta la convención práctica del 28 de febrero para una progresión continua de días."
+  - q: "¿Se guardan los datos de nacimiento introducidos en la calculadora?"
+    a: "No. El cálculo se ejecuta al 100% en el navegador del usuario mediante JavaScript puro. Ningún dato viaja por la red ni se registra en bases de datos o cookies."
+  - q: "¿Por qué el cálculo de meses no utiliza una media de 30 o 30,4 días?"
+    a: "Porque los meses del calendario gregoriano tienen 28, 29, 30 o 31 días. Aplicar una media matemática genera errores de varios días en trámites oficiales. Nuestro motor utiliza la regla exacta de arrastre natural."
+  - q: "¿Cómo influye el cálculo exacto de meses y días en la jubilación?"
+    a: "En la Seguridad Social, el acceso a la jubilación ordinaria exige acreditar una edad en años y meses cumplidos (en función del periodo cotizado). Conocer la fecha exacta en que se alcanza dicho requisito evita retrasos en la tramitación de expedientes."
+---
+
+## Cómputo Cronológico Preciso: Más Allá de Restar Años
+
+Calcular la edad de una persona o el tiempo transcurrido entre dos momentos históricos parece una operación elemental, pero la estructura irregular del calendario gregoriano introduce particularidades matemáticas significativas. Un año natural común cuenta con 365 días, mientras que los años bisiestos tienen 366. A su vez, los meses oscilan entre 28 y 31 días.
+
+Un error recurrente en herramientas automatizadas es dividir los días totales entre 365,25 o 30,416. Si bien esa fórmula ofrece una estimación decimal aceptable para fines estadísticos, resulta inadmisible cuando se precisa desglosar la edad en **años, meses y días exactos** para trámites administrativos oficiales.
+
+### El Algoritmo de Arrastre de Calendario
+
+Para calcular la edad exacta entre una fecha de nacimiento y una fecha de destino, nuestro algoritmo aplica la regla clásica de arrastre (o préstamo) del mes inmediatamente anterior:
+
+1. **Diferencia de Días:** Se resta el día de nacimiento del día de destino (`destino.día - nacimiento.día`).
+2. **Arrastre de Días:** Si el día de destino es inferior al día de nacimiento, se toma prestada la duración exacta del mes natural anterior a la fecha de destino.
+   - Si la fecha de destino es el **10 de mayo** y el nacimiento fue el **25 de mayo**, el mes de mayo toma prestada la duración de **abril**, que tiene 30 días.
+   - El día efectivo de destino se convierte en `10 + 30 = 40`. Restando el nacimiento (`40 - 25`), obtenemos **15 días**.
+3. **Diferencia de Meses:** Dado que se restó un mes del acumulado de destino, se evalúa la diferencia de meses. Si el resultado es negativo, se toman prestados 12 meses del año de destino.
+4. **Diferencia de Años:** Se restan los años finales resultantes.
+
+### Ejemplo Práctico Paso a Paso
+
+Supongamos el siguiente caso real:
+- **Fecha de Nacimiento:** 20 de marzo de 2000
+- **Fecha de Destino:** 15 de marzo de 2024 (año bisiesto)
+
+Paso 1: Se comparan los días. El día de destino (15) es menor que el de nacimiento (20). Se toma prestada la duración del mes anterior a marzo de 2024, que es **febrero de 2024**. Por ser 2024 bisiesto, febrero tiene **29 días**.
+- Días sumados: `15 + 29 = 44`.
+- Días transcurridos: `44 - 20 = 24 días`.
+
+Paso 2: Se reduce el mes de destino de marzo (3) a febrero (2). Se comparan meses: `2 - 3 = -1`. Al ser negativo, se toman prestados 12 meses del año de destino.
+- Meses resultantes: `2 - 1 + 12 = 13 - 3 = 11 meses`.
+
+Paso 3: Se reduce el año de destino de 2024 a 2023. Resta de años: `2023 - 2000 = 23 años`.
+
+**Resultado verificado:** **23 años, 11 meses y 24 días**.
+
+---
+
+## Aplicaciones Prácticas en el Ámbito Hispanohablante
+
+Conocer la edad exacta a una fecha específica no es solo una curiosidad, sino una exigencia legal en múltiples trámites:
+
+### 1. Oposiciones y Empleo Público
+En las convocatorias de la Administración Pública en España (como Policía Nacional, Guardia Civil o cuerpos autonómicos) y en diversos concursos públicos de América Latina, las bases fijan edades mínimas y máximas que deben cumplirse estrictamente **el día en que finaliza el plazo de presentación de solicitudes**. Un error de un solo día en el cómputo puede suponer la exclusión del proceso selectivo.
+
+### 2. Renovación de Documentos Oficiales (DNI, NIE, Pasaportes)
+La vigencia de documentos como el Documento Nacional de Identidad (DNI) en España o las cédulas de identidad en América Latina varía según franjas de edad:
+- Menores de 5 años: validez reducida (2 años).
+- Entre 5 y 30 años: validez ordinaria (5 años).
+- Entre 30 y 70 años: validez ampliada (10 años).
+- Mayores de 70 años: validez permanente.
+
+### 3. Edad de Jubilación Ordinaria
+Las reformas del sistema de pensiones de la Seguridad Social han establecido calendarios transitorios donde la edad exigida aumenta gradualmente en años y meses cumplidos (salvo que se acredite un periodo prolongado de cotización). Conocer la fecha exacta en que se alcanza la edad requerida resulta decisivo para presentar la solicitud en plazo.
+
+---
+
+## Nacidos el 29 de Febrero: Convenciones Legales
+
+Las personas nacidas durante el día bisiesto (29 de febrero) suscitan frecuentes debates cuando transcurre un año común de 365 días:
+- **Criterio del 28 de febrero:** Sostenido en la práctica administrativa de numerosos registros civiles, entendiendo que el aniversario se celebra el último día del mes en que se nació.
+- **Criterio del 1 de marzo:** Defendido por sectores doctrinales que sostienen que, al no existir el 29 de febrero, las 24 horas correspondientes deben computarse en el día inmediatamente posterior al 28.
+
+Nuestra calculadora aplica el **criterio del 28 de febrero** para garantizar que la progresión de edad sea armónica y continua día a día.
+
+---
+
+<div class="hidden md:block">
+
+## Tabla de Hitos Vitales de Referencia
+
+| Hito | Días / Años | Significado Práctico |
+|---|---|---|
+| **Medio Cumpleaños** | +6 meses naturales | Punto medio anual de celebración |
+| **10.000 Días** | ~27 años y 4,5 meses | Primer gran hito métrico de vida |
+| **18 Años** | Mayoría de edad civil | Capacidad plena de obrar (Código Civil) |
+| **1.000 Millones de Segundos** | ~31,7 años | 10⁹ segundos vividos en la Tierra |
+| **15.000 Días** | ~41 años y 1 mes | Hito cronológico de madurez |
+| **20.000 Días** | ~54 años y 9 meses | Más de medio siglo de vivencias |
+| **50 Años** | Bodas de Oro personales | Medio siglo de vida cumplido |
+| **65 Años** | Edad sénior | Umbral de referencia en sistemas públicos de pensiones |
+
+</div>
+
+*Aviso legal: Las normativas administrativas, edades de jubilación y requisitos de oposiciones varían y cambian con frecuencia. Consulte siempre las bases oficiales y los boletines del Estado o la administración correspondiente.*
+

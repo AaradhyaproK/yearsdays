@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Google Web Search Crawler
+User-agent: Googlebot
+Allow: /
+
+# Google AdSense Crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Canonical host sitemap index
+Sitemap: https://yearsdays.com/sitemap-index.xml

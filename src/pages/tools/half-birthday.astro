@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import HalfBirthdayCalculator from '../../components/tools/HalfBirthdayCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Half-Birthday Calculator - Exact 6-Month Date';
+const description = 'Calculate your exact half-birthday date (6 months from birthday). Find out days remaining, weekday schedules, and month-end clamping rules.';
+
+const faqItems = [
+  {
+    q: 'What is a half-birthday and when does it occur?',
+    a: 'A half-birthday occurs exactly six calendar months after your official birthday. For example, if you were born on January 15, your half-birthday falls on July 15.',
+  },
+  {
+    q: 'How is a half-birthday calculated for dates ending on the 31st?',
+    a: 'When six months from your birth date falls in a month with fewer days, the date is clamped to the last day of that month. For example, someone born on March 31 celebrates their half-birthday on September 30 (since September has 30 days).',
+  },
+  {
+    q: 'When is the half-birthday for someone born on August 29, 30, or 31?',
+    a: 'Six months after August is February. In standard years, August 29, 30, and 31 all map to February 28. In a leap year, August 29 maps to February 29.',
+  },
+  {
+    q: 'Why do schools and families celebrate half-birthdays?',
+    a: 'Half-birthdays are popular for children whose birthdays fall during summer vacation or holiday breaks, allowing them to celebrate with classmates during the active academic year. They are also common for celebrating 6-month infant milestones.',
+  },
+  {
+    q: 'How many days are in a half-year?',
+    a: 'Depending on which half of the year is measured and whether it crosses February in a leap year, a half-year spans between 181 and 184 calendar days.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/half-birthday/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Half-Birthday' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Half-Birthday Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Find your exact 6-month half-birthday milestone date and countdown how many days remain until your next celebration.
+      </p>
+    </div>
+
+    <HalfBirthdayCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          What Is a Half-Birthday?
+        </h2>
+        <p class="text-[#8a8f98]">
+          A <strong>half-birthday</strong> marks the halfway mark of your personal solar year, falling precisely six calendar months opposite your birth date. While historically observed in educational and developmental settings, half-birthdays have become a joyful tradition for people of all ages.
+        </p>
+        <p class="text-[#8a8f98]">
+          Whether you want an excuse to gather friends six months away from the winter holidays, or need to calculate developmental checkpoints for infants (who change dramatically between 6 and 18 months), our calculator computes the exact calendar date with strict leap-year and month-end clamping.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Why Half-Birthdays Are Popular
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Summer & Holiday Birthdays</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Children born in July, August, or late December frequently miss sharing birthdays with school peers. Half-birthdays give them their own classroom spotlight.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Infant Growth Tracking</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Pediatric milestones and vaccination schedules are commonly indexed at 6, 18, and 30 months of age.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Halfway to the Next Decade</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Turning 29.5, 39.5, or 49.5 provides a humorous, memorable milestone to reflect before crossing into a new decade.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Month Clamping and Calendar Rules
+        </h2>
+        <p class="text-[#8a8f98]">
+          Adding six months to a date requires careful calendar rules because Gregorian months alternate between 30 and 31 days (and 28/29 days for February).
+        </p>
+        <p class="text-[#8a8f98]">
+          When the target month has fewer days than the birth month day, the half-birthday is automatically adjusted to the final valid day of the target month. For example, if you were born on October 31, six months prior is April 30.
+        </p>
+      </div>
+
+      <div class="space-y-4 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+              <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+              <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="half-birthday" />
+  </div>
+</BaseLayout>

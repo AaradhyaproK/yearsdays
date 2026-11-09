@@ -1,0 +1,15 @@
+# ==============================================================================
+# Authorized Digital Sellers (ads.txt) - Age & Date Calculator
+# Specification: IAB Tech Lab ads.txt v1.1
+# ==============================================================================
+# INSTRUCTIONS FOR PUBLISHER:
+# 1. Sign in to your Google AdSense account (https://www.google.com/adsense/).
+# 2. Go to "Account" -> "Settings" -> "Account information".
+# 3. Locate your 16-digit Publisher ID (e.g., pub-1234567890123456).
+# 4. Replace "pub-0000000000000000" below with your actual Publisher ID.
+# 5. Keep the certification authority ID "f08c47fec0942fa0" (Google's AdSense ID).
+# 6. Verify after deployment by visiting: https://<your-domain>/ads.txt
+# ==============================================================================
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+

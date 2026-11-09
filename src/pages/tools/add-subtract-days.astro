@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AddSubtractCalculator from '../../components/tools/AddSubtractCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Add or Subtract Days from Date Calculator';
+const description = 'Calculate target calendar dates by adding or subtracting days, weeks, months, or years. Features month-end clamping and leap year handling.';
+
+const faqItems = [
+  {
+    q: 'What date will it be in 30, 60, or 90 days?',
+    a: 'Simply select today as your start date, choose "Add", enter the number of days (e.g. 30, 60, or 90), and the calculator provides the exact future calendar date, day of the week, and leap day adjustments.',
+  },
+  {
+    q: 'How does adding a month to January 31 work?',
+    a: 'In standard calendar arithmetic, adding 1 month to January 31 clamps to the final day of February. In non-leap years, this results in February 28; in leap years, it results in February 29.',
+  },
+  {
+    q: 'How do 90-day and 180-day visa travel rules calculate dates?',
+    a: 'International visas (like the Schengen 90/180-day rule) require strict continuous calendar day addition without skipping weekends or holidays. This tool calculates pure calendar day offsets to ensure strict compliance.',
+  },
+  {
+    q: 'Can you subtract days to find a past date in history?',
+    a: 'Yes. Switch the operation to "Subtract" to calculate statutory limitation lookbacks, retrospective invoice audits, or the exact date an event occurred in the past.',
+  },
+  {
+    q: 'How does daylight saving time affect date addition?',
+    a: 'Our date math executes on UTC calendar day numbers rather than local clock hours. This guarantees that adding 1 day always moves forward exactly 1 calendar day, regardless of 23-hour or 25-hour DST clock shifts.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/add-subtract-days/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Add or Subtract Days' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Add or Subtract Days from Date Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Compute future or past calendar dates by adding or subtracting days, weeks, months, or years with precise leap-year and month-end clamping.
+      </p>
+    </div>
+
+    <AddSubtractCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How Date Addition & Subtraction Works
+        </h2>
+        <p class="text-[#8a8f98]">
+          Adding or subtracting an offset from a calendar date is one of the most critical daily calculations in contract management, legal filing deadlines, warranty tracking, visa compliance, and project planning.
+        </p>
+        <p class="text-[#8a8f98]">
+          Because months have varying lengths (28, 29, 30, or 31 days) and years fluctuate between 365 and 366 days, calculating a target date in your head frequently leads to off-by-one errors.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Practical Use Cases for Date Offsets
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Legal & Contract Notice</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Statutory notice periods (e.g., 14-day cancellation, 30-day tenancy notice, or 90-day severance) require exact calendar dates to remain legally binding.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Visa & Travel Allowances</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Tourist visas strictly limit visits to 30, 60, or 90 consecutive days. Calculating your exact exit date prevents overstay penalties and border rejections.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Warranty & Return Windows</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Purchases with 14-day, 30-day, or 1-year return policies can be audited down to the exact day of the week to ensure timely claims.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Understanding Month-End Clamping
+        </h2>
+        <p class="text-[#8a8f98]">
+          When adding months to a date that falls on the 29th, 30th, or 31st, a target month may not have enough days. For example, adding one month to March 31 cannot produce April 31 because April has only 30 days.
+        </p>
+        <p class="text-[#8a8f98]">
+          Our calculator implements standard ISO calendar clamping: the date is clamped to the last valid day of the target month (e.g., April 30, or February 28/29), preventing accidental rollover into the subsequent month.
+        </p>
+      </div>
+
+      <div class="space-y-4 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+              <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+              <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="add-subtract-days" />
+  </div>
+</BaseLayout>

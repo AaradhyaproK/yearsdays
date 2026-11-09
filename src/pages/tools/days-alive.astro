@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DaysAliveCalculator from '../../components/tools/DaysAliveCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Days Alive Calculator - How Many Days Have You Lived?';
+const description = 'Calculate how many days, hours, and minutes you have been alive on Earth. Find your 10,000th day milestone, total heartbeats, and metric age.';
+
+const faqItems = [
+  {
+    q: 'How do you calculate how many days you have been alive?',
+    a: 'To calculate total days alive, convert your birth date to UTC midnight and the current calendar date to UTC midnight. Subtract the birth timestamp from today and divide by 86,400,000 milliseconds (the exact length of a 24-hour day). This avoids daylight saving shifts.',
+  },
+  {
+    q: 'When do you reach 10,000 days alive?',
+    a: 'You reach 10,000 days alive at approximately 27 years, 4 months, and 16 days of age (accounting for roughly 6 to 7 leap years). It represents a major metric life milestone celebrated worldwide.',
+  },
+  {
+    q: 'When is a person 20,000 days old?',
+    a: 'A person reaches 20,000 days alive at approximately 54 years, 9 months, and 2 days old. It marks roughly 1.73 billion heartbeats and nearly 55 solar journeys.',
+  },
+  {
+    q: 'Does the days alive calculation include leap year days?',
+    a: 'Yes. Because calendar days are counted continuously through history, every February 29 elapsed during your lifetime is fully counted as an additional 24-hour day of life.',
+  },
+  {
+    q: 'Are birthdates stored or transmitted when calculating days alive?',
+    a: 'No. All calculations run strictly client-side inside your browser engine. Your birth date is never sent across a network, never saved to cookies or local storage, and never logged.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/days-alive/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Days Alive' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Days Alive Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Find out exactly how many days, hours, and minutes you have been alive on Earth, and track upcoming metric life milestones.
+      </p>
+    </div>
+
+    <DaysAliveCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How Many Days Have I Been Alive? The Science of Metric Age
+        </h2>
+        <p class="text-[#8a8f98]">
+          Most societies measure human lifespan in solar years, marking annual birthdays as Earth completes an orbit around the Sun. However, counting your life in <strong>total days alive</strong> offers a distinct, continuous chronology uninterrupted by variable month lengths or calendar formatting.
+        </p>
+        <p class="text-[#8a8f98]">
+          A 30-year-old individual has lived approximately 10,957 days, comprising over 263,000 hours, 15.7 million minutes, and nearly 1.1 billion heartbeats. Measuring life in days turns time into an tangible metric milestone rather than an arbitrary annual checkpoint.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Key Metric Life Milestones
+        </h2>
+        <p class="text-[#8a8f98]">
+          Metric milestones provide fresh reasons to celebrate personal growth, reflection, and longevity:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">10,000 Days</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Occurs at approx. <strong>27.4 years</strong> old. The hallmark milestone of young adulthood, celebrated as the first five-figure life threshold.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">15,000 Days</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Reached around <strong>41.1 years</strong> of age. A prime mid-life inflection point marking over 360,000 elapsed hours.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">20,000 Days</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Celebrated at roughly <strong>54.8 years</strong> old. A golden metric jubilee representing over 5 decades of lived experience.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Exact Calendar Arithmetic vs. Approximation
+        </h2>
+        <p class="text-[#8a8f98]">
+          Many casual calculators simply multiply a person's age in years by 365 or 365.25. This yields inaccurate results because:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Leap Year Distribution:</strong> The exact count of leap days in your lifetime depends on your birth year. Someone born on March 1, 1996 will have encountered a different number of leap days than someone born in late 1999.</li>
+          <li><strong>DST Irregularities:</strong> Daylight saving clock changes create 23-hour and 25-hour days. Our tool calculates strictly at UTC midnight boundaries to guarantee 24-hour day parity.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-4 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+              <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+              <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="days-alive" />
+  </div>
+</BaseLayout>

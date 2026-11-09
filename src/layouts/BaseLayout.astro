@@ -1,0 +1,180 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import LanguageBanner from '../components/LanguageBanner.astro';
+import { LOCALES, type SupportedLocale, getLocalizedPath } from '../i18n/utils';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: SupportedLocale;
+  currentPath?: string;
+  jsonLd?: Record<string, any>[];
+  alternateUrls?: Partial<Record<SupportedLocale, string>>;
+}
+
+const {
+  title,
+  description,
+  lang,
+  currentPath = '/',
+  jsonLd = [],
+  alternateUrls,
+} = Astro.props;
+
+const siteUrl = Astro.site?.origin || process.env.SITE_URL || 'https://yearsdays.com';
+const canonicalPath = alternateUrls?.[lang] || getLocalizedPath(currentPath, lang);
+const canonicalUrl = new URL(canonicalPath, siteUrl).href;
+
+// Read LAUNCH_LANGS from environment or default to 'en,es,pt'
+const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+  .split(',')
+  .map((l) => l.trim().toLowerCase()) as SupportedLocale[];
+
+const adsEnabled = process.env.ADS_ENABLED === 'true';
+
+const bcp47 = LOCALES[lang]?.bcp47 || 'en';
+
+// WebSite & Organization JSON-LD
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'YearsDays',
+  alternateName: 'YearsDays - Age & Date Calculator',
+  url: siteUrl,
+  inLanguage: bcp47,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${siteUrl}/tools/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'YearsDays Editorial Team',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'support@yearsdays.info',
+    contactType: 'customer support',
+  },
+};
+
+// Base WebApplication JSON-LD
+const webAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'YearsDays - Exact Chronological & Age Calculator',
+  url: canonicalUrl,
+  applicationCategory: 'UtilityApplication',
+  operatingSystem: 'All',
+  browserRequirements: 'Requires JavaScript for interactive calculation. Fully accessible static fallback.',
+  inLanguage: bcp47,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+---
+
+<!doctype html>
+<html lang={bcp47} dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+
+    {/* Self-Referencing Canonical Link (Strict Trailing Slash) */}
+    <link rel="canonical" href={canonicalUrl} />
+
+    {/* Reciprocal Hreflang Alternates */}
+    {launchLangs.map((l) => {
+      const pathForLang = alternateUrls?.[l] || getLocalizedPath(currentPath, l);
+      const altUrl = new URL(pathForLang, siteUrl).href;
+      const altBcp47 = LOCALES[l]?.bcp47 || l;
+      return <link rel="alternate" hreflang={altBcp47} href={altUrl} />;
+    })}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternateUrls?.['en'] || getLocalizedPath(currentPath, 'en'), siteUrl).href} />
+
+    {/* Open Graph Localized */}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={bcp47.replace('-', '_')} />
+    <meta property="og:site_name" content="YearsDays" />
+    <meta property="og:image" content={`${siteUrl}/og/og-${lang}.svg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/svg+xml" />
+
+    {/* Twitter Cards */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/og/og-${lang}.svg`} />
+
+    {/* Theme initialization script (Linear dark canvas by default) */}
+    <script is:inline>
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+
+    {/* Google Consent Mode v2 (Strict Default: Denied until explicit CMP consent) */}
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500
+      });
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', false);
+    </script>
+
+    {/* Google-certified CMP & AdSense Tag Loader (Activates strictly when ADS_ENABLED=true) */}
+    {adsEnabled && (
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+        crossorigin="anonymous"
+      ></script>
+    )}
+
+    {/* Structured Data (JSON-LD) */}
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webAppJsonLd)} />
+    {jsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <LanguageBanner currentLang={lang} currentPath={currentPath} />
+    <Header lang={lang} currentPath={currentPath} />
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <slot />
+    </main>
+
+    <CookieConsent lang={lang} />
+    <Footer lang={lang} />
+  </body>
+</html>

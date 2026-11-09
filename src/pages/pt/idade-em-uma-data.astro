@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Calculator from '../../components/Calculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/age-on-a-date/',
+  es: '/es/edad-en-una-fecha/',
+  pt: '/pt/idade-em-uma-data/',
+};
+
+const title = 'Calcular Idade em uma Data: Concursos e Documentos';
+const description = 'Descubra sua idade exata em qualquer data passada ou futura. Ideal para verificar requisitos de concursos públicos na data da posse, INSS e matrículas.';
+
+const faqItems = [
+  {
+    q: 'Como a ferramenta calcula a idade em uma data futura ou passada?',
+    a: 'O sistema utiliza o algoritmo de empréstimo do calendário gregoriano entre a sua data de nascimento e a data-alvo selecionada, retornando anos, meses e dias exatos.',
+  },
+  {
+    q: 'Como a idade é comprovada em concursos públicos no Brasil?',
+    a: 'De acordo com a Súmula 266 do Superior Tribunal de Justiça (STJ), os requisitos de habilitação legal e idade mínima devem ser comprovados no ato da posse do cargo público, e não no momento da inscrição.',
+  },
+  {
+    q: 'Posso calcular a idade que eu tinha em um evento histórico no passado?',
+    a: 'Sim. Você pode escolher qualquer data posterior ao seu nascimento para descobrir com exatidão a idade que você tinha naquele momento.',
+  },
+  {
+    q: 'Como são tratados os anos bissextos em cálculos futuros?',
+    a: 'A ferramenta contabiliza todos os dias 29 de fevereiro ocorridos no período. Para quem nasceu em 29 de fevereiro, adota-se a convenção prática do dia 28 de fevereiro em anos comuns.',
+  },
+  {
+    q: 'Os dados informados ficam salvos na internet?',
+    a: 'Não. Todas as rotinas de cálculo são executadas 100% no navegador do seu dispositivo em JavaScript. Nenhuma data pessoal é enviada a servidores remotos.',
+  },
+  {
+    q: 'O que acontece se a data de referência for anterior ao nascimento?',
+    a: 'O sistema alertará que a data de referência deve ser posterior à data de nascimento para que o cálculo cronológico seja válido.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="pt"
+  currentPath="/pt/idade-em-uma-data/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="pt" items={[{ label: 'Ferramentas', href: '/pt/tools/' }, { label: 'Idade em uma Data' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Calcular Idade em uma Data Específica
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Descubra sua idade cronológica exata em qualquer data do passado ou do futuro. 100% privado e seguro.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        A <strong class="text-[#f7f8f8]">calculadora de idade em uma data específica</strong> determina a sua idade cronológica em um dia determinado do passado ou do futuro. O cálculo compara a sua data de nascimento com a data-alvo, informando os anos, meses e dias exatos exigidos em editais de concursos públicos e procedimentos administrativos.
+      </p>
+    </div>
+
+    <Calculator client:load lang="pt" initialMode="on-date" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Como Calcular a Idade em uma Data-Alvo
+        </h2>
+        <p class="text-[#8a8f98]">
+          Para saber sua idade exata em um dia específico sem distorções de anos bissextos ou meses de 30 e 31 dias, utiliza-se a decomposição cronológica de empréstimo:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Subtração dos dias:</strong> Se o dia da data de referência for menor que o dia de nascimento, empresta-se a quantidade exata de dias do mês civil imediatamente anterior.</li>
+          <li><strong>Subtração dos meses:</strong> Ajusta-se o mês após o empréstimo. Se for negativo, emprestam-se 12 meses do ano de referência.</li>
+          <li><strong>Subtração dos anos:</strong> Subtraem-se os anos ajustados para encontrar a idade completa em anos cumpridos.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Exemplo Prático: Concurso Público na Data da Posse
+        </h2>
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2 text-xs">
+          <p class="font-medium text-[#f7f8f8]">Exemplo real:</p>
+          <ul class="space-y-1 text-[#8a8f98]">
+            <li>• <strong>Data de Nascimento:</strong> 15 de agosto de 1998</li>
+            <li>• <strong>Data Prevista para a Posse:</strong> 1 de agosto de 2024</li>
+          </ul>
+          <p class="text-[#8a8f98] pt-1">
+            <strong>Cálculo:</strong> Como 1 de agosto antecede 15 de agosto, a pessoa ainda não completou 26 anos na data da posse. Emprestando os 31 dias de julho (mês anterior), o dia é <code>1 + 31 - 15 = 17 dias</code>. O mês ajustado é <code>7 - 8 = -1</code>; emprestando 12 meses de 2024, restam <code>11 meses</code>. O ano ajustado é <code>2023 - 1998 = 25 anos</code>.
+          </p>
+          <p class="text-[#f7f8f8] font-mono pt-1">
+            Idade na data da posse (01/08/2024): <strong>25 anos, 11 meses e 17 dias</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Aplicações Legais e Administrativas no Brasil
+        </h2>
+        <p class="text-[#8a8f98]">
+          No ordenamento jurídico e na administração pública brasileira, o cálculo exato de idade em data determinada é fundamental para:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li><strong>Concursos Públicos:</strong> A jurisprudência consolidada pelo Superior Tribunal de Justiça (STJ) na Súmula 266 estabelece que o requisito de idade e habilitação legal deve ser comprovado na <em>posse</em>, e não na inscrição do certame.</li>
+          <li><strong>Previdência Social (INSS):</strong> O cálculo de regras de transição da Reforma da Previdência exige a comprovação exata de anos, meses e dias de vida para atingir requisitos etários no portal oficial (<a href="https://www.gov.br/inss" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:underline">gov.br/inss</a>).</li>
+          <li><strong>Corte Etário Escolar:</strong> Verificação de idade limite para matrícula no ensino infantil e fundamental em conformidade com as diretrizes do Ministério da Educação.</li>
+        </ul>
+        <p class="text-[#8a8f98] pt-2">
+          Você também pode consultar sua idade atual na <a href="/pt/" class="text-[#5e6ad2] hover:underline">Calculadora de Idade</a> ou calcular o intervalo entre duas datas em <a href="/pt/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Calcular Dias Entre Duas Datas</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Perguntas Frequentes
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="pt" />
+  </div>
+</BaseLayout>

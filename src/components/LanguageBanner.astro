@@ -1,0 +1,90 @@
+---
+import { getLocalizedPath, type SupportedLocale } from '../i18n/utils';
+
+interface Props {
+  currentLang: SupportedLocale;
+  currentPath?: string;
+}
+
+const { currentLang, currentPath = '/' } = Astro.props;
+const esPath = getLocalizedPath(currentPath, 'es');
+const ptPath = getLocalizedPath(currentPath, 'pt');
+---
+
+<div
+  id="language-suggestion-banner"
+  class="hidden bg-[#0f1011] border-b border-[#23252a] py-2 px-4 text-xs text-[#f7f8f8]"
+  role="region"
+  aria-label="Language Suggestion"
+  data-current-lang={currentLang}
+  data-es-path={esPath}
+  data-pt-path={ptPath}
+>
+  <div class="max-w-5xl mx-auto flex items-center justify-between gap-3">
+    <div id="language-suggestion-text" class="flex items-center gap-2">
+      <svg class="w-3.5 h-3.5 text-[#5e6ad2]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 2a14.5 14.5 0 0 0 0 20M12 2a14.5 14.5 0 0 1 0 20M2 12h20" stroke-linecap="round" />
+      </svg>
+      <span id="language-suggestion-message" class="text-[#d0d6e0]"></span>
+    </div>
+    <div class="flex items-center gap-3">
+      <a
+        id="language-suggestion-link"
+        href="#"
+        class="font-medium text-[#5e6ad2] hover:text-[#828fff] underline underline-offset-2"
+      ></a>
+      <button
+        id="dismiss-language-banner"
+        type="button"
+        class="text-[#8a8f98] hover:text-[#f7f8f8] font-mono text-xs px-1.5 py-0.5 rounded-[4px] hover:bg-[#141516] transition-colors"
+        aria-label="Dismiss language suggestion"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const banner = document.getElementById('language-suggestion-banner');
+    if (!banner || sessionStorage.getItem('dismiss_lang_banner')) return;
+
+    const currentLang = banner.getAttribute('data-current-lang');
+    const esPath = banner.getAttribute('data-es-path');
+    const ptPath = banner.getAttribute('data-pt-path');
+
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    const msgEl = document.getElementById('language-suggestion-message');
+    const linkEl = document.getElementById('language-suggestion-link');
+    const dismissBtn = document.getElementById('dismiss-language-banner');
+
+    if (currentLang !== 'es' && browserLang.startsWith('es') && esPath) {
+      if (msgEl && linkEl) {
+        msgEl.textContent = '¿Prefieres usar la versión en español?';
+        linkEl.textContent = 'Ver en Español';
+        linkEl.setAttribute('href', esPath);
+        banner.classList.remove('hidden');
+      }
+    } else if (currentLang !== 'pt' && browserLang.startsWith('pt') && ptPath) {
+      if (msgEl && linkEl) {
+        msgEl.textContent = 'Prefere navegar na versão em português?';
+        linkEl.textContent = 'Ver em Português';
+        linkEl.setAttribute('href', ptPath);
+        banner.classList.remove('hidden');
+      }
+    }
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        banner.classList.add('hidden');
+        sessionStorage.setItem('dismiss_lang_banner', '1');
+      });
+    }
+  })();
+</script>
+

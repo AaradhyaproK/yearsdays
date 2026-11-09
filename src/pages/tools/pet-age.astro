@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PetAgeCalculator from '../../components/tools/PetAgeCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Pet Age in Human Years Calculator - Dogs & Cats';
+const description = 'Calculate your dog or cat age in human years using official veterinary guidelines (AAHA life stages by breed size and weight). Accurate and private.';
+
+const faqItems = [
+  {
+    q: 'Is the traditional rule of 1 dog year equals 7 human years accurate?',
+    a: 'No. Veterinary medicine has debunked the 7:1 myth. Dogs and cats mature rapidly in their first two years: a one-year-old dog has biologically reached human mid-adolescence (roughly 15 human years), and age two corresponds to early adulthood (approx. 24 human years).',
+  },
+  {
+    q: 'How does dog size and weight influence biological aging?',
+    a: 'Small dogs (under 20 lbs) mature quickly but age slowly afterward, often living 15 to 18 years. In contrast, giant dog breeds (over 90 lbs) age at a much higher physiological rate, reaching senior status by age 5 or 6.',
+  },
+  {
+    q: 'How are cat years calculated into human years?',
+    a: 'Under American Animal Hospital Association (AAHA) feline life-stage guidelines, year one equals 15 human years, year two equals 24 human years, and each subsequent calendar year adds approximately 4 human years.',
+  },
+  {
+    q: 'At what age is a dog or cat considered a senior pet?',
+    a: 'Cats and small-to-medium dogs generally reach senior status around age 7 to 8. Large and giant breed dogs reach senior status earlier, typically between 5 and 6 years of age.',
+  },
+  {
+    q: 'Why does calculating my pet age in human years matter?',
+    a: 'Understanding your pet biological life stage helps you and your veterinarian schedule appropriate wellness screenings, detect arthritis and kidney changes early, and adjust nutritional requirements.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/pet-age/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Pet Age Calculator' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Pet Age in Human Years Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Convert your dog or cat calendar age into human equivalent years based on official veterinary guidelines (AAHA / AVMA life stages).
+      </p>
+    </div>
+
+    <PetAgeCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Veterinary Science vs. The 7:1 Myth
+        </h2>
+        <p class="text-[#8a8f98]">
+          For decades, pet owners relied on the popular rule of thumb that "one dog year equals seven human years." Veterinary researchers at the <strong>American Animal Hospital Association (AAHA)</strong> and the <strong>American Veterinary Medical Association (AVMA)</strong> have proven that canine and feline development is non-linear.
+        </p>
+        <p class="text-[#8a8f98]">
+          A dog or cat experiences rapid skeletal, hormonal, and dental maturation during the first 12 to 24 months of life, followed by a steadier rate of cellular senescence that varies significantly depending on species and adult body mass.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Canine Aging by Breed Size & Weight Category
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Small Breeds (&lt; 20 lbs)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Chihuahuas, Toy Poodles, Dachshunds. After year 2, age roughly <strong>4 human years</strong> per calendar year. Often live 15 to 18 years.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Medium Breeds (21–50 lbs)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Beagles, Border Collies, French Bulldogs. Age approx. <strong>5 human years</strong> annually after maturity. Average lifespan 12 to 15 years.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Large Breeds (51–90 lbs)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Labradors, German Shepherds, Golden Retrievers. Age roughly <strong>6 human years</strong> annually. Reach senior stage by age 7.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Giant Breeds (&gt; 90 lbs)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Great Danes, Mastiffs, Saint Bernards. Age at <strong>7 to 8 human years</strong> per calendar year. Reach geriatric stage by age 6.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Feline Life Stages (AAHA & AAFP Guidelines)
+        </h2>
+        <p class="text-[#8a8f98]">
+          Cats age along a standardized developmental trajectory because domestic felines share relatively uniform body structures:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Kitten (0 to 6 months):</strong> Rapid growth, initial deciduous dental eruption, socialization.</li>
+          <li><strong>Junior (7 months to 2 years):</strong> Attaining full adult physical stature, equivalent to human adolescence through early 20s.</li>
+          <li><strong>Prime (3 to 6 years):</strong> Peak physical conditioning, equivalent to human ages 28 through 40.</li>
+          <li><strong>Mature (7 to 10 years):</strong> Mid-life stage where baseline geriatric blood panels are initiated.</li>
+          <li><strong>Senior (11 to 14 years) & Geriatric (15+ years):</strong> Human equivalent of 60 to 80+ years.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-4 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+              <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+              <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="pet-age" />
+  </div>
+</BaseLayout>

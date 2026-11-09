@@ -1,0 +1,188 @@
+---
+import { getTranslations, getLocalizedPath, type SupportedLocale } from '../i18n/utils';
+
+interface Props {
+  lang: SupportedLocale;
+  hideHeader?: boolean;
+  currentTool?: string;
+}
+
+const { lang, hideHeader = false, currentTool } = Astro.props;
+const t = getTranslations(lang);
+
+const isEs = lang === 'es';
+const isPt = lang === 'pt';
+
+const uiText = {
+  heading: isEs ? 'Herramientas Cronológicas' : isPt ? 'Ferramentas Cronológicas' : 'Chronological Tools',
+  subtitle: isEs
+    ? 'Calculadoras cronológicas y motores de fecha desarrollados con algoritmos de alta precisión.'
+    : isPt
+    ? 'Calculadoras cronológicas e ferramentas de datas com algoritmos de alta precisão.'
+    : 'Specialized chronological and milestone engines built with discrete calendar algorithms.',
+  launch: isEs ? 'Abrir Herramienta' : isPt ? 'Abrir Ferramenta' : 'Launch Tool',
+};
+
+const toolsData: Record<string, { title: Record<string, string>; desc: Record<string, string>; iconSvg: string; hrefSlug: string }> = {
+  calculator: {
+    title: {
+      en: 'Age Calculator',
+      es: 'Calculadora de Edad',
+      pt: 'Calculadora de Idade',
+    },
+    desc: {
+      en: 'Calculate your exact age today or on any target date in discrete years, months, and days.',
+      es: 'Calcula tu edad exacta hoy o en cualquier fecha clave en años, meses y días cumplidos.',
+      pt: 'Calcule sua idade exata hoje ou em uma data futura em anos, meses e dias corridos.',
+    },
+    iconSvg: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+    hrefSlug: '',
+  },
+  'age-on-a-date': {
+    title: {
+      en: 'Age on a Specific Date',
+      es: 'Edad en una Fecha',
+      pt: 'Idade em uma Data',
+    },
+    desc: {
+      en: 'Calculate your exact age on any past or future cutoff date for exams and applications.',
+      es: 'Calcula tu edad exacta en cualquier fecha límite para oposiciones, trámites y jubilación.',
+      pt: 'Calcule sua idade exata em qualquer data de corte para concursos públicos e INSS.',
+    },
+    iconSvg: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5',
+    hrefSlug: 'age-on-a-date',
+  },
+  'days-alive': {
+    title: {
+      en: 'Days Alive Calculator',
+      es: 'Calculadora de Días Vividos',
+      pt: 'Calculadora de Dias Vividos',
+    },
+    desc: {
+      en: 'Discover the exact number of days, hours, and minutes you have lived on Earth.',
+      es: 'Descubre el número exacto de días, horas y minutos que has vivido en la Tierra.',
+      pt: 'Descubra o número exato de dias, horas e minutos que você já viveu na Terra.',
+    },
+    iconSvg: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
+    hrefSlug: 'days-alive',
+  },
+  'days-between-dates': {
+    title: {
+      en: 'Days Between Dates',
+      es: 'Días Entre Dos Fechas',
+      pt: 'Dias Entre Duas Datas',
+    },
+    desc: {
+      en: 'Compute exact calendar duration, weeks, and business days between any two dates.',
+      es: 'Calcula la duración exacta de calendario, semanas y días hábiles entre dos fechas.',
+      pt: 'Calcule a duração exata do calendário, semanas e dias úteis entre duas datas.',
+    },
+    iconSvg: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5',
+    hrefSlug: 'tools/days-between-dates',
+  },
+  'add-subtract-days': {
+    title: {
+      en: 'Add or Subtract Days',
+      es: 'Sumar o Restar Días',
+      pt: 'Somar ou Subtrair Dias',
+    },
+    desc: {
+      en: 'Add or subtract days, weeks, or months to find past or future target calendar dates.',
+      es: 'Suma o resta días, semanas o meses para hallar fechas límite y vencimientos.',
+      pt: 'Some ou subtraia dias, semanas ou meses para calcular prazos e datas de vencimento.',
+    },
+    iconSvg: 'M12 4.5v15m7.5-7.5h-15',
+    hrefSlug: 'tools/add-subtract-days',
+  },
+  'birthday-countdown': {
+    title: {
+      en: 'Birthday Countdown',
+      es: 'Cuenta Atrás de Cumpleaños',
+      pt: 'Contagem de Aniversário',
+    },
+    desc: {
+      en: 'Live ticking countdown to your next birthday with upcoming weekday schedules.',
+      es: 'Contador en vivo de días, horas y minutos para tu próximo cumpleaños anual.',
+      pt: 'Relógio em tempo real calculando quanto tempo falta para o seu próximo aniversário.',
+    },
+    iconSvg: 'M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75-1.5.75m-15 0 1.5-.75m15 0v-3.879a1.5 1.5 0 0 0-.44-1.06l-1.06-1.061A1.5 1.5 0 0 0 16.94 12H7.06a1.5 1.5 0 0 0-1.06.44l-1.061 1.06A1.5 1.5 0 0 0 4.5 14.56v3.88',
+    hrefSlug: 'tools/birthday-countdown',
+  },
+  'half-birthday': {
+    title: {
+      en: 'Half-Birthday Calculator',
+      es: 'Medio Cumpleaños',
+      pt: 'Meio Aniversário',
+    },
+    desc: {
+      en: 'Find your exact 6-month half-birthday milestone date and celebrate the halfway mark.',
+      es: 'Halla la fecha exacta de tu medio cumpleaños (6 meses) con ajuste de fin de mes.',
+      pt: 'Descubra a data exata do seu meio aniversário aos 6 meses de vida com ajuste de mês.',
+    },
+    iconSvg: 'M21.75 12a9.75 9.75 0 1 1-19.5 0 9.75 9.75 0 0 1 19.5 0ZM12 2.25v19.5',
+    hrefSlug: 'tools/half-birthday',
+  },
+  'pet-age': {
+    title: {
+      en: 'Pet Age in Human Years',
+      es: 'Edad de Perros y Gatos',
+      pt: 'Idade de Cães e Gatos',
+    },
+    desc: {
+      en: 'Accurate veterinary life-stage conversion for dogs and cats by breed size and weight.',
+      es: 'Conversión veterinaria oficial de la edad de mascotas a años humanos por tamaño y peso.',
+      pt: 'Conversão veterinária oficial da idade de pets em anos humanos por porte e peso corporal.',
+    },
+    iconSvg: 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+    hrefSlug: 'tools/pet-age',
+  },
+};
+
+const toolList = Object.entries(toolsData).map(([id, data]) => ({
+  id,
+  title: data.title[lang] || data.title.en,
+  desc: data.desc[lang] || data.desc.en,
+  href: getLocalizedPath(data.hrefSlug, lang),
+  iconSvg: data.iconSvg,
+}));
+---
+
+<section class="my-12">
+  {!hideHeader && (
+    <div class="mb-6 space-y-1">
+      <h2 class="text-xl sm:text-2xl font-semibold text-[#f7f8f8] tracking-tight">
+        {uiText.heading}
+      </h2>
+      <p class="text-sm text-[#8a8f98]">
+        {uiText.subtitle}
+      </p>
+    </div>
+  )}
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {toolList.map((tool) => (
+      <a
+        href={tool.href}
+        class="group p-6 bg-[#0f1011] border border-[#23252a] rounded-[12px] hover:bg-[#141516] hover:border-[#34343a] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5e6ad2] flex flex-col justify-between"
+      >
+        <div class="space-y-3">
+          <div class="w-8 h-8 rounded-[6px] bg-[#141516] border border-[#23252a] flex items-center justify-center text-[#5e6ad2] group-hover:border-[#34343a] transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d={tool.iconSvg} />
+            </svg>
+          </div>
+          <h3 class="font-medium text-base text-[#f7f8f8] group-hover:text-white transition-colors tracking-tight">
+            {tool.title}
+          </h3>
+          <p class="text-xs text-[#8a8f98] leading-relaxed">
+            {tool.desc}
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#18191a] flex items-center justify-between text-xs font-medium text-[#5e6ad2] group-hover:text-[#828fff]">
+          <span>{uiText.launch}</span>
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

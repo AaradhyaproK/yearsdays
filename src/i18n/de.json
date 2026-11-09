@@ -1,0 +1,99 @@
+{
+  "modes": {
+    "ageToday": "Alter Heute",
+    "ageOnDate": "Alter an einem bestimmten Datum",
+    "compareTwo": "Zwei Personen vergleichen"
+  },
+  "labels": {
+    "birthDate": "Geburtsdatum",
+    "targetDate": "Zieldatum",
+    "person1": "Erste Person",
+    "person2": "Zweite Person",
+    "day": "Tag",
+    "month": "Monat",
+    "year": "Jahr",
+    "calculate": "Alter berechnen",
+    "clear": "Zurücksetzen",
+    "today": "Heute"
+  },
+  "results": {
+    "ageTitle": "Berechnetes Alter",
+    "years": "Jahre",
+    "months": "Monate",
+    "days": "Tage",
+    "yearsOld": "Jahre alt",
+    "bornOn": "Geboren am",
+    "targetDateIs": "Stichtag"
+  },
+  "totals": {
+    "title": "Gesamtlebenszeit",
+    "totalMonths": "Monate gesamt",
+    "totalWeeks": "Wochen gesamt",
+    "totalDays": "Tage gesamt",
+    "totalHours": "Stunden gesamt",
+    "totalMinutes": "Minuten gesamt",
+    "totalSeconds": "Sekunden gesamt",
+    "remainingDays": "Tage"
+  },
+  "nextBirthday": {
+    "title": "Countdown zum nächsten Geburtstag",
+    "days": "Tage",
+    "hours": "Std",
+    "minutes": "Min",
+    "seconds": "Sek",
+    "todayIsBirthday": "Herzlichen Glückwunsch zum Geburtstag!"
+  },
+  "milestones": {
+    "title": "Lebensmeilensteine",
+    "upcoming": "Bevorstehend",
+    "passed": "Erreicht",
+    "date": "Datum"
+  },
+  "funFacts": {
+    "title": "Astrologie & Vitalwerte",
+    "weekdayBorn": "Wochentag der Geburt",
+    "westernZodiac": "Sternzeichen",
+    "chineseZodiac": "Chinesisches Tierkreiszeichen",
+    "element": "Element",
+    "modality": "Modalität",
+    "heartbeats": "Geschätzte Herzschläge",
+    "breaths": "Geschätzte Atemzüge",
+    "roughEstimate": "grobe Schätzung (basierend auf durchschnittlichem Ruhepuls)"
+  },
+  "share": {
+    "shareResults": "Ergebnis teilen",
+    "copyText": "Text kopieren",
+    "downloadImage": "Als Bildkarte speichern",
+    "copied": "In die Zwischenablage kopiert!"
+  },
+  "compare": {
+    "title": "Altersvergleich",
+    "olderBy": "ist älter um",
+    "sameAge": "Beide Personen wurden am selben Tag geboren."
+  },
+  "errors": {
+    "invalidDate": "Bitte geben Sie ein gültiges Kalenderdatum ein.",
+    "futureBirth": "Das Geburtsdatum darf nicht nach dem Zieldatum liegen.",
+    "yearRange": "Das Jahr muss zwischen 1900 und 2100 liegen."
+  },
+  "ad": {
+    "advertisement": "Anzeige"
+  },
+  "nav": {
+    "home": "Startseite",
+    "calculator": "Altersrechner",
+    "tools": "Alle Rechner",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "privacy": "Datenschutzerklärung",
+    "terms": "Nutzungsbedingungen",
+    "cookies": "Cookie-Richtlinie",
+    "methodology": "Redaktionelle Methodik"
+  },
+  "cookie": {
+    "heading": "Datenschutz & Cookies",
+    "text": "Diese Website führt alle Berechnungen zu 100% lokal im Browser durch. Geburtsdaten werden niemals an Server übertragen.",
+    "accept": "Essenzielle akzeptieren",
+    "learnMore": "Mehr erfahren"
+  }
+}

@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DaysAliveCalculator from '../../components/tools/DaysAliveCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/days-alive/',
+  es: '/es/dias-de-vida/',
+  pt: '/pt/dias-de-vida/',
+};
+
+const title = 'Calculadora de Días de Vida: ¿Cuántos Días Has Vivido?';
+const description = 'Calcula cuántos días, horas y minutos has vivido en la Tierra. Descubre cuándo cumplirás 10.000 días de vida y consulta datos vitales y astronómicos.';
+
+const faqItems = [
+  {
+    q: '¿Cómo calcula la herramienta los días totales que he vivido?',
+    a: 'Convierte la fecha de nacimiento y la fecha actual a marcas de tiempo UTC a medianoche y divide la diferencia en milisegundos entre 86.400.000 ms, eliminando posibles desfases horarios o de cambio de hora.',
+  },
+  {
+    q: '¿A qué edad se cumplen 10.000 días de vida?',
+    a: 'El hito de los 10.000 días de vida se alcanza aproximadamente a los 27 años, 4 meses y 15 días (incluyendo los días bisiestos correspondientes). Es un gran motivo de celebración personal.',
+  },
+  {
+    q: '¿Se contabilizan los días bisiestos en el total de días vividos?',
+    a: 'Sí. Cada día 29 de febrero transcurrido a lo largo de tu vida se añade automáticamente a la suma total de días solares vividos.',
+  },
+  {
+    q: '¿Puedo conocer cuántas horas y minutos he vivido?',
+    a: 'Sí. La herramienta multiplica los días solares transcurridos por 24 horas y los minutos multiplicando las horas por 60 para ofrecer el desglose completo.',
+  },
+  {
+    q: '¿Los datos de nacimiento se transmiten a la red?',
+    a: 'No. El cálculo se efectúa íntegramente en tu navegador web. Ninguna información personal o fecha se almacena ni se comparte con terceros.',
+  },
+  {
+    q: '¿Qué representa el hito de los 20.000 días?',
+    a: 'Cumplir 20.000 días de vida ocurre cerca de los 54 años y 9 meses, simbolizando más de cinco décadas completas de trayectoria vital en la Tierra.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="es"
+  currentPath="/es/dias-de-vida/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="es" items={[{ label: 'Herramientas', href: '/es/tools/' }, { label: 'Días de Vida' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Calculadora de Días de Vida: Descubre Cuántos Días Tienes
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Calcula tus días totales en la Tierra, la cuenta regresiva para tus 10.000 días y tus métricas vitales.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        La <strong class="text-[#f7f8f8]">calculadora de días de vida</strong> suma el total exacto de días solares transcurridos desde tu fecha de nacimiento hasta hoy. Esta medida continua permite descubrir hitos cronológicos poco conocidos, como la fecha exacta en que cumples 10.000 o 20.000 días en la Tierra, acompañada de curiosidades biológicas y astronómicas.
+      </p>
+    </div>
+
+    <DaysAliveCalculator client:load lang="es" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Cómo se Calculan los Días de Vida
+        </h2>
+        <p class="text-[#8a8f98]">
+          A diferencia del cómputo tradicional en años (que se reinicia anualmente), medir los días de vida expresa tu existencia en una escala continua y acumulativa:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Conversión a UTC:</strong> Se transforman la fecha de nacimiento y la fecha actual a formato UTC a las 00:00:00 para evitar desajustes por cambios estacionales de hora.</li>
+          <li><strong>Diferencia en Milisegundos:</strong> Se resta el tiempo de origen del tiempo de destino.</li>
+          <li><strong>División solar:</strong> El resultado se divide entre 86.400.000 milisegundos (24 horas × 3.600 segundos × 1.000 ms), redondeando al entero correspondiente.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Tabla de Hitos Métricos: La Celebración de los 10.000 Días
+        </h2>
+        <p class="text-[#8a8f98]">
+          Los hitos en días representan momentos únicos para reflexionar y celebrar:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border border-[#23252a] rounded-[8px] overflow-hidden">
+            <thead class="bg-[#141516] text-[#8a8f98] font-mono uppercase">
+              <tr>
+                <th class="p-3 border-b border-[#23252a]">Hito Métrico</th>
+                <th class="p-3 border-b border-[#23252a]">Edad Aproximada</th>
+                <th class="p-3 border-b border-[#23252a]">Significado</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#18191a] text-[#8a8f98]">
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">1.000 Días</td>
+                <td class="p-3 font-mono">~2,7 años</td>
+                <td class="p-3">Primera infancia y desarrollo motor temprano</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">5.000 Días</td>
+                <td class="p-3 font-mono">~13,7 años</td>
+                <td class="p-3">Adolescencia e ingreso a la etapa juvenil</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">10.000 Días</td>
+                <td class="p-3 font-mono">~27,4 años</td>
+                <td class="p-3">Gran hito métrico de la juventud adulta</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">15.000 Días</td>
+                <td class="p-3 font-mono">~41,1 años</td>
+                <td class="p-3">Cuatro décadas de vivencias acumuladas</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">20.000 Días</td>
+                <td class="p-3 font-mono">~54,7 años</td>
+                <td class="p-3">Más de medio siglo de vida en el planeta</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">25.000 Días</td>
+                <td class="p-3 font-mono">~68,4 años</td>
+                <td class="p-3">Plenitud y etapa sénior</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Otras Herramientas de Cálculo
+        </h2>
+        <p class="text-[#8a8f98]">
+          Consulta tu edad en años, meses y días en la <a href="/es/" class="text-[#5e6ad2] hover:underline">Calculadora de Edad</a> principal o averigua los días que faltan para tu cumpleaños en la <a href="/es/tools/birthday-countdown/" class="text-[#5e6ad2] hover:underline">Cuenta Regresiva de Cumpleaños</a>. También puedes calcular la distancia entre dos fechas en <a href="/es/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Calcular Días Entre Dos Fechas</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Preguntas Frecuentes
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="es" />
+  </div>
+</BaseLayout>

@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Política de Privacidad - Calculadora de Edad',
+  pt: 'Política de Privacidade - Calculadora de Idade',
+  de: 'Datenschutzerklärung - Altersrechner',
+  fr: 'Politique de Confidentialité - Calculateur d\'Âge',
+  it: 'Informativa sulla Privacy - Calcolatore di Età',
+  tr: 'Gizlilik Politikası - Yaş Hesaplama',
+};
+
+const title = titles[lang] || `${t.nav.privacy} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/privacy/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.privacy }]} />
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-10 shadow-sm space-y-6 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+      <h1 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+        {t.nav.privacy}
+      </h1>
+      <p class="text-xs text-slate-500">2026-11-09</p>
+
+      {/* Section 1: Zero Data Retention */}
+      <div class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {lang === 'es' && '1. Arquitectura de Cero Retención de Datos'}
+          {lang === 'pt' && '1. Arquitetura de Zero Retenção de Dados'}
+          {lang === 'de' && '1. Architektur ohne Datenspeicherung'}
+          {lang === 'fr' && '1. Architecture sans Conservation des Données'}
+          {lang === 'it' && '1. Architettura a Zero Conservazione dei Dati'}
+          {lang === 'tr' && '1. Sıfır Veri Saklama Mimarisi'}
+        </h2>
+        <p>
+          {lang === 'es' && 'En Calculadora de Edad consideramos que el dato más seguro es el que nunca se recopila. Todos los cálculos cronológicos se procesan 100% de forma local en su navegador web mediante JavaScript. Las fechas ingresadas jamás se transmiten a servidores, no se registran en logs y no se almacenan en bases de datos.'}
+          {lang === 'pt' && 'Na Calculadora de Idade, o princípio fundamental é que o dado mais protegido é aquele que nunca é coletado. Todos os cálculos matemáticos ocorrem 100% no navegador do seu dispositivo. As datas informadas jamais saem do seu aparelho, não são transmitidas para servidores remotos e não constam em logs ou cookies.'}
+          {lang === 'de' && 'Bei unserem Altersrechner gilt: Die sichersten Daten sind diejenigen, die niemals erhoben werden. Alle mathematischen Berechnungen laufen zu 100 % lokal in Ihrem Webbrowser ab. Eingegebene Daten werden niemals an externe Server übertragen oder protokolliert.'}
+          {lang === 'fr' && 'Sur le Calculateur d\'Âge, la donnée la plus sûre est celle qui n\'est jamais collectée. Tous les calculs s\'effectuent à 100 % localement dans votre navigateur web. Vos dates ne sont jamais transmises à un serveur ni conservées dans des journaux.'}
+          {lang === 'it' && 'Sul Calcolatore di Età riteniamo che il dato più sicuro sia quello mai raccolto. Tutti i calcoli cronologici vengono eseguiti al 100% localmente nel browser web dell\'utente. Le date non vengono mai trasmesse a server esterni.'}
+          {lang === 'tr' && 'Yaş Hesaplayıcı üzerinde en güvenli veri, hiç toplanmayan veridir. Tüm kronolojik hesaplamalar %100 yerel olarak tarayıcınızda JavaScript ile çalışır. Girilen tarihler asla sunuculara iletilmez, kayıtlara geçmez ve saklanmaz.'}
+        </p>
+      </div>
+
+      {/* Section 2: Cookies & Local Storage */}
+      <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {lang === 'es' && '2. Almacenamiento Local y Cookies Técnicas'}
+          {lang === 'pt' && '2. Armazenamento Local e Cookies Técnicos'}
+          {lang === 'de' && '2. Lokale Speicherung und technische Cookies'}
+          {lang === 'fr' && '2. Stockage Local et Cookies Techniques'}
+          {lang === 'it' && '2. Archiviazione Locale e Cookie Tecnici'}
+          {lang === 'tr' && '2. Yerel Depolama ve Teknik Çerezler'}
+        </h2>
+        <p>
+          {lang === 'es' && 'Utilizamos almacenamiento local exclusivo para recordar preferencias funcionales: el modo visual (claro/oscuro) y la aceptación del aviso esencial de privacidad.'}
+          {lang === 'pt' && 'Utilizamos apenas armazenamento local técnico estritamente necessário para memorizar o seu tema visual preferido (claro/escuro) e a confirmação do aviso essencial de cookies.'}
+          {lang === 'de' && 'Wir verwenden lokalen Speicher ausschließlich für essenzielle funktionale Zwecke: das Speichern Ihres Farbschemas (Hell/Dunkel) und des Datenschutzhinweises.'}
+          {lang === 'fr' && 'Nous utilisons uniquement le stockage local pour des raisons techniques: mémoriser votre thème visuel (clair/sombre) et l\'acceptation du bandeau d\'information.'}
+          {lang === 'it' && 'Utilizziamo l\'archiviazione locale solo per scopi tecnici essenziali: memorizzare la scelta del tema grafico (chiaro/scuro) e l\'accettazione dell\'informativa.'}
+          {lang === 'tr' && 'Yalnızca teknik olarak gerekli yerel depolamayı kullanıyoruz: seçtiğiniz tema tercihini (açık/koyu) ve gizlilik bildirimi onayınızı hatırlamak.'}
+        </p>
+      </div>
+
+      {/* Section 3: AdSense & Third-Party Advertising */}
+      <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {lang === 'es' && '3. Socios Publicitarios y Google AdSense'}
+          {lang === 'pt' && '3. Parceiros Publicitários e Google AdSense'}
+          {lang === 'de' && '3. Werbepartner und Google AdSense'}
+          {lang === 'fr' && '3. Partenaires Publicitaires et Google AdSense'}
+          {lang === 'it' && '3. Partner Pubblicitari e Google AdSense'}
+          {lang === 'tr' && '3. Reklam İş Ortakları ve Google AdSense'}
+        </h2>
+        <p>
+          {lang === 'es' && 'Para financiar el servicio como recurso gratuito, podemos colaborar con redes publicitarias autorizadas como Google AdSense. Los proveedores externos, incluido Google, utilizan cookies para publicar anuncios basados en visitas anteriores de los usuarios a este u otros sitios web.'}
+          {lang === 'pt' && 'Para manter este utilitário público acessível gratuitamente a todos, podemos exibir anúncios por meio do Google AdSense e parceiros certificados. Provedores terceirizados, incluindo o Google, utilizam cookies para veicular anúncios com base em visitas anteriores a este ou a outros sites na Internet.'}
+          {lang === 'de' && 'Zur Finanzierung dieses kostenfreien Dienstes setzen wir auf Werbepartner wie Google AdSense. Drittanbieter, einschließlich Google, verwenden Cookies zur Anzeigenschaltung auf Basis vorheriger Besuche dieser oder anderer Websites.'}
+          {lang === 'fr' && 'Afin de maintenir ce service gratuit, nous pouvons afficher des annonces via Google AdSense. Des fournisseurs tiers, y compris Google, utilisent des cookies pour diffuser des annonces basées sur les visites antérieures des internautes.'}
+          {lang === 'it' && 'Per mantenere questo servizio gratuito, possiamo collaborare con reti pubblicitarie come Google AdSense. I fornitori terzi, incluso Google, utilizzano cookie per pubblicare annunci basati sulle visite precedenti degli utenti.'}
+          {lang === 'tr' && 'Bu hizmetin ücretsiz kalmasını sağlamak amacıyla Google AdSense ve yetkili iş ortaklarıyla çalışabiliriz. Google dahil üçüncü taraf tedarikçiler, kullanıcıların bu veya diğer sitelere yaptıkları önceki ziyaretlere dayalı reklam sunmak için çerezleri kullanır.'}
+        </p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>
+            <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+              {lang === 'es' && 'Configuración de anuncios de Google'}
+              {lang === 'pt' && 'Configurações de anúncios do Google'}
+              {lang === 'de' && 'Google-Einstellungen für Werbung'}
+              {lang === 'fr' && 'Paramètres des annonces Google'}
+              {lang === 'it' && 'Impostazioni annunci Google'}
+              {lang === 'tr' && 'Google Reklam Ayarları'}
+            </a>
+          </li>
+          <li>
+            <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+              Network Advertising Initiative (NAI) Opt-Out
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youronlinechoices.eu/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+              Your Online Choices (EDAA)
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Section 4: Privacy Frameworks (GDPR, LGPD, CCPA, KVKK) */}
+      <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {lang === 'es' && '4. Derechos de los Usuarios (RGPD, LGPD, CCPA, KVKK)'}
+          {lang === 'pt' && '4. Direitos dos Titulares de Dados (LGPD, RGPD, CCPA, KVKK)'}
+          {lang === 'de' && '4. Rechte der Betroffenen (DSGVO, CCPA, LGPD)'}
+          {lang === 'fr' && '4. Droits des Utilisateurs (RGPD, LGPD, CCPA)'}
+          {lang === 'it' && '4. Diritti degli Interessati (GDPR, LGPD, CCPA)'}
+          {lang === 'tr' && '4. Kullanıcı Hakları (KVKK, GDPR, LGPD)'}
+        </h2>
+        <p>
+          {lang === 'es' && 'Respetamos íntegramente las normativas de protección de datos aplicables en la Unión Europea (RGPD), España (LOPDGDD), Brasil (LGPD), Turquía (KVKK) y Estados Unidos (CCPA/CPRA). Dado que no recopilamos ni almacenamos datos personales ni identificadores, no conservamos historiales de uso. Para cualquier duda, contáctenos en support@yearsdays.info.'}
+          {lang === 'pt' && 'Em estrita conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), com o RGPD europeu e normas correlatas, garantimos transparência total. Como nenhuma data de nascimento ou dado biométrico é armazenado em nossos servidores, não mantemos perfis ou históricos de usuários. Dúvidas podem ser encaminhadas para support@yearsdays.info.'}
+          {lang === 'de' && 'Wir beachten die Datenschutz-Grundverordnung (DSGVO) sowie internationale Standards. Da keine personenbezogenen Daten auf unseren Servern gespeichert werden, existieren keine Benutzerprofile. Anfragen richten Sie bitte an support@yearsdays.info.'}
+          {lang === 'fr' && 'Nous respectons rigoureusement le RGPD et les législations internationales. N\'enregistrant aucune donnée personnelle sur nos serveurs, aucun profil utilisateur n\'est créé. Pour toute question: support@yearsdays.info.'}
+          {lang === 'it' && 'Rispettiamo pienamente il Regolamento Generale sulla Protezione dei Dati (GDPR). Poiché nessun dato personale viene registrato sui nostri server, non esiste alcuna profilazione. Contatto: support@yearsdays.info.'}
+          {lang === 'tr' && '6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve uluslararası veri koruma düzenlemelerine tam uyum sağlıyoruz. Sunucularımızda hiçbir kişisel veri veya doğum tarihi saklanmadığından kullanıcı profili tutulmamaktadır. İletişim: support@yearsdays.info.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

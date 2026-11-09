@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Contacto - Calculadora de Edad',
+  pt: 'Contato - Calculadora de Idade',
+  de: 'Kontakt - Altersrechner',
+  fr: 'Contact - Calculateur d\'Âge',
+  it: 'Contatti - Calcolatore di Età',
+  tr: 'İletişim - Yaş Hesaplama',
+};
+
+const title = titles[lang] || `${t.nav.contact} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/contact/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.contact }]} />
+
+    <div class="max-w-2xl mx-auto bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6">
+      <div>
+        <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+          {t.nav.contact}
+        </h1>
+        <p class="text-sm text-[#8a8f98] mt-2 leading-relaxed">
+          {lang === 'es' && '¿Tiene dudas sobre el motor de cálculo, ha detectado un error o desea sugerir una nueva herramienta? Valoramos su opinión.'}
+          {lang === 'pt' && 'Tem dúvidas sobre o cálculo, encontrou algum comportamento inesperado ou quer sugerir um novo recurso? Fale com nossa equipe.'}
+          {lang === 'de' && 'Haben Sie Fragen zu unseren Berechnungsformeln oder möchten Sie Feedback geben? Wir freuen uns über Ihre Nachricht.'}
+          {lang === 'fr' && 'Vous avez une question sur notre moteur de calcul ou une suggestion ? Contactez notre équipe éditoriale.'}
+          {lang === 'it' && 'Hai domande sul motore di calcolo o vuoi segnalare un miglioramento? Il nostro team è a disposizione.'}
+          {lang === 'tr' && 'Hesaplama motorumuz hakkında sorularınız mı var veya geri bildirimde mi bulunmak istiyorsunuz? Bize ulaşın.'}
+        </p>
+      </div>
+
+      <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] text-xs text-[#8a8f98] space-y-1 font-mono">
+        <div><strong class="text-[#f7f8f8]">Email:</strong> support@yearsdays.info</div>
+        <div><strong class="text-[#f7f8f8]">Response Time:</strong> 1–2 business days</div>
+      </div>
+
+      <form class="space-y-4" onsubmit="event.preventDefault(); alert('Message sent!');">
+        <div>
+          <label for="contact-name" class="block text-xs uppercase font-medium text-[#8a8f98] tracking-wider mb-1.5">
+            {lang === 'es' ? 'Nombre' : lang === 'pt' ? 'Nome' : 'Name'}
+          </label>
+          <input
+            id="contact-name"
+            type="text"
+            required
+            class="w-full px-3 py-2 rounded-[8px] border border-[#23252a] bg-[#010102] text-sm text-[#f7f8f8] focus-visible:ring-2 focus-visible:ring-[#5e6ad2] focus-visible:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block text-xs uppercase font-medium text-[#8a8f98] tracking-wider mb-1.5">
+            Email
+          </label>
+          <input
+            id="contact-email"
+            type="email"
+            required
+            class="w-full px-3 py-2 rounded-[8px] border border-[#23252a] bg-[#010102] text-sm text-[#f7f8f8] focus-visible:ring-2 focus-visible:ring-[#5e6ad2] focus-visible:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-xs uppercase font-medium text-[#8a8f98] tracking-wider mb-1.5">
+            {lang === 'es' ? 'Mensaje' : lang === 'pt' ? 'Mensagem' : 'Message'}
+          </label>
+          <textarea
+            id="contact-message"
+            rows="5"
+            required
+            class="w-full px-3 py-2 rounded-[8px] border border-[#23252a] bg-[#010102] text-sm text-[#f7f8f8] focus-visible:ring-2 focus-visible:ring-[#5e6ad2] focus-visible:outline-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-2.5 px-4 rounded-[8px] bg-[#5e6ad2] hover:bg-[#828fff] text-white font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5e6ad2]"
+        >
+          {lang === 'es' ? 'Enviar Mensaje' : lang === 'pt' ? 'Enviar Mensagem' : 'Send'}
+        </button>
+      </form>
+    </div>
+  </div>
+</BaseLayout>

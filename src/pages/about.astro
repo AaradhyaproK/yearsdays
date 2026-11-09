@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const title = 'About Us - YearsDays';
+const description = 'Learn about the mission, mathematical standards, and zero-retention privacy architecture behind YearsDays.';
+---
+
+<BaseLayout title={title} description={description} lang="en" currentPath="/about/">
+  <div class="space-y-6">
+    <Breadcrumbs lang="en" items={[{ label: 'About Us' }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        About YearsDays
+      </h1>
+
+      <p class="text-base text-[#8a8f98]">
+        YearsDays (yearsdays.com) was engineered with a singular commitment: delivering uncompromising chronological accuracy, complete client-side data privacy, and zero server retention for people worldwide.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        <div class="p-6 bg-[#141516] rounded-[8px] space-y-3 border border-[#23252a]">
+          <div class="w-8 h-8 rounded-[6px] bg-[#0f1011] border border-[#23252a] flex items-center justify-center text-[#5e6ad2]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <h2 class="text-base font-semibold text-[#f7f8f8]">100% Client-Side Privacy</h2>
+          <p class="text-xs text-[#8a8f98] leading-relaxed">
+            Unlike date calculators that transmit user inputs to remote databases or inject them into trackable URLs, every arithmetic function runs exclusively in your local browser sandbox.
+          </p>
+        </div>
+
+        <div class="p-6 bg-[#141516] rounded-[8px] space-y-3 border border-[#23252a]">
+          <div class="w-8 h-8 rounded-[6px] bg-[#0f1011] border border-[#23252a] flex items-center justify-center text-[#5e6ad2]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <h2 class="text-base font-semibold text-[#f7f8f8]">Mathematical Precision</h2>
+          <p class="text-xs text-[#8a8f98] leading-relaxed">
+            Our engine is validated against edge cases across 200+ years of calendar variations, leap century boundaries (1900, 2000, 2100), and historical astronomical Lunar New Year ephemerides.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-[#18191a] space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">Editorial &amp; Technical Standards</h2>
+        <p class="text-xs text-[#8a8f98] leading-relaxed">
+          We operate under strict editorial guidelines. All explanatory content regarding legal thresholds, statutory age definitions, and astronomical cycles is thoroughly fact-checked and verified by our editorial chronometry desk.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

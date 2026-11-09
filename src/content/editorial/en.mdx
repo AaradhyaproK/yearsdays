@@ -1,0 +1,106 @@
+---
+title: "Age Calculator: How Old Am I? (Years, Months and Days)"
+description: "Calculate your exact chronological age in years, months, days, and minutes. 100% private, client-side calculation with upcoming life milestones."
+lang: "en"
+author: "Chronometry & Technical Editorial Desk"
+lastUpdated: "2026-11-09"
+faq:
+  - q: "How old am I today in years, months, and days?"
+    a: "To find out exactly how old you are today, our calculator compares today's date with your birth date using the discrete calendar borrow method. It provides your exact completed years, additional months, and remaining days, plus total days lived, hours, and minutes."
+  - q: "How does the calculator handle leap years and February 29 birthdays?"
+    a: "In common non-leap years, February 29 birthdays are treated as February 28 for age display, completing a full year of life. Both the February 28 common convention and the March 1 statutory convention are explained in detail below."
+  - q: "What is the exact calendar borrow method used for months and days?"
+    a: "When target day is less than birth day, the algorithm borrows the exact length of the month immediately preceding the target month (e.g. 28, 29, 30, or 31 days) rather than an artificial 30-day average."
+  - q: "When does age on a specific target date matter most?"
+    a: "Target date calculations are essential for civil service exam eligibility cutoffs, passport validity windows, pension qualification dates, and school entry deadlines."
+  - q: "Are birthdates ever transmitted over the network or stored in cookies?"
+    a: "Never. All calculations are executed 100% locally in your browser sandbox. No dates are placed in query strings, cookies, or remote server logs."
+  - q: "Why is UTC used for calculating total lifetime days and hours?"
+    a: "UTC midnight timestamps have zero Daylight Saving Time (DST) shifts. This guarantees that total days, weeks, and hours are mathematically exact integers, unaffected by 23-hour or 25-hour clock transitions."
+  - q: "How are heartbeats and breaths estimated?"
+    a: "Estimates are computed from total elapsed minutes using standard resting baseline averages (70–80 beats per minute and 12–20 breaths per minute) and are explicitly labelled as rough approximations."
+---
+
+## Understanding Chronological Age Calculation
+
+Calculating someone's exact chronological age seems straightforward on the surface, but Gregorian calendar irregularities make precise determination a nuanced mathematical problem. A calendar year is not an exact integer number of days: a standard common year has 365 days, while a leap year contains 366 days. Furthermore, months vary between 28, 29, 30, and 31 days.
+
+A common pitfall in casual programming is dividing total elapsed milliseconds by 365.25 or 30.4375. While this yields a rough decimal approximation, it regularly produces errors when expressing an age in discrete calendar components (**Years, Months, and Days**).
+
+### The Calendar Borrow Algorithm
+
+Our calculator employs an exact discrete calendar borrow algorithm. To compute the difference between a birth date and a target date:
+
+1. **Days Difference:** We subtract the birth day from the target day (`target.day - birth.day`).
+2. **Borrowing Days:** If the target day is less than the birth day, we borrow the number of days in the calendar month immediately preceding the target month.
+   - For example, if calculating age on **May 10** for someone born on **May 25**, May (month 5) borrows from **April** (month 4), which has 30 days.
+   - The effective target day becomes `10 + 30 = 40`. Subtracting the birth day (`40 - 25`) yields **15 days**.
+3. **Months Difference:** Because one month was borrowed, the target month is decremented by 1. We then compute `(target.month - 1) - birth.month`.
+4. **Borrowing Months:** If the resulting months value is negative, we borrow 12 months from the target year and decrement the target year by 1.
+5. **Years Difference:** We compute `(target.year - 1) - birth.year`.
+
+### Worked Example: Exact Step-by-Step
+
+Let us walk through a real-world scenario:
+- **Date of Birth:** March 20, 2000
+- **Target Date:** March 15, 2024 (a leap year)
+
+Step 1: Compare days. Target day is 15; birth day is 20. Because `15 < 20`, we borrow the days of the month preceding March 2024, which is **February 2024**. Since 2024 is a leap year, February has **29 days**.
+- Borrowed days: `15 + 29 = 44`.
+- Elapsed days: `44 - 20 = 24 days`.
+
+Step 2: Decrement target month from March (3) to February (2). Compare months: `2 - 3 = -1`. Because months are negative, we borrow 12 months from the target year.
+- Borrowed months: `2 - 1 + 12 = 13 - 3 = 11 months`.
+
+Step 3: Decrement target year from 2024 to 2023. Compare years: `2023 - 2000 = 23 years`.
+
+**Verified Exact Age:** **23 years, 11 months, and 24 days**.
+
+---
+
+## Age as on a Cutoff Date for Exams and Applications
+
+In government employment, civil service recruitment examinations (such as UPSC, SSC, and state PSC examinations in India, as well as federal civil service bodies in the United States and Commonwealth nations), age eligibility is determined as of an explicit statutory cutoff date rather than the application submission date.
+
+### How Cutoff Dates Function
+- **Prescribed Reference Date:** Official exam notifications typically specify that candidates must have completed a minimum age and must not have exceeded a maximum age as of a specific calendar date (for example, August 1 or January 1 of the examination year).
+- **Evaluating Completed Years:** Under standard civil service counting conventions, age as on the cutoff date is evaluated on completed full calendar years, months, and days. If a candidate was born on August 2 and the cutoff date is August 1, they have not yet completed that additional year of age on the cutoff date.
+- **Official References:** For current recruitment schedules and official guidelines regarding qualifying age cutoffs and age relaxations for reserved categories, candidates should always consult official public portals directly:
+  - Union Public Service Commission: [upsc.gov.in](https://upsc.gov.in)
+  - Staff Selection Commission: [ssc.gov.in](https://ssc.gov.in)
+  - US Office of Personnel Management: [opm.gov](https://www.opm.gov)
+
+---
+
+## Leap Years and February 29 Birthdays
+
+Individuals born on February 29 during a leap year (often called "leaplings") experience a calendar date that only recurs every four years (with century exceptions). How is their age reckoned during non-leap years?
+
+Across international civil law, two main conventions exist:
+1. **The February 28 Convention:** Recognized in numerous administrative contexts and social conventions, this rule considers the person to have completed their yearly cycle on the final day of February. Under this rule, a person born on February 29, 2000 turns 1 year old on February 28, 2001.
+2. **The March 1 Convention:** In English statutory law (e.g. *Family Law Reform Act 1969*, section 9), a person attains a given age at the commencement of the relevant anniversary date. In non-leap years, the day following February 28 is March 1. Under this statutory rule, legal majority is attained on March 1.
+
+Our calculator defaults to the **February 28 display rule** for seamless daily progression, while fully documenting both legal traditions.
+
+---
+
+<div class="hidden md:block">
+
+## Life Milestones Reference Table
+
+| Milestone | Total Days / Years | Significant Meaning |
+|---|---|---|
+| **Half-Birthday** | +6 calendar months | Mid-year milestone, popular for childhood celebrations |
+| **10,000 Days** | ~27 years, 4.5 months | Major metric milestone; a third of a typical lifespan |
+| **18 Years** | Statutory Majority | Full legal adulthood in most jurisdictions |
+| **21 Years** | Legal Milestone | Historic age of majority, full commercial independence |
+| **1 Billion Seconds** | ~31.7 years | 1,000,000,000 seconds lived on Earth |
+| **15,000 Days** | ~41 years, 1 month | Mid-life chronological celebration |
+| **20,000 Days** | ~54 years, 9 months | Over half a century of daily experiences |
+| **50 Years** | Golden Jubilee | Half-century celebration |
+| **65 Years** | Senior Age | Traditional retirement threshold in many public systems |
+
+</div>
+
+*Disclaimer: Statutory age requirements, retirement qualifications, and examination cutoffs vary by country and change frequently. Always consult official administrative sources for legal deadlines.*
+

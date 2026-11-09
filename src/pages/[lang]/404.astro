@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { LOCALES, type SupportedLocale, getLocalizedPath } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase()) as SupportedLocale[];
+
+  return launchLangs
+    .filter((lang) => lang !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+
+const copyByLang: Record<string, { title: string; desc: string; lead: string; backToHome: string; exploreTools: string }> = {
+  es: {
+    title: '404 - Página No Encontrada',
+    desc: 'La calculadora de fechas o recurso solicitado no existe.',
+    lead: 'La calculadora cronológica o el artículo solicitado no existe o ha sido reubicado.',
+    backToHome: 'Volver a la Calculadora de Edad',
+    exploreTools: 'Explorar Herramientas Cronológicas Populares',
+  },
+  pt: {
+    title: '404 - Página Não Encontrada',
+    desc: 'A calculadora de datas ou recurso solicitado não existe.',
+    lead: 'A calculadora cronológica ou artigo solicitado não existe ou foi transferido.',
+    backToHome: 'Voltar para a Calculadora de Idade',
+    exploreTools: 'Explorar Ferramentas Cronológicas Populares',
+  },
+  de: {
+    title: '404 - Seite nicht gefunden',
+    desc: 'Der angeforderte Datumsrechner wurde nicht gefunden.',
+    lead: 'Der angeforderte chronologische Rechner existiert nicht oder wurde verschoben.',
+    backToHome: 'Zurück zum Altersrechner',
+    exploreTools: 'Beliebte Datumsrechner entdecken',
+  },
+  fr: {
+    title: '404 - Page non trouvée',
+    desc: 'Le calculateur de date demandé est introuvable.',
+    lead: 'Le calculateur chronologique ou le guide demandé est introuvable.',
+    backToHome: "Retour au Calculateur d'Âge",
+    exploreTools: 'Explorer les calculateurs populaires',
+  },
+  it: {
+    title: '404 - Pagina non trovata',
+    desc: 'Il calcolatore di date richiesto non è stato trovato.',
+    lead: 'Il calcolatore cronologico richiesto non esiste o è stato trasferito.',
+    backToHome: "Torna al Calcolatore d'Età",
+    exploreTools: 'Esplora strumenti cronologici popolari',
+  },
+  tr: {
+    title: '404 - Sayfa Bulunamadı',
+    desc: 'İstenen tarih hesaplayıcı bulunamadı.',
+    lead: 'İstenen kronolojik hesaplayıcı veya kılavuz bulunamadı ya da taşındı.',
+    backToHome: 'Yaş Hesaplayıcıya Dön',
+    exploreTools: 'Popüler Tarih Araçlarını Keşfet',
+  },
+};
+
+const localized = copyByLang[lang] || copyByLang.es;
+
+const popularTools = [
+  { slug: 'days-between-dates', nameEn: 'Days Between Dates', nameEs: 'Días entre Dos Fechas', namePt: 'Dias Entre Duas Datas' },
+  { slug: 'birthday-countdown', nameEn: 'Birthday Countdown', nameEs: 'Cuenta Regresiva de Cumpleaños', namePt: 'Contagem Regressiva de Aniversário' },
+  { slug: 'days-alive', nameEn: 'Days Alive Calculator', nameEs: 'Calculadora de Días Vividos', namePt: 'Calculadora de Dias Vividos' },
+  { slug: 'pet-age', nameEn: 'Pet Age in Human Years', nameEs: 'Edad de Mascotas en Años Humanos', namePt: 'Idade dos Pets em Anos Humanos' },
+];
+---
+
+<BaseLayout title={localized.title} description={localized.desc} lang={lang} currentPath={`/${lang}/404/`}>
+  <div class="py-12 max-w-2xl mx-auto space-y-8 text-center">
+    <div class="text-7xl font-bold text-[#5e6ad2] font-mono tracking-tight">404</div>
+    <div class="space-y-2">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8]">
+        {localized.title}
+      </h1>
+      <p class="text-base text-[#8a8f98]">
+        {localized.lead}
+      </p>
+    </div>
+
+    <div>
+      <a
+        href={getLocalizedPath('', lang)}
+        class="inline-flex items-center justify-center px-6 py-2.5 rounded-[8px] bg-[#5e6ad2] hover:bg-[#828fff] text-white font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5e6ad2]"
+      >
+        {localized.backToHome}
+      </a>
+    </div>
+
+    <div class="pt-8 border-t border-[#18191a] text-left">
+      <h2 class="text-base font-semibold text-[#f7f8f8] mb-4 text-center">
+        {localized.exploreTools}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {popularTools.map((tool) => (
+          <a
+            href={getLocalizedPath(`tools/${tool.slug}`, lang)}
+            class="p-4 rounded-[8px] border border-[#23252a] bg-[#0f1011] hover:bg-[#141516] hover:border-[#34343a] transition-all"
+          >
+            <div class="font-medium text-sm text-[#f7f8f8]">
+              {lang === 'es' ? tool.nameEs : lang === 'pt' ? tool.namePt : tool.nameEn}
+            </div>
+            <div class="text-xs text-[#8a8f98] mt-1 font-mono">
+              {getLocalizedPath(`tools/${tool.slug}`, lang)}
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-4 text-center">
+        <a
+          href={getLocalizedPath('tools', lang)}
+          class="text-xs font-mono text-[#5e6ad2] hover:text-[#828fff] hover:underline"
+        >
+          {lang === 'es' ? 'Ver todas las herramientas →' : lang === 'pt' ? 'Ver todas as ferramentas →' : 'View all tools →'}
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

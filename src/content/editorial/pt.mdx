@@ -1,0 +1,99 @@
+---
+title: "Calculadora de Idade: Quantos Anos Eu Tenho? (Idade Exata)"
+description: "Calcule sua idade cronológica exata hoje em anos, meses e dias. Ferramenta 100% privada e rápida com contagem de marcos de vida e fatos astronômicos."
+lang: "pt"
+author: "Bancada Técnica de Cronometria e Normas Aplicadas"
+lastUpdated: "2026-11-09"
+faq:
+  - q: "Quantos anos eu tenho hoje pela minha data de nascimento?"
+    a: "Para descobrir exatamente quantos anos você tem hoje, insira seu dia, mês e ano de nascimento na calculadora. O sistema calcula a diferença exata até a data de hoje, detalhando anos completos, meses e dias decorridos, além do total de dias já vividos."
+  - q: "Como a idade é comprovada em concursos públicos no Brasil?"
+    a: "Conforme a Súmula 266 do Superior Tribunal de Justiça (STJ) e a jurisprudência dominante, o diploma ou a habilitação legal (incluindo a idade mínima de 18 anos) deve ser exigido na posse do cargo, e não na inscrição do concurso, ressalvadas hipóteses legais específicas (como carreiras militares)."
+  - q: "Qual a importância de anos, meses e dias exatos para o INSS?"
+    a: "Com as regras de transição da Emenda Constitucional nº 103/2019 (Reforma da Previdência), a idade mínima e a pontuação somada (idade + tempo de contribuição) exigem o cálculo preciso até a fração de dias para assegurar o direito adquirido ao benefício previdenciário."
+  - q: "Quem nasce em 29 de fevereiro faz aniversário quando em anos comuns?"
+    a: "Em anos não bissextos (de 365 dias), o entendimento civil e prático predominante reconhece a celebração do aniversário em 28 de fevereiro, completando o ciclo anual. O algoritmo de nossa calculadora segue o critério de 28 de fevereiro para exibição contínua da idade."
+  - q: "As datas de nascimento informadas ficam salvas na internet?"
+    a: "Não. Todas as rotinas de cálculo são executadas integralmente no navegador do seu próprio celular ou computador. Nenhuma data é enviada a servidores remotos, garantindo total conformidade com a LGPD."
+  - q: "O cálculo considera anos bissextos e viradas de séculos?"
+    a: "Sim. O motor cronológico valida rigorosamente as regras gregorianas: anos múltiplos de 4 são bissextos, exceto centenários não divisíveis por 400 (por exemplo, 1900 e 2100 não são bissextos; 2000 é bissexto)."
+  - q: "Como o critério de idade é usado no desempate de concursos?"
+    a: "Em atenção ao artigo 27 do Estatuto do Idoso (Lei nº 10.741/2003), o primeiro critério de desempate em concursos públicos favorece o candidato com idade igual ou superior a 60 anos; entre os demais, a maior idade em anos, meses e dias é rotineiramente utilizada pelos editais."
+---
+
+## Precisão Cronológica: Muito Além de Subtrair Anos
+
+Determinar com rigor a idade de um indivíduo ou o tempo transcorrido entre dois eventos históricos exige atenção às variações do calendário civil. O calendário gregoriano não possui meses uniformes: há meses de 28, 29, 30 e 31 dias, além da alternância entre anos comuns (365 dias) e anos bissextos (366 dias).
+
+Muitas ferramentas automatizadas na internet utilizam médias genéricas, como dividir o tempo por 365,25 ou 30,4 dias. Essa abordagem gera distorções acumuladas de até vários dias, tornando-se inadequada quando se exige precisão para comprovação em certames públicos ou processos administrativos.
+
+### O Algoritmo de Empréstimo Mensal
+
+Nossa calculadora adota o método matemático clássico de empréstimo contínuo do mês imediatamente anterior:
+
+1. **Diferença de Dias:** Subtrai-se o dia de nascimento do dia de referência (`referência.dia - nascimento.dia`).
+2. **Empréstimo de Dias:** Se o dia de referência for menor que o dia de nascimento, tomamos emprestada a quantidade exata de dias do mês civil imediatamente anterior ao mês de referência.
+   - Exemplo: ao calcular a idade em **10 de maio** de quem nasceu em **25 de maio**, o mês de maio toma emprestada a quantidade de dias de **abril**, que possui 30 dias.
+   - O dia efetivo passa a ser `10 + 30 = 40`. Subtraindo o dia de nascimento (`40 - 25`), obtemos **15 dias**.
+3. **Diferença de Meses:** Como um mês foi emprestado, subtrai-se 1 do mês de referência. Se o resultado for negativo, emprestam-se 12 meses do ano de referência.
+4. **Diferença de Anos:** Subtraem-se os anos ajustados finais.
+
+### Exemplo Prático Passo a Passo
+
+Vejamos um exemplo real:
+- **Data de Nascimento:** 20 de março de 2000
+- **Data de Referência:** 15 de março de 2024 (ano bissexto)
+
+Passo 1: Compara-se o dia. 15 é menor que 20. Pega-se emprestada a duração do mês anterior a março de 2024, que é **fevereiro de 2024**. Por ser bissexto, fevereiro de 2024 possui **29 dias**.
+- Dias somados: `15 + 29 = 44`.
+- Dias decorridos: `44 - 20 = 24 dias`.
+
+Passo 2: Diminui-se o mês de referência de março (3) para fevereiro (2). Compara-se: `2 - 3 = -1`. Pega-se emprestado 1 ano (12 meses).
+- Meses resultantes: `2 - 1 + 12 = 13 - 3 = 11 meses`.
+
+Passo 3: Diminui-se o ano de referência de 2024 para 2023. Resta: `2023 - 2000 = 23 anos`.
+
+**Resultado exato verificado:** **23 anos, 11 meses e 24 dias**.
+
+---
+
+## Importância do Cálculo Exato na Realidade Brasileira
+
+### 1. Concursos Públicos e Processos Seletivos
+No Brasil, editais de concursos federais, estaduais e municipais frequentemente estabelecem:
+- **Critério de Desempate:** Em caso de notas idênticas na classificação final, após o critério de candidato idoso (art. 27 da Lei 10.741/2003), prevalece o candidato de maior idade cronológica em dias exatos.
+- **Limites de Idade:** Carreiras policiais e militares fixam limites máximos e mínimos na data de inscrição ou na data de matrícula no curso de formação.
+
+### 2. Aposentadoria e Regras de Transição (INSS)
+A Reforma da Previdência (EC 103/2019) criou regras de transição baseadas em idade mínima progressiva e pontuação (soma da idade com o tempo de contribuição). Ter clareza dos meses e dias exatos permite planejar com exatidão o momento exato de requerer o benefício previdenciário sem risco de indeferimento.
+
+### 3. Maioridade Civil e Carteira de Habilitação (CNH)
+Conforme o artigo 5º do Código Civil Brasileiro (Lei nº 10.406/2002), a maioridade civil cessa aos 18 anos completos, marco no qual o cidadão adquire capacidade plena para todos os atos da vida civil, inclusive o início formal do processo de habilitação de trânsito perante o DETRAN.
+
+---
+
+## Nascidos em 29 de Fevereiro em Anos Comuns
+
+Para quem nasceu em ano bissexto no dia 29 de fevereiro, a legislação civil adota a contagem contínua de prazos. No cotidiano brasileiro, celebra-se o aniversário no dia 28 de fevereiro em anos não bissextos. Nossa plataforma exibe a idade completa em 28 de fevereiro para manter a sequência diária contínua e sem quebras lógicas.
+
+---
+
+<div class="hidden md:block">
+
+## Tabela de Marcos Cronológicos de Vida
+
+| Marco | Dias / Anos | Significado Prático |
+|---|---|---|
+| **Meio Aniversário** | +6 meses civis | Ponto intermediário anual |
+| **10.000 Dias** | ~27 anos e 4,5 meses | Marco métrico expressivo de vida adulta |
+| **18 Anos** | Maioridade Civil | Plena capacidade civil e jurídica no Brasil |
+| **1 Bilhão de Segundos** | ~31,7 anos | 1 bilhão de segundos vividos no planeta |
+| **15.000 Dias** | ~41 anos e 1 mês | Quatro décadas de experiência diária |
+| **20.000 Dias** | ~54 anos e 9 meses | Mais de meio século de vivência contínua |
+| **50 Anos** | Jubileu de Ouro pessoal | Marco comemorativo tradicional |
+| **65 Anos** | Idade de Referência | Marco para direitos da terceira idade e previdência |
+
+</div>
+
+*Aviso legal: Regras previdenciárias do INSS, requisitos de concursos e normas estatutárias mudam periodicamente. Consulte sempre o Diário Oficial da União, órgãos previdenciários e editais vigentes.*
+

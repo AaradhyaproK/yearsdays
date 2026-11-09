@@ -1,0 +1,69 @@
+---
+import { getTranslations, getLocalizedPath, type SupportedLocale } from '../i18n/utils';
+
+interface Props {
+  lang: SupportedLocale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+const cookiesPath = getLocalizedPath('cookies', lang);
+---
+
+<div
+  id="cookie-consent-banner"
+  role="region"
+  aria-label={t.cookie.heading}
+  class="fixed bottom-0 inset-x-0 z-50 p-4 bg-[#0f1011]/95 border-t border-[#23252a] shadow-2xl backdrop-blur-md transform transition-transform duration-300 translate-y-full text-[#d0d6e0]"
+>
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="text-xs space-y-1">
+      <div class="font-semibold text-[#f7f8f8] flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-[#5e6ad2]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+        </svg>
+        <span>{t.cookie.heading}</span>
+      </div>
+      <p class="max-w-2xl leading-relaxed text-[#8a8f98]">
+        {t.cookie.text}{' '}
+        <a
+          href={cookiesPath}
+          class="underline font-medium text-[#5e6ad2] hover:text-[#828fff] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#5e6ad2] rounded"
+        >
+          {t.cookie.learnMore}
+        </a>
+      </p>
+    </div>
+    <div class="flex items-center gap-2.5 shrink-0">
+      <button
+        id="cookie-accept-btn"
+        type="button"
+        class="px-4 py-2 text-xs font-medium rounded-[8px] bg-[#5e6ad2] hover:bg-[#828fff] text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5e6ad2]"
+      >
+        {t.cookie.accept}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const banner = document.getElementById('cookie-consent-banner');
+    const acceptBtn = document.getElementById('cookie-accept-btn');
+    const consent = localStorage.getItem('user_consent_status');
+
+    if (!consent && banner) {
+      setTimeout(() => {
+        banner.classList.remove('translate-y-full');
+      }, 500);
+    }
+
+    if (acceptBtn && banner) {
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('user_consent_status', 'essential_accepted');
+        banner.classList.add('translate-y-full');
+      });
+    }
+  })();
+</script>
+

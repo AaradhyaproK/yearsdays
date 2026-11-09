@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ToolsHub from '../../../components/ToolsHub.astro';
+import DaysBetweenCalculator from '../../../components/tools/DaysBetweenCalculator';
+import DaysAliveCalculator from '../../../components/tools/DaysAliveCalculator';
+import AddSubtractCalculator from '../../../components/tools/AddSubtractCalculator';
+import BirthdayCountdownCalculator from '../../../components/tools/BirthdayCountdownCalculator';
+import HalfBirthdayCalculator from '../../../components/tools/HalfBirthdayCalculator';
+import PetAgeCalculator from '../../../components/tools/PetAgeCalculator';
+import { getTranslations, type SupportedLocale } from '../../../i18n/utils';
+import { localizedToolsContent } from '../../../content/localizedToolsData';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  const tools = [
+    'days-between-dates',
+    'days-alive',
+    'add-subtract-days',
+    'birthday-countdown',
+    'half-birthday',
+    'pet-age',
+  ];
+
+  const paths: { params: { lang: string; tool: string } }[] = [];
+  for (const lang of launchLangs.filter((l) => l !== 'en')) {
+    for (const tool of tools) {
+      paths.push({ params: { lang, tool } });
+    }
+  }
+  return paths;
+}
+
+const { lang, tool } = Astro.params as { lang: SupportedLocale; tool: string };
+const t = getTranslations(lang);
+
+const fallbackData = localizedToolsContent[tool]?.es || {
+  title: 'Calculadora Cronológica',
+  description: 'Herramienta de cálculo cronológico de alta precisión.',
+  heading: 'Calculadora Cronológica',
+  subheading: 'Herramienta de cálculo cronológico de alta precisión y privacidad.',
+  sections: [],
+  faqs: [],
+};
+
+const toolData = localizedToolsContent[tool]?.[lang] || fallbackData;
+
+const faqJsonLd = toolData.faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: toolData.faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+} : undefined;
+---
+
+<BaseLayout
+  title={toolData.title}
+  description={toolData.description}
+  lang={lang}
+  currentPath={`/${lang}/tools/${tool}/`}
+  jsonLd={faqJsonLd ? [faqJsonLd] : undefined}
+>
+  <div class="space-y-10">
+    <Breadcrumbs
+      lang={lang}
+      items={[
+        { label: t.nav.tools, href: `/${lang}/tools/` },
+        { label: toolData.heading },
+      ]}
+    />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        {toolData.heading}
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        {toolData.subheading}
+      </p>
+    </div>
+
+    {tool === 'days-between-dates' && <DaysBetweenCalculator client:load lang={lang} />}
+    {tool === 'days-alive' && <DaysAliveCalculator client:load lang={lang} />}
+    {tool === 'add-subtract-days' && <AddSubtractCalculator client:load lang={lang} />}
+    {tool === 'birthday-countdown' && <BirthdayCountdownCalculator client:load lang={lang} />}
+    {tool === 'half-birthday' && <HalfBirthdayCalculator client:load lang={lang} />}
+    {tool === 'pet-age' && <PetAgeCalculator client:load lang={lang} />}
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      {toolData.sections.map((section, idx) => (
+        <div class={`space-y-3 ${idx > 0 ? 'pt-6 border-t border-[#18191a]' : ''}`}>
+          <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+            {section.title}
+          </h2>
+          {section.paragraphs.map((p) => (
+            <p class="text-[#8a8f98]">{p}</p>
+          ))}
+          {section.cards && (
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+              {section.cards.map((c) => (
+                <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+                  <h3 class="font-medium text-sm text-[#f7f8f8]">{c.title}</h3>
+                  <p class="text-xs text-[#8a8f98]">{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+
+      {toolData.faqs.length > 0 && (
+        <div class="space-y-4 pt-6 border-t border-[#18191a]">
+          <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+            {lang === 'es' ? 'Preguntas Frecuentes' : lang === 'pt' ? 'Perguntas Frequentes' : 'Frequently Asked Questions'}
+          </h2>
+          <div class="space-y-3">
+            {toolData.faqs.map((item) => (
+              <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+                <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+                <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+
+    <ToolsHub lang={lang} currentTool={tool} />
+  </div>
+</BaseLayout>

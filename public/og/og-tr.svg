@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="edgeHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34343a" />
+      <stop offset="100%" stop-color="#23252a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Deep Canvas Background (#010102) -->
+  <rect width="1200" height="630" fill="#010102" />
+
+  <!-- Subtle hairline coordinate grid -->
+  <g stroke="#23252a" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="126" x2="1200" y2="126" />
+    <line x1="0" y1="252" x2="1200" y2="252" />
+    <line x1="0" y1="378" x2="1200" y2="378" />
+    <line x1="0" y1="504" x2="1200" y2="504" />
+    <line x1="240" y1="0" x2="240" y2="630" />
+    <line x1="480" y1="0" x2="480" y2="630" />
+    <line x1="720" y1="0" x2="720" y2="630" />
+    <line x1="960" y1="0" x2="960" y2="630" />
+  </g>
+
+  <!-- Inner Charcoal Card (#0f1011) with hairline border -->
+  <rect x="60" y="60" width="1080" height="510" rx="16" fill="#0f1011" stroke="#23252a" stroke-width="1.5" />
+
+  <!-- Brand Logomark Icon -->
+  <g transform="translate(110, 110)">
+    <rect width="48" height="48" rx="10" fill="#141516" stroke="#34343a" stroke-width="1.25" />
+    <circle cx="24" cy="24" r="14" stroke="#3e3e44" stroke-width="1.5" stroke-dasharray="4 3" />
+    <path d="M24 10 A14 14 0 1 1 10 24" stroke="#5e6ad2" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="24" cy="24" r="3.5" fill="#f7f8f8" />
+    <line x1="24" y1="24" x2="31" y2="17" stroke="#828fff" stroke-width="2.25" stroke-linecap="round" />
+    <text x="64" y="32" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif" font-size="22" font-weight="600" letter-spacing="-0.03em" fill="#f7f8f8">Age &amp; Date Calculator</text>
+    <rect x="315" y="16" width="38" height="18" rx="4" fill="#18191a" stroke="#23252a" stroke-width="1" />
+    <text x="334" y="29" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.05em" fill="#8a8f98">PRO</text>
+  </g>
+
+  <!-- Title with measured negative tracking -->
+  <text x="110" y="270" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif" font-size="46" font-weight="600" letter-spacing="-0.04em" fill="#f7f8f8">
+    Hassas Kronolojik Yaş Hesaplayıcı
+  </text>
+
+  <!-- Subtitle -->
+  <text x="110" y="335" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" font-size="22" font-weight="400" letter-spacing="-0.01em" fill="#8a8f98">
+    Yıl, ay, gün, toplam saat ve doğum günü geri sayımını kesin hesaplayın
+  </text>
+
+  <!-- Status Pill Indicator -->
+  <g transform="translate(110, 420)">
+    <rect width="480" height="42" rx="21" fill="#141516" stroke="#23252a" stroke-width="1" />
+    <circle cx="22" cy="21" r="5" fill="#27a644" />
+    <text x="38" y="27" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" font-size="14" font-weight="500" letter-spacing="0" fill="#d0d6e0">
+      %100 İstemci Taraflı • Gizli • Sıfır Takip
+    </text>
+  </g>
+
+  <!-- Domain watermark in mono font -->
+  <text x="1090" y="525" text-anchor="end" font-family="ui-monospace, 'SF Mono', monospace" font-size="15" font-weight="500" fill="#62666d">
+    yearsdays.com
+  </text>
+</svg>

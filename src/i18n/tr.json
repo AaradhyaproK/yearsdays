@@ -1,0 +1,99 @@
+{
+  "modes": {
+    "ageToday": "Bugünkü Yaş",
+    "ageOnDate": "Belirli Bir Tarihteki Yaş",
+    "compareTwo": "İki Kişiyi Karşılaştır"
+  },
+  "labels": {
+    "birthDate": "Doğum Tarihi",
+    "targetDate": "Hedef Tarih",
+    "person1": "Birinci Kişi",
+    "person2": "İkinci Kişi",
+    "day": "Gün",
+    "month": "Ay",
+    "year": "Yıl",
+    "calculate": "Yaş Hesapla",
+    "clear": "Temizle",
+    "today": "Bugün"
+  },
+  "results": {
+    "ageTitle": "Hesaplanan Yaş",
+    "years": "yıl",
+    "months": "ay",
+    "days": "gün",
+    "yearsOld": "yaşında",
+    "bornOn": "Doğum tarihi:",
+    "targetDateIs": "İtibarıyla:"
+  },
+  "totals": {
+    "title": "Toplam Yaşam Süresi",
+    "totalMonths": "Toplam Ay",
+    "totalWeeks": "Toplam Hafta",
+    "totalDays": "Toplam Gün",
+    "totalHours": "Toplam Saat",
+    "totalMinutes": "Toplam Dakika",
+    "totalSeconds": "Toplam Saniye",
+    "remainingDays": "gün"
+  },
+  "nextBirthday": {
+    "title": "Sonraki Doğum Günü Geri Sayımı",
+    "days": "Gün",
+    "hours": "Saat",
+    "minutes": "Dakika",
+    "seconds": "Saniye",
+    "todayIsBirthday": "Doğum Gününüz Kutlu Olsun! Bugün sizin özel gününüz!"
+  },
+  "milestones": {
+    "title": "Yaşam Dönüm Noktaları",
+    "upcoming": "Gelecek",
+    "passed": "Tamamlandı",
+    "date": "Tarih"
+  },
+  "funFacts": {
+    "title": "Astroloji ve Yaşam İstatistikleri",
+    "weekdayBorn": "Doğduğu Gün",
+    "westernZodiac": "Burç",
+    "chineseZodiac": "Çin Burcu",
+    "element": "Element",
+    "modality": "Nitelik",
+    "heartbeats": "Tahmini Kalp Atışı",
+    "breaths": "Tahmini Nefes Sayısı",
+    "roughEstimate": "kaba tahmin (ortalama dinlenme nabzına dayalı)"
+  },
+  "share": {
+    "shareResults": "Özeti Paylaş",
+    "copyText": "Metni Kopyala",
+    "downloadImage": "Kart Görselini İndir",
+    "copied": "Panoya kopyalandı!"
+  },
+  "compare": {
+    "title": "Yaş Karşılaştırması",
+    "olderBy": "daha büyüktür, fark:",
+    "sameAge": "Her iki kişi de tamamen aynı tarihte doğmuştur."
+  },
+  "errors": {
+    "invalidDate": "Lütfen geçerli bir takvim tarihi giriniz.",
+    "futureBirth": "Doğum tarihi hedef tarihten sonra olamaz.",
+    "yearRange": "Yıl 1900 ile 2100 arasında olmalıdır."
+  },
+  "ad": {
+    "advertisement": "Reklam"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "calculator": "Yaş Hesaplama",
+    "tools": "Tüm Araçlar",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "cookies": "Çerez Politikası",
+    "methodology": "Yayın İlkeleri ve Metodoloji"
+  },
+  "cookie": {
+    "heading": "Gizlilik ve Çerezler",
+    "text": "Bu web sitesi tüm hesaplamaları yalnızca tarayıcınızda gerçekleştirir. Doğum tarihiniz hiçbir zaman bir sunucuya gönderilmez.",
+    "accept": "Zorunlu Çerezleri Kabul Et",
+    "learnMore": "Daha Fazla Bilgi"
+  }
+}

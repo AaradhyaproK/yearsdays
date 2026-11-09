@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Calculator from '../../components/Calculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/age-on-a-date/',
+  es: '/es/edad-en-una-fecha/',
+  pt: '/pt/idade-em-uma-data/',
+};
+
+const title = 'Calcular Edad en una Fecha: Fechas Límite y Trámites';
+const description = 'Calcula tu edad exacta en cualquier fecha pasada o futura. Verifica requisitos para convocatorias públicas, jubilación, trámites de cédula y matrículas.';
+
+const faqItems = [
+  {
+    q: '¿Cómo calcula la herramienta la edad en una fecha futura o pasada?',
+    a: 'Aplica el algoritmo de arrastre cronológico entre la fecha de nacimiento y la fecha de referencia elegida, devolviendo los años, meses y días cumplidos sin redondeos inexactos.',
+  },
+  {
+    q: '¿Por qué es decisivo el cálculo de edad a una fecha de corte en trámites oficiales?',
+    a: 'En convocatorias de empleo público y oposiciones en el ámbito hispanohablante, las bases exigen tener una edad mínima o no superar una edad máxima en la fecha exacta de cierre de postulaciones.',
+  },
+  {
+    q: '¿Puedo calcular qué edad tenía en un momento histórico del pasado?',
+    a: 'Sí. Puedes seleccionar cualquier fecha posterior a tu nacimiento para conocer con precisión matemática cuántos años, meses y días tenías en ese día.',
+  },
+  {
+    q: '¿Cómo se manejan los años bisiestos en proyecciones futuras?',
+    a: 'El motor computa de forma continua todos los días 29 de febrero entre ambas fechas. Para nacidos en 29 de febrero, se aplica la convención civil del 28 de febrero en años comunes.',
+  },
+  {
+    q: '¿Los datos introducidos quedan guardados en algún servidor?',
+    a: 'No. Toda la computación se procesa de forma 100% local en tu navegador con JavaScript. Ninguna fecha sale de tu dispositivo.',
+  },
+  {
+    q: '¿Qué ocurre si la fecha límite elegida es anterior a mi nacimiento?',
+    a: 'El sistema indicará que la fecha objetivo debe ser posterior a la fecha de nacimiento para poder realizar el cómputo cronológico.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="es"
+  currentPath="/es/edad-en-una-fecha/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="es" items={[{ label: 'Herramientas', href: '/es/tools/' }, { label: 'Edad en una Fecha' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Calcular Edad en una Fecha Determinada
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Determina tu edad cronológica exacta en cualquier fecha del pasado o del futuro. 100% privado y seguro.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        Esta <strong class="text-[#f7f8f8]">calculadora de edad en una fecha</strong> permite determinar con precisión matemática la edad cronológica que tenías en una fecha pasada o la que tendrás en una fecha futura. Resulta fundamental para comprobar requisitos de edad en convocatorias de empleo público, admisiones académicas, trámites notariales y requisitos jubilatorios en América Latina.
+      </p>
+    </div>
+
+    <Calculator client:load lang="es" initialMode="on-date" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Cómo Calcular la Edad en una Fecha de Corte
+        </h2>
+        <p class="text-[#8a8f98]">
+          Comparar dos fechas del calendario gregoriano sin incurrir en desfases exige aplicar el principio de arrastre natural de los meses:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Resta de días:</strong> Si el día de la fecha de corte es menor al día de nacimiento, se toma prestada la duración exacta del mes natural anterior a la fecha de corte.</li>
+          <li><strong>Resta de meses:</strong> Se descuenta el mes prestado y se evalúa la diferencia. Si el saldo es negativo, se toman prestados 12 meses del año de corte.</li>
+          <li><strong>Resta de años:</strong> Se descuenta el año prestado y se calculan los años completos de vida cumplidos.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Ejemplo Práctico: Convocatoria Laboral del Estado
+        </h2>
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2 text-xs">
+          <p class="font-medium text-[#f7f8f8]">Datos del caso:</p>
+          <ul class="space-y-1 text-[#8a8f98]">
+            <li>• <strong>Fecha de Nacimiento:</strong> 15 de agosto de 1998</li>
+            <li>• <strong>Fecha de Corte de la Convocatoria:</strong> 1 de agosto de 2024</li>
+          </ul>
+          <p class="text-[#8a8f98] pt-1">
+            <strong>Cálculo:</strong> Dado que el 1 de agosto precede al 15 de agosto, la persona aún no ha alcanzado los 26 años. Al tomar prestados 31 días de julio (mes anterior a agosto), el día es <code>1 + 31 - 15 = 17 días</code>. El mes ajustado es <code>7 - 8 = -1</code>; sumando 12 meses del año 2024 queda <code>11 meses</code>. El año ajustado es <code>2023 - 1998 = 25 años</code>.
+          </p>
+          <p class="text-[#f7f8f8] font-mono pt-1">
+            Edad exacta al 1 de agosto de 2024: <strong>25 años, 11 meses y 17 días</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Trámites Oficiales en América Latina
+        </h2>
+        <p class="text-[#8a8f98]">
+          En la administración pública de América Latina y España, múltiples gestiones requieren acreditar edades cumplidas a una fecha fija:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li><strong>Convocatorias de Empleo Público:</strong> Bases de postulación en portales oficiales estatales (como <a href="https://www.gob.mx" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:underline">gob.mx</a> o <a href="https://www.gov.co" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:underline">gov.co</a>) fijan fechas límite inamovibles.</li>
+          <li><strong>Documentos de Identidad (Cédula o DNI):</strong> Renovación obligatoria al cumplir hitos de mayoría de edad o cambios de categoría etaria.</li>
+          <li><strong>Trámites Jubilatorios:</strong> Cómputo exacto de años y meses de cotización exigidos por las administraciones de seguridad social.</li>
+        </ul>
+        <p class="text-[#8a8f98] pt-2">
+          También puedes consultar tu edad actual en la <a href="/es/" class="text-[#5e6ad2] hover:underline">Calculadora de Edad</a> principal o verificar el tiempo transcurrido en días en <a href="/es/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Calcular Días Entre Dos Fechas</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Preguntas Frecuentes
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="es" />
+  </div>
+</BaseLayout>

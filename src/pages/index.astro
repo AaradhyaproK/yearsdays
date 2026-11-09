@@ -1,0 +1,87 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+import ToolsHub from '../components/ToolsHub.astro';
+
+const entry = await getEntry('editorial', 'en');
+const { Content } = entry ? await entry.render() : { Content: null };
+
+const title = entry?.data.title || 'Age Calculator: How Old Am I? - YearsDays';
+const description = entry?.data.description || 'Free, private online age calculator. Calculate exact age in years, months, days, hours, and minutes with 100% client-side privacy.';
+
+const faqItems = entry?.data.faq || [];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Age Calculator: How Old Am I Today?
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Calculate your precise chronological age in years, months, days, hours, and minutes. 100% private and client-side.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        An <strong class="text-[#f7f8f8]">age calculator</strong> answers the question <em>"How old am I today?"</em> by determining the exact elapsed chronological time between your date of birth and the current date (or a chosen target date). It breaks down your lifespan into discrete calendar years, complete calendar months, and remaining days, while accounting for leap years, variable month lengths, and daylight saving time adjustments.
+      </p>
+    </div>
+
+    <Calculator client:load lang="en" />
+
+    {entry && (
+      <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-6 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+        {Content && <Content />}
+
+        {faqItems.length > 0 && (
+          <div class="pt-6 border-t border-[#18191a]">
+            <h2 class="text-xl font-semibold text-[#f7f8f8] mb-4 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <div class="space-y-3">
+              {faqItems.map((item) => (
+                <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+                  <h3 class="font-medium text-[#f7f8f8] text-sm">
+                    {item.q}
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="pt-4 border-t border-[#18191a] flex flex-wrap items-center justify-between text-xs text-[#62666d] font-mono">
+          <span>Reviewed by: <strong class="text-[#8a8f98]">{entry.data.author}</strong></span>
+          <span>Last verified: <time datetime={entry.data.lastUpdated} class="text-[#8a8f98]">{entry.data.lastUpdated}</time></span>
+        </div>
+      </article>
+    )}
+
+    <ToolsHub lang="en" />
+  </div>
+</BaseLayout>

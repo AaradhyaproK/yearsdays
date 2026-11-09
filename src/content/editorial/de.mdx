@@ -1,0 +1,59 @@
+---
+title: "Altersrechner - Genaue Altersberechnung nach deutschem Kalenderrecht"
+description: "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten und Tagen. Fundierter Leitfaden zu Volljährigkeit (§ 2 BGB), Renteneintritt und Schaltjahren."
+lang: "de"
+author: "Redaktion für Chronometrie und angewandtes Kalenderrecht"
+lastUpdated: "2026-11-09"
+faq:
+  - q: "Wie wird das Alter nach dem Bürgerlichen Gesetzbuch (BGB) berechnet?"
+    a: "Gemäß § 187 Abs. 2 Satz 2 BGB wird bei der Geburt der Tag des Lebensbeginns mitgerechnet. Die Volljährigkeit tritt nach § 2 BGB mit der Vollendung des 18. Lebensjahres ein – rechtlich am Beginn des 18. Geburtstags."
+  - q: "Wann haben am 29. Februar Geborene in Gemeinjahren Geburtstag?"
+    a: "Nach § 188 Abs. 2 BGB enden Fristen, die nach Monaten oder Jahren bestimmt sind, mit dem Ablauf des Tages, welcher der Zahl nach dem Anfangstag entspricht. Da der 29. Februar in Gemeinjahren fehlt, vollendet sich das Lebensjahr mit Ablauf des 28. Februars. Am 1. März beginnt das neue Lebensjahr."
+  - q: "Warum sind Stichtage bei der Einschulung wichtig?"
+    a: "In den deutschen Bundesländern gelten unterschiedliche Einschulungsstichtage (häufig der 30. Juni, 31. Juli oder 30. September). Ein Altersrechner hilft bei der exakten Bestimmung, ob ein Kind zum Stichtag schulpflichtig wird."
+  - q: "Werden meine eingegebenen Daten online gespeichert?"
+    a: "Nein. Sämtliche Berechnungen laufen zu 100 % lokal in Ihrem Webbrowser ab. Es erfolgt keine Übertragung an Server, keine Speicherung in Datenbanken und keine Erfassung in Cookies (DSGVO-konform)."
+  - q: "Wie verhält es sich mit der Regelaltersgrenze in der Rentenversicherung?"
+    a: "Der Eintritt in die Regelaltersrente hängt vom Geburtsjahrgang ab und wird stufenweise auf 67 Jahre angehoben (gemäß SGB VI). Hierbei zählen exakte Lebensmonate für den Rentenbeginn."
+  - q: "Warum verwendet dieser Rechner keine durchschnittliche Monatslänge von 30,4 Tagen?"
+    a: "Weil Kalendermonate zwischen 28 und 31 Tagen schwanken. Pauschale Durchschnittswerte führen bei behördlichen Fristen zu Abweichungen. Unser System nutzt den mathematisch exakten Vormonatsabzug."
+---
+
+## Exakte chronologische Zeitmessung nach Kalenderlogik
+
+Die Bestimmung des genauen Lebensalters ist eine mathematische Aufgabe, die durch die Unregelmäßigkeiten des gregorianischen Kalenders geprägt ist. Ein Kalenderjahr hat im Normalfall 365 Tage, in Schaltjahren jedoch 366 Tage. Die Monate umfassen 28, 29, 30 oder 31 Tage.
+
+Pauschale Rechner im Internet teilen oft die Gesamttage schlicht durch 365,25. Das liefert zwar eine grobe statistische Kommazahl, versagt jedoch völlig, wenn es darum geht, amtliche Bescheinigungen in **Jahren, Monaten und Tagen** exakt darzustellen.
+
+### Der Kalender-Abzugs-Algorithmus (Borrowing)
+
+Um das Alter zwischen Geburtsdatum und Zieldatum zu bestimmen, nutzt unsere Berechnungslogik das Vormonats-Ausgleichsverfahren:
+
+1. **Tagesdifferenz:** Man subtrahiert den Geburtstag vom Zieldatumstag (`Ziel.Tag - Geburt.Tag`).
+2. **Monatsausgleich bei Tagen:** Ist der Zieldatumstag kleiner als der Geburtstag, wird die exakte Tageanzahl des Kalendermonats entliehen, der dem Zielmonat unmittelbar vorausgeht.
+   - Beispiel: Zieldatum 10. Mai, Geburtstag 25. Mai. Der Mai entleiht die Tage des **Aprils** (30 Tage).
+   - Der effektive Zieldatumstag wird zu `10 + 30 = 40`. Abzüglich 25 ergibt dies exakt **15 Tage**.
+3. **Monatsdifferenz:** Da ein Monat entliehen wurde, wird der Zielmonat um 1 dekrementiert. Ist die Differenz negativ, werden 12 Monate aus dem Zieljahr entliehen.
+4. **Jahresdifferenz:** Die verbleibenden Jahre werden abgezogen.
+
+---
+
+## Rechtliche Bedeutung in Deutschland, Österreich und der Schweiz
+
+### 1. Volljährigkeit und Geschäftsfähigkeit (§ 2 BGB)
+In Deutschland tritt die Volljährigkeit mit der Vollendung des 18. Lebensjahres ein. Der Tag der Geburt zählt bei der Fristberechnung mit (§ 187 Abs. 2 Satz 2 BGB), sodass die Vollendung mit dem Ablauf des Tages vor dem 18. Geburtstag bzw. mit Beginn des Geburtstagstages rechtlich vollzogen ist.
+
+### 2. Einschulungsstichtage der Bundesländer
+Jedes deutsche Bundesland legt per Schulgesetz eigene Stichtage fest, bis zu denen ein Kind das sechste Lebensjahr vollendet haben muss, um im selben Jahr schulpflichtig zu werden (z. B. 30. Juni in Bayern und NRW, 30. September in Berlin).
+
+### 3. Gesetzliche Rentenversicherung (SGB VI)
+Bei der schrittweisen Anhebung der Regelaltersgrenze auf 67 Jahre entscheidet der Geburtsmonat darüber, mit wie vielen zusätzlichen Lebensmonaten der Anspruch auf die Regelaltersrente entsteht.
+
+---
+
+## Am 29. Februar Geborene in Gemeinjahren
+
+Für Schalttag-Geborene regelt § 188 Abs. 2 BGB, dass ein Lebensjahr abläuft, wenn der entsprechende Kalendertag des Geburtsmonats endet. Fehlt dieser Tag in einem Gemeinjahr, vollendet sich das Lebensjahr mit Ablauf des letzten Tages dieses Monats (28. Februar). Unser Rechner zeigt ab dem 28. Februar das vollendete Jahr an.
+
+*Hinweis: Behördliche Stichtage, Rentenregelungen und gesetzliche Fristen können Änderungen unterliegen. Verbindliche Auskünfte erteilen die zuständigen Ämter und Rentenversicherungsträger.*
+

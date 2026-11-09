@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Términos de Servicio - Calculadora de Edad',
+  pt: 'Termos de Serviço - Calculadora de Idade',
+  de: 'Nutzungsbedingungen - Altersrechner',
+  fr: 'Conditions d\'Utilisation - Calculateur d\'Âge',
+  it: 'Termini di Servizio - Calcolatore di Età',
+  tr: 'Kullanım Koşulları - Yaş Hesaplama',
+};
+
+const title = titles[lang] || `${t.nav.terms} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/terms/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.terms }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        {t.nav.terms}
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">2026-11-09</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '1. Finalidad Informativa' : lang === 'pt' ? '1. Finalidade Informativa' : '1. Informational Purpose'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'Los resultados proporcionados por nuestras calculadoras se ofrecen con fines exclusivamente informativos y estimativos. Aunque nuestros algoritmos cumplen con la máxima precisión astronómica y civil, las normas jurídicas y de jubilación varían y cambian.'}
+          {lang === 'pt' && 'Os resultados disponibilizados por nossas calculadoras possuem finalidade estritamente informativa e orientativa. Embora utilizemos algoritmos validados, os prazos e marcos de aposentadoria ou concursos públicos sujeitam-se a variações legais.'}
+          {lang !== 'es' && lang !== 'pt' && 'Calculations are provided for informational purposes only. Consult official government statutes for statutory determinations.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

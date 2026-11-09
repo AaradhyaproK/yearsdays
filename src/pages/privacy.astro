@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const title = 'Privacy Policy - YearsDays';
+const description = 'Our clear, transparent privacy policy. 100% client-side calculations, zero birthdate retention, GDPR, LGPD, and advertising policies.';
+---
+
+<BaseLayout title={title} description={description} lang="en" currentPath="/privacy/">
+  <div class="space-y-6">
+    <Breadcrumbs lang="en" items={[{ label: 'Privacy Policy' }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        Privacy Policy
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">Effective Date: November 9, 2026</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">1. Core Architecture: Zero Data Retention</h2>
+        <p class="text-[#8a8f98]">
+          At <strong>Age &amp; Date Calculator</strong>, we believe the most private data is the data that is never collected. When you enter dates of birth or target dates into any calculator on our site, <strong>the calculation is computed 100% locally in your web browser</strong> using client-side JavaScript.
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li>Your dates never leave your computer or mobile device.</li>
+          <li>Dates are never placed in URLs, web server request logs, or analytics tools.</li>
+          <li>Dates are never saved to browser localStorage or cookies.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">2. Cookies &amp; Local Storage</h2>
+        <p class="text-[#8a8f98]">
+          We use minimal local browser storage solely to remember functional user preferences:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li><strong>Theme:</strong> Storing your selection of Light or Dark mode.</li>
+          <li><strong>Consent Status:</strong> Remembering that you acknowledged our essential cookie notice.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">3. Advertising Partners &amp; Third Parties</h2>
+        <p class="text-[#8a8f98]">
+          To maintain this website as a free public utility, we may partner with third-party advertising networks (including Google AdSense). When advertising is active:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li>Third-party vendors, including Google, use cookies to serve ads based on prior visits to this website or other websites.</li>
+          <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our sites and/or other sites on the Internet.</li>
+          <li>Users in the European Economic Area (EEA), United Kingdom (UK), Switzerland, and Brazil are presented with a certified Consent Management Platform (CMP) prior to any non-essential cookies or personalized advertising being activated.</li>
+          <li>You may opt out of personalized advertising by visiting <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:text-[#828fff] underline">Google Ads Settings</a>, the <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:text-[#828fff] underline">Network Advertising Initiative (NAI)</a> opt-out tool, or <a href="https://www.youronlinechoices.eu/" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:text-[#828fff] underline">Your Online Choices (EDAA)</a>.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">4. Your Rights (GDPR, LGPD, CCPA/CPRA, KVKK)</h2>
+        <p class="text-[#8a8f98]">
+          Depending on your location, you hold statutory rights regarding your personal data. Because we do not collect, process, or store personal identifiers or birthdates, our systems hold zero personal dossiers on visitors. For inquiries or rights requests, contact us at <strong class="text-[#f7f8f8]">support@yearsdays.info</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

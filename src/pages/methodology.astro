@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const title = 'Calculation Methodology - YearsDays';
+const description = 'Our rigorous chronological methodology, mathematical borrow algorithms, leap year rules, and astronomical data sources.';
+---
+
+<BaseLayout title={title} description={description} lang="en" currentPath="/methodology/">
+  <div class="space-y-6">
+    <Breadcrumbs lang="en" items={[{ label: 'Editorial Methodology' }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        Editorial &amp; Mathematical Methodology
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">Published: November 9, 2026 • Lead Author: Chronometry Engineering Desk</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">1. Calendar Borrow Algorithm</h2>
+        <p class="text-[#8a8f98]">
+          Unlike naive subtraction methods that assume every month consists of 30 or 30.4375 days, our engine implements exact Gregorian calendar borrow arithmetic:
+        </p>
+        <div class="p-4 bg-[#010102] border border-[#23252a] rounded-[8px] font-mono text-xs text-[#828fff] space-y-1">
+          <div>if (target.day &lt; birth.day) &#123;</div>
+          <div class="pl-4">const daysInPrevMonth = daysInMonth(target.year, target.month - 1);</div>
+          <div class="pl-4">days = target.day + daysInPrevMonth - birth.day;</div>
+          <div class="pl-4">months -= 1;</div>
+          <div>&#125;</div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">2. Leap Year &amp; Century Rules</h2>
+        <p class="text-[#8a8f98]">
+          A year is a leap year if it is divisible by 4, except for end-of-century years, which must be divisible by 400.
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li><strong>1900:</strong> Non-leap year (February has 28 days).</li>
+          <li><strong>2000:</strong> Leap year (February has 29 days).</li>
+          <li><strong>2100:</strong> Non-leap year (February has 28 days).</li>
+          <li><strong>2024:</strong> Leap year (February has 29 days).</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">3. Astronomical &amp; Ephemeris Data Sources</h2>
+        <p class="text-[#8a8f98]">
+          Our Chinese Zodiac and astronomical benchmark engines rely on verified lookup tables and ephemerides:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li>Hong Kong Observatory (HKO) Gregorian-Lunar Calendar Conversion Tables (1901–2100).</li>
+          <li>Purple Mountain Observatory, Chinese Academy of Sciences (standard astronomical ephemeris).</li>
+          <li>Astronomical Applications Department of the U.S. Naval Observatory (USNO).</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">4. DST-Immune Day Totals</h2>
+        <p class="text-[#8a8f98]">
+          Total elapsed days, weeks, hours, and minutes are computed using UTC midnight day numbers (<code>Date.UTC(y, m-1, d)</code>). Because UTC has no daylight saving shifts (every UTC day is exactly 86,400,000 ms), day counts never suffer from 23-hour or 25-hour local clock adjustments.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+

@@ -1,0 +1,58 @@
+---
+import { LOCALES, type SupportedLocale, getLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  currentLang: SupportedLocale;
+  currentPath?: string;
+}
+
+const { currentLang, currentPath = '/' } = Astro.props;
+
+// Read LAUNCH_LANGS from environment or default to 'en,es,pt'
+const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+  .split(',')
+  .map((l) => l.trim().toLowerCase()) as SupportedLocale[];
+
+const currentInfo = LOCALES[currentLang] || { nativeName: currentLang.toUpperCase() };
+---
+
+<div class="relative inline-block text-left shrink-0" id="language-switcher">
+  <label for="lang-select" class="sr-only">Select Language</label>
+  
+  {/* Visual button display */}
+  <div class="flex items-center gap-1 sm:gap-1.5 h-8 px-2 sm:px-2.5 rounded-[6px] border border-[#23252a] [html.light_&]:border-[#dbe0e8] bg-[#0f1011] [html.light_&]:bg-[#edf1f5] text-xs font-medium text-[#f7f8f8] [html.light_&]:text-[#0f1011] shadow-sm hover:border-[#34343a] [html.light_&]:hover:border-[#cdd3dd] transition-colors pointer-events-none">
+    <svg class="w-3.5 h-3.5 text-[#8a8f98] [html.light_&]:text-[#6b7280] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+    </svg>
+    {/* Mobile: 2-letter uppercase badge */}
+    <span class="sm:hidden font-semibold tracking-wide uppercase text-[11px] text-[#f7f8f8] [html.light_&]:text-[#0f1011]">
+      {currentLang}
+    </span>
+    {/* Desktop: Full native name */}
+    <span class="hidden sm:inline font-medium text-xs text-[#f7f8f8] [html.light_&]:text-[#0f1011]">
+      {currentInfo.nativeName}
+    </span>
+    <svg class="w-3 h-3 text-[#8a8f98] [html.light_&]:text-[#6b7280] shrink-0 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+  </div>
+
+  {/* Full-coverage native select overlay */}
+  <select
+    id="lang-select"
+    aria-label="Change Language"
+    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer text-base"
+    onchange="if (this.value) window.location.href = this.value;"
+  >
+    {launchLangs.map((lang) => {
+      const info = LOCALES[lang];
+      if (!info) return null;
+      const targetUrl = getLocalizedPath(currentPath, lang);
+      return (
+        <option value={targetUrl} selected={lang === currentLang}>
+          {info.nativeName}
+        </option>
+      );
+    })}
+  </select>
+</div>

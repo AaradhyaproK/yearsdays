@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Quiénes Somos - YearsDays',
+  pt: 'Sobre Nós - YearsDays',
+  de: 'Über uns - YearsDays',
+  fr: 'À propos - YearsDays',
+  it: 'Chi siamo - YearsDays',
+  tr: 'Hakkımızda - YearsDays',
+};
+
+const title = titles[lang] || `${t.nav.about} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/about/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.about }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        {t.nav.about}
+      </h1>
+
+      <p class="text-base text-[#8a8f98]">
+        {lang === 'es' && 'Nuestra plataforma nace con un compromiso claro: ofrecer la máxima precisión en el cálculo cronológico y garantizar que los datos de nacimiento de nuestros usuarios jamás salgan de su navegador.'}
+        {lang === 'pt' && 'Criamos esta ferramenta com um compromisso essencial: fornecer cálculos cronológicos matematicamente exatos sem jamais coletar, armazenar ou transmitir as datas de nascimento de nossos usuários.'}
+        {lang === 'de' && 'Unsere Plattform wurde mit einem klaren Ziel entwickelt: kompromisslose mathematische Genauigkeit bei der Altersberechnung und 100 % lokaler Datenschutz im Browser ohne jegliche Serverübertragung.'}
+        {lang === 'fr' && 'Notre mission est d\'offrir un calcul chronologique d\'une rigueur absolue tout en garantissant une confidentialité totale : vos dates ne quittent jamais votre navigateur.'}
+        {lang === 'it' && 'Il nostro calcolatore nasce per garantire precisione cronologica assoluta e totale riservatezza: nessun dato viene mai trasmesso a server esterni.'}
+        {lang === 'tr' && 'Platformumuz, tam kronolojik doğruluk sunarken kullanıcıların doğum tarihlerini asla sunucularda saklamama ve %100 gizlilik prensibiyle çalışır.'}
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        <div class="p-6 bg-[#141516] rounded-[8px] space-y-3 border border-[#23252a]">
+          <div class="w-8 h-8 rounded-[6px] bg-[#0f1011] border border-[#23252a] flex items-center justify-center text-[#5e6ad2]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <h2 class="text-base font-semibold text-[#f7f8f8]">
+            {lang === 'es' ? 'Privacidad 100% en el Navegador' : lang === 'pt' ? 'Privacidade 100% no Navegador' : 'Local Privacy'}
+          </h2>
+          <p class="text-xs text-[#8a8f98] leading-relaxed">
+            {lang === 'es' && 'Ninguna fecha se transmite a servidores ni se almacena en bases de datos. Todo el procesamiento se realiza en local.'}
+            {lang === 'pt' && 'Nenhuma data de nascimento é enviada a servidores ou gravada em cookies. O cálculo ocorre inteiramente em seu dispositivo.'}
+            {lang !== 'es' && lang !== 'pt' && 'All arithmetic operations run in your client browser sandbox.'}
+          </p>
+        </div>
+
+        <div class="p-6 bg-[#141516] rounded-[8px] space-y-3 border border-[#23252a]">
+          <div class="w-8 h-8 rounded-[6px] bg-[#0f1011] border border-[#23252a] flex items-center justify-center text-[#5e6ad2]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <h2 class="text-base font-semibold text-[#f7f8f8]">
+            {lang === 'es' ? 'Rigor Cronológico' : lang === 'pt' ? 'Exatidão Matemática' : 'Mathematical Precision'}
+          </h2>
+          <p class="text-xs text-[#8a8f98] leading-relaxed">
+            {lang === 'es' && 'Mecanismo verificado frente a años bisiestos, siglos bisiestos (1900, 2000, 2100) y convenciones del cómputo civil.'}
+            {lang === 'pt' && 'Algoritmo rigoroso que considera as peculiaridades dos anos bissextos, viradas de século e as regras práticas do direito civil brasileiro.'}
+            {lang !== 'es' && lang !== 'pt' && 'Rigorous leap century handling and verified astronomical calendar data.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+

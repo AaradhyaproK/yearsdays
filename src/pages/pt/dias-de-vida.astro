@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DaysAliveCalculator from '../../components/tools/DaysAliveCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/days-alive/',
+  es: '/es/dias-de-vida/',
+  pt: '/pt/dias-de-vida/',
+};
+
+const title = 'Calculadora de Dias de Vida: Quantos Dias Já Viveu?';
+const description = 'Descubra quantos dias, horas e minutos você já viveu na Terra. Calcule seu próximo marco de 10.000 dias com esta ferramenta rápida e 100% privada.';
+
+const faqItems = [
+  {
+    q: 'Como a calculadora determina quantos dias de vida eu tenho?',
+    a: 'O sistema converte a data de nascimento e o momento presente para UTC à meia-noite e divide a diferença em milissegundos por 86.400.000 ms, assegurando precisão total sem variações de horário de verão.',
+  },
+  {
+    q: 'Com quantos anos uma pessoa completa 10.000 dias de vida?',
+    a: 'O marco de 10.000 dias de vida ocorre aproximadamente aos 27 anos, 4 meses e 15 dias de idade (computando os anos bissextos). Trata-se de uma data muito comemorada entre adultos jovens.',
+  },
+  {
+    q: 'Os anos bissextos são computados no total de dias vividos?',
+    a: 'Sim. Todo dia 29 de fevereiro vivenciado ao longo de sua trajetória é somado automaticamente na contagem total de dias corridos.',
+  },
+  {
+    q: 'É possível saber quantas horas e minutos eu já vivi?',
+    a: 'Sim. A ferramenta multiplica a quantidade de dias solares por 24 horas e os minutos multiplicando as horas por 60 para apresentar os totais acumulados.',
+  },
+  {
+    q: 'A minha data de nascimento fica gravada em algum banco de dados?',
+    a: 'Não. Todas as rotinas operam 100% no navegador do seu celular ou computador em JavaScript. Nenhuma informação pessoal é enviada para servidores.',
+  },
+  {
+    q: 'Qual o significado do marco de 20.000 dias de vida?',
+    a: 'Alcançar 20.000 dias de vida acontece por volta dos 54 anos e 9 meses, simbolizando mais de meio século de vivências acumuladas.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="pt"
+  currentPath="/pt/dias-de-vida/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="pt" items={[{ label: 'Ferramentas', href: '/pt/tools/' }, { label: 'Dias de Vida' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Calculadora de Dias de Vida: Descubra Quantos Dias Você Tem
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Calcule seus dias totais na Terra, a contagem regressiva para seus 10.000 dias e suas estatísticas vitais.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        A <strong class="text-[#f7f8f8]">calculadora de dias de vida</strong> calcula a soma total de dias corridos transcorridos desde a sua data de nascimento até o momento atual. Ela transforma a sua existência em uma contagem contínua, permitindo comemorar marcos marcantes como o seu aniversário de 10.000 dias de vida na Terra.
+      </p>
+    </div>
+
+    <DaysAliveCalculator client:load lang="pt" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Como Calcular os Dias de Vida com Exatidão
+        </h2>
+        <p class="text-[#8a8f98]">
+          Diferente da idade convencional em anos (que se reinicia anualmente no dia do aniversário), a contagem de dias de vida oferece uma régua linear e contínua da sua existência:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Conversão para UTC:</strong> A data de nascimento e a data presente são convertidas para o padrão UTC às 00:00:00 para eliminar divergências de horário de verão.</li>
+          <li><strong>Diferença em Milissegundos:</strong> Subtrai-se o marco inicial do marco de destino em milissegundos.</li>
+          <li><strong>Divisão pelo Dia Solar:</strong> O valor resultante é dividido por 86.400.000 milissegundos (24 horas × 60 minutos × 60 segundos × 1.000 ms) com arredondamento para o número inteiro mais próximo.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Tabela de Marcos Métricos: A Comemoração dos 10.000 Dias
+        </h2>
+        <p class="text-[#8a8f98]">
+          Os marcos métricos de dias representam momentos especiais para celebrar a vida além dos aniversários anuais:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border border-[#23252a] rounded-[8px] overflow-hidden">
+            <thead class="bg-[#141516] text-[#8a8f98] font-mono uppercase">
+              <tr>
+                <th class="p-3 border-b border-[#23252a]">Marco Métrico</th>
+                <th class="p-3 border-b border-[#23252a]">Idade Aproximada</th>
+                <th class="p-3 border-b border-[#23252a]">Significado</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#18191a] text-[#8a8f98]">
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">1.000 Dias</td>
+                <td class="p-3 font-mono">~2,7 anos</td>
+                <td class="p-3">Primeira infância e primeiros passos</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">5.000 Dias</td>
+                <td class="p-3 font-mono">~13,7 anos</td>
+                <td class="p-3">Início da adolescência e juventude</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">10.000 Dias</td>
+                <td class="p-3 font-mono">~27,4 anos</td>
+                <td class="p-3">Grande marco métrico da idade adulta jovem</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">15.000 Dias</td>
+                <td class="p-3 font-mono">~41,1 anos</td>
+                <td class="p-3">Quatro décadas de vivências diárias</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">20.000 Dias</td>
+                <td class="p-3 font-mono">~54,7 anos</td>
+                <td class="p-3">Mais de meio século de trajetória</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">25.000 Dias</td>
+                <td class="p-3 font-mono">~68,4 anos</td>
+                <td class="p-3">Plenitude e maturidade sênior</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Outras Calculadoras Relacionadas
+        </h2>
+        <p class="text-[#8a8f98]">
+          Confira sua idade exata em anos, meses e dias na <a href="/pt/" class="text-[#5e6ad2] hover:underline">Calculadora de Idade</a> principal ou acompanhe a contagem para seu próximo aniversário na <a href="/pt/tools/birthday-countdown/" class="text-[#5e6ad2] hover:underline">Contagem Regressiva de Aniversário</a>. Para calcular intervalos de trabalho e prazos judiciais, use <a href="/pt/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Calcular Dias Entre Duas Datas</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Perguntas Frequentes
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="pt" />
+  </div>
+</BaseLayout>

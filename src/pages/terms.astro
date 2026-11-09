@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const title = 'Terms of Service - YearsDays';
+const description = 'Terms and conditions governing the use of YearsDays.';
+---
+
+<BaseLayout title={title} description={description} lang="en" currentPath="/terms/">
+  <div class="space-y-6">
+    <Breadcrumbs lang="en" items={[{ label: 'Terms of Service' }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        Terms of Service
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">Effective Date: November 9, 2026</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">1. Acceptance of Terms</h2>
+        <p class="text-[#8a8f98]">
+          By accessing and using <strong>Age &amp; Date Calculator</strong>, you accept and agree to be bound by these terms. If you do not agree, you should not access or use the site.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">2. Informational Purpose &amp; Statutory Disclaimer</h2>
+        <p class="text-[#8a8f98]">
+          Our chronological calculations and educational articles are provided free of charge for informational and general estimation purposes only. While our mathematical engine is rigorously verified against Gregorian calendar rules, astronomical lookup tables, and leap century boundaries:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li>Statutory legal deadlines, retirement eligibility dates, civil service examination age cutoffs, and visa criteria vary significantly by national, regional, and municipal jurisdictions.</li>
+          <li>Users must consult official government statutes, gazettes, or authoritative registry offices for binding legal determinations.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">3. Intellectual Property</h2>
+        <p class="text-[#8a8f98]">
+          All original textual explanations, design tokens, source code, and mathematical implementations are protected by applicable intellectual property and copyright laws.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

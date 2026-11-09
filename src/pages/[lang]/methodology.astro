@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Metodología Editorial y Matemática - Calculadora de Edad',
+  pt: 'Metodologia Editorial e Matemática - Calculadora de Idade',
+  de: 'Berechnungsmethodik - Altersrechner',
+  fr: 'Méthodologie Éditoriale - Calculateur d\'Âge',
+  it: 'Metodologia di Calcolo - Calcolatore di Età',
+  tr: 'Hesaplama Metodolojisi - Yaş Hesaplama',
+};
+
+const title = titles[lang] || `${t.nav.methodology} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/methodology/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.methodology }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        {t.nav.methodology}
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">2026-11-09 • Chronometry Engineering Desk</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '1. Algoritmo de Préstamo de Calendario' : lang === 'pt' ? '1. Algoritmo de Empréstimo Calendário' : '1. Calendar Borrow Algorithm'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'Nuestro motor no utiliza divisiones decimales simplificadas. Emplea aritmética entera de préstamo basada en los días reales del mes inmediatamente precedente a la fecha de destino.'}
+          {lang === 'pt' && 'Nosso sistema não utiliza aproximações decimais de 30 ou 30,43 dias. Implementamos o algoritmo exato de empréstimo de calendário baseado nos dias reais do mês anterior.'}
+          {lang !== 'es' && lang !== 'pt' && 'Our engine uses discrete calendar borrow algorithms based on the exact length of the month prior to the target date.'}
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '2. Regla de Años Bisiestos y Siglos' : lang === 'pt' ? '2. Regra de Anos e Séculos Bissextos' : '2. Leap Century Rules'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'Un año es bisiesto si es divisible por 4, salvo que sea fin de siglo, en cuyo caso debe ser divisible por 400. Por eso, 2000 fue bisiesto, pero 1900 y 2100 son años comunes.'}
+          {lang === 'pt' && 'Um ano é bissexto quando divisível por 4, exceto términos de século, que exigem divisibilidade por 400. Logo, 2000 foi bissexto, ao passo que 1900 e 2100 são anos comuns.'}
+          {lang !== 'es' && lang !== 'pt' && 'A year is a leap year if divisible by 4, except century years which must be divisible by 400 (e.g. 2000 was leap, 1900 and 2100 are common).'}
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '3. Fuentes Astronómicas y de Efemérides' : lang === 'pt' ? '3. Fontes Astronômicas e Efemérides' : '3. Astronomical & Ephemeris Data Sources'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'Nuestros datos astronómicos y de calendario lunar se validan contra tablas oficiales del Observatorio de Hong Kong (HKO) y las efemérides astronómicas del Observatorio Naval de los Estados Unidos (USNO).'}
+          {lang === 'pt' && 'Nossos dados astronômicos e de calendário lunar são validados perante tabelas oficiais do Observatório de Hong Kong (HKO) e efemérides astronômicas do Observatório Naval dos Estados Unidos (USNO).'}
+          {lang !== 'es' && lang !== 'pt' && 'Our astronomical and lunar calendar data is verified against standard astronomical ephemerides from HKO and USNO.'}
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#18191a]">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '4. Cómputo Total Inmune al Cambio de Hora (UTC)' : lang === 'pt' ? '4. Contagem Total Imune ao Horário de Verão (UTC)' : '4. DST-Immune Day Totals'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'Los totales de días, semanas y horas transcurridas se calculan a la medianoche UTC. Como el tiempo universal no tiene horario de verano, los días solares duran exactamente 86.400.000 ms y carecen de desfases artificiales de 23 o 25 horas.'}
+          {lang === 'pt' && 'O total de dias, semanas e horas decorridas é calculado na meia-noite UTC. Como a contagem universal não possui horário de verão, cada dia solar tem exatamente 86.400.000 ms, impedindo desvios artificiais de 23 ou 25 horas.'}
+          {lang !== 'es' && lang !== 'pt' && 'All duration metrics compute using UTC midnight, ensuring zero daylight saving time shifts.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

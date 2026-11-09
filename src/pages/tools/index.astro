@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Chronological Date & Age Calculators';
+const description = 'Explore specialized date and chronological calculators: days alive, days between dates, date offset, birthday countdown, and pet human years.';
+---
+
+<BaseLayout title={title} description={description} lang="en" currentPath="/tools/">
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'All Tools' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Chronological Date & Age Calculators
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Specialized date math and chronological calculation engines engineered with mathematical precision and client-side privacy.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <ToolsHub lang="en" hideHeader={true} />
+    </div>
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-6 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+        High-Precision Chronological Computing
+      </h2>
+      <p class="text-[#8a8f98]">
+        Every tool in our suite is built upon pure UTC calendar arithmetic to eliminate daylight saving time errors, irregular month rollover glitches, and leap year inaccuracies. Whether calculating statutory legal deadlines, tracking biological milestones, or computing interval durations, our algorithms guarantee mathematically verifiable results.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+          <h3 class="font-medium text-sm text-[#f7f8f8]">100% Client-Side Privacy</h3>
+          <p class="text-xs text-[#8a8f98]">
+            Your dates, ages, and personal timelines never leave your device. No cloud analytics, no server cookies, and no tracking.
+          </p>
+        </div>
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+          <h3 class="font-medium text-sm text-[#f7f8f8]">Gregorian Leap Year Precision</h3>
+          <p class="text-xs text-[#8a8f98]">
+            Full historical and forward support for leap centuries, February 29 birthdays, and month-end clamping rules.
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

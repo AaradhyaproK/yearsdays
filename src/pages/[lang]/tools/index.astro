@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ToolsHub from '../../../components/ToolsHub.astro';
+import { getTranslations, type SupportedLocale } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Calculadoras de Fechas y Cronología',
+  pt: 'Calculadoras de Datas e Cronometria',
+  de: 'Datumsrechner und Zeitwerkzeuge',
+  fr: 'Calculateurs de Dates et Chronologie',
+  it: 'Calcolatori di Date e Cronologia',
+  tr: 'Tarih ve Zaman Hesaplama Araçları',
+};
+
+const descriptions: Record<string, string> = {
+  es: 'Explora nuestra suite de calculadoras de fechas: días entre dos fechas, días vividos, sumar o restar días, cuenta atrás y edad de mascotas.',
+  pt: 'Explore nossa coleção de calculadoras de datas: dias entre duas datas, dias vividos, somar ou subtrair dias, contagem regressiva e idade pet.',
+  de: 'Spezialisierte Rechner für Daten und Zeit: Tage zwischen zwei Daten, gelebte Tage, Tage addieren/subtrahieren und Haustieralter.',
+  fr: 'Calculateurs de dates et chronologie: jours entre deux dates, jours vécus, ajouter/soustraire des jours et âge des animaux.',
+  it: 'Calcolatori di date e cronologia: giorni tra due date, giorni vissuti, aggiungi/sottrai giorni ed età degli animali.',
+  tr: 'Tarih ve yaş hesaplama araçları: iki tarih arasındaki gün sayısı, yaşanılan gün, gün ekleme/çıkarma ve evcil hayvan yaşı.',
+};
+
+const title = titles[lang] || `${t.nav.tools} - YearsDays`;
+const description = descriptions[lang] || descriptions.es;
+---
+
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/tools/`}>
+  <div class="space-y-10">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.tools }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        {title}
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        {description}
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <ToolsHub lang={lang} hideHeader={true} />
+    </div>
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-6 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+        {lang === 'es' && 'Cálculo Cronológico de Alta Precisión'}
+        {lang === 'pt' && 'Cálculo Cronológico de Alta Precisão'}
+        {lang !== 'es' && lang !== 'pt' && 'High-Precision Chronological Computing'}
+      </h2>
+      <p class="text-[#8a8f98]">
+        {lang === 'es' && 'Cada herramienta de nuestra suite está diseñada con aritmética de calendario UTC pura para eliminar errores por cambios de hora (horario de verano/invierno), desajustes en meses de longitud irregular y años bisiestos. Ya sea para calcular plazos administrativos, oposiciones, contratos o hitos biológicos, nuestros algoritmos garantizan resultados matemáticamente exactos.'}
+        {lang === 'pt' && 'Todas as calculadoras da nossa plataforma operam com aritmética de calendário UTC pura para evitar desvios de horário de verão, variações de meses e ajustes de anos bissextos. Seja para cálculo de prazos jurídicos, concursos públicos, contagem previdenciária ou marcos pessoais, os resultados são estritamente exatos.'}
+        {lang !== 'es' && lang !== 'pt' && 'Every tool in our suite is built upon pure UTC calendar arithmetic to eliminate daylight saving time errors, irregular month rollover glitches, and leap year inaccuracies.'}
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+          <h3 class="font-medium text-sm text-[#f7f8f8]">
+            {lang === 'es' ? '100% Privado en tu Navegador' : lang === 'pt' ? '100% Privado no seu Navegador' : '100% Client-Side Privacy'}
+          </h3>
+          <p class="text-xs text-[#8a8f98]">
+            {lang === 'es' ? 'Tus fechas y datos personales nunca se envían por internet ni se guardan en cookies o servidores.' : lang === 'pt' ? 'Suas datas e dados pessoais nunca são enviados pela rede nem salvos em cookies ou servidores.' : 'Your dates never leave your browser.'}
+          </p>
+        </div>
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+          <h3 class="font-medium text-sm text-[#f7f8f8]">
+            {lang === 'es' ? 'Precisión Gregoriana y Bisiestos' : lang === 'pt' ? 'Precisão Gregoriana e Bissextos' : 'Gregorian Leap Precision'}
+          </h3>
+          <p class="text-xs text-[#8a8f98]">
+            {lang === 'es' ? 'Soporte completo para años bisiestos seculares, nacidos el 29 de febrero y ajuste de fin de mes.' : lang === 'pt' ? 'Suporte integral para anos bissextos seculares, nascidos em 29 de fevereiro e limites de fim de mês.' : 'Full support for leap centuries and February 29 birthdays.'}
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

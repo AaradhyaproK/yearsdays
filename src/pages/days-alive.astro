@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import DaysAliveCalculator from '../components/tools/DaysAliveCalculator';
+import ToolsHub from '../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/days-alive/',
+  es: '/es/dias-de-vida/',
+  pt: '/pt/dias-de-vida/',
+};
+
+const title = 'Days Alive Calculator: How Many Days Old Are You?';
+const description = 'Discover the exact number of days, hours, and minutes you have lived on Earth. Calculate your next 10,000-day milestone with our private, real-time tool.';
+
+const faqItems = [
+  {
+    q: 'How does the calculator determine exactly how many days I have been alive?',
+    a: 'It converts your date of birth and the current date into UTC midnight timestamps and divides the millisecond difference by 86,400,000 ms. This guarantees exact calendar day accuracy without Daylight Saving Time shifts.',
+  },
+  {
+    q: 'When do people turn 10,000 days old?',
+    a: 'Turning 10,000 days old occurs at approximately 27 years, 4 months, and 15 days of age (including leap year days). It is widely celebrated as a major metric life milestone.',
+  },
+  {
+    q: 'Are leap days included in my total days alive count?',
+    a: 'Yes. Every leap day (February 29) that has occurred during your lifetime is automatically counted in your total days alive tally.',
+  },
+  {
+    q: 'Can I calculate how many hours and minutes I have lived?',
+    a: 'Yes. Total elapsed hours are computed by multiplying completed solar days by 24 hours, and elapsed minutes by multiplying hours by 60.',
+  },
+  {
+    q: 'Is my birth date transmitted or stored anywhere?',
+    a: 'No. All calculations run 100% locally in your browser. No birth dates or personal data are stored, logged, or shared.',
+  },
+  {
+    q: 'What is the significance of the 20,000-day milestone?',
+    a: 'The 20,000-day milestone occurs at approximately 54 years and 9 months of age, representing over five decades of daily experience on Earth.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/days-alive/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Days Alive Calculator' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Days Alive Calculator: Exactly How Many Days Have You Lived?
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Calculate your total days on Earth, countdown to your next 10,000-day milestone, and vital life metrics.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        A <strong class="text-[#f7f8f8]">days alive calculator</strong> computes the cumulative total number of calendar days elapsed since the day of your birth. By converting your lifespan into continuous 24-hour solar days, it reveals unique personal milestones such as your 10,000th or 20,000th day on Earth alongside vital biological and cosmic statistics.
+      </p>
+    </div>
+
+    <DaysAliveCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How to Calculate Total Days Alive Accurately
+        </h2>
+        <p class="text-[#8a8f98]">
+          Unlike standard calendar age (which resets every 365 or 366 days), measuring total days alive provides a continuous, linear tally of your existence. To calculate this mathematically:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>UTC Timestamp Conversion:</strong> The birth date and current date are converted to UTC midnight to avoid artificial 1-hour Daylight Saving Time offsets.</li>
+          <li><strong>Millisecond Difference:</strong> The elapsed time in milliseconds is calculated: <code>diffMs = targetUtc - birthUtc</code>.</li>
+          <li><strong>Division by Solar Day Length:</strong> The difference is divided by 86,400,000 ms (24 hours × 60 minutes × 60 seconds × 1,000 milliseconds) and rounded to the nearest integer.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Major Day Milestones: The 10,000-Day Celebration
+        </h2>
+        <p class="text-[#8a8f98]">
+          Because standard birthdays occur annually, metric day milestones offer fresh, memorable celebrations:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border border-[#23252a] rounded-[8px] overflow-hidden">
+            <thead class="bg-[#141516] text-[#8a8f98] font-mono uppercase">
+              <tr>
+                <th class="p-3 border-b border-[#23252a]">Day Milestone</th>
+                <th class="p-3 border-b border-[#23252a]">Approximate Age</th>
+                <th class="p-3 border-b border-[#23252a]">Significance</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#18191a] text-[#8a8f98]">
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">1,000 Days</td>
+                <td class="p-3 font-mono">~2.7 years</td>
+                <td class="p-3">Early toddler development milestone</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">5,000 Days</td>
+                <td class="p-3 font-mono">~13.7 years</td>
+                <td class="p-3">Adolescence &amp; high school transition</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">10,000 Days</td>
+                <td class="p-3 font-mono">~27.4 years</td>
+                <td class="p-3">Major adult metric milestone</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">15,000 Days</td>
+                <td class="p-3 font-mono">~41.1 years</td>
+                <td class="p-3">Four decades of life experience</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">20,000 Days</td>
+                <td class="p-3 font-mono">~54.7 years</td>
+                <td class="p-3">Over half a century of life</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-[#f7f8f8]">25,000 Days</td>
+                <td class="p-3 font-mono">~68.4 years</td>
+                <td class="p-3">Senior achievement milestone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Related Date Tools
+        </h2>
+        <p class="text-[#8a8f98]">
+          Explore our <a href="/" class="text-[#5e6ad2] hover:underline">Age Calculator</a> for discrete years, months, and days, or calculate duration between arbitrary calendar dates with the <a href="/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Days Between Dates Calculator</a>. You can also track your next anniversary with the <a href="/tools/birthday-countdown/" class="text-[#5e6ad2] hover:underline">Birthday Countdown</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" />
+  </div>
+</BaseLayout>

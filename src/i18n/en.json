@@ -1,0 +1,99 @@
+{
+  "modes": {
+    "ageToday": "Age Today",
+    "ageOnDate": "Age on Specific Date",
+    "compareTwo": "Compare Two People"
+  },
+  "labels": {
+    "birthDate": "Date of Birth",
+    "targetDate": "Target Date",
+    "person1": "First Person",
+    "person2": "Second Person",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "calculate": "Calculate Age",
+    "clear": "Clear",
+    "today": "Today"
+  },
+  "results": {
+    "ageTitle": "Calculated Age",
+    "years": "years",
+    "months": "months",
+    "days": "days",
+    "yearsOld": "years old",
+    "bornOn": "Born on",
+    "targetDateIs": "As of"
+  },
+  "totals": {
+    "title": "Lifetime Totals",
+    "totalMonths": "Total Months",
+    "totalWeeks": "Total Weeks",
+    "totalDays": "Total Days",
+    "totalHours": "Total Hours",
+    "totalMinutes": "Total Minutes",
+    "totalSeconds": "Total Seconds",
+    "remainingDays": "days"
+  },
+  "nextBirthday": {
+    "title": "Next Birthday Countdown",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Mins",
+    "seconds": "Secs",
+    "todayIsBirthday": "Happy Birthday! Today is your special day!"
+  },
+  "milestones": {
+    "title": "Life Milestones",
+    "upcoming": "Upcoming",
+    "passed": "Passed",
+    "date": "Date"
+  },
+  "funFacts": {
+    "title": "Astrology & Vital Estimates",
+    "weekdayBorn": "Day of the Week",
+    "westernZodiac": "Western Zodiac",
+    "chineseZodiac": "Chinese Zodiac",
+    "element": "Element",
+    "modality": "Modality",
+    "heartbeats": "Estimated Heartbeats",
+    "breaths": "Estimated Breaths",
+    "roughEstimate": "rough estimate (based on average resting rates)"
+  },
+  "share": {
+    "shareResults": "Share Summary",
+    "copyText": "Copy Summary",
+    "downloadImage": "Download Card Image",
+    "copied": "Copied to clipboard!"
+  },
+  "compare": {
+    "title": "Age Comparison",
+    "olderBy": "is older by",
+    "sameAge": "Both people were born on the exact same date."
+  },
+  "errors": {
+    "invalidDate": "Please enter a valid calendar date.",
+    "futureBirth": "Birth date cannot be after the target date.",
+    "yearRange": "Year must be between 1900 and 2100."
+  },
+  "ad": {
+    "advertisement": "Advertisement"
+  },
+  "nav": {
+    "home": "Home",
+    "calculator": "Age Calculator",
+    "tools": "All Tools",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "methodology": "Editorial Methodology"
+  },
+  "cookie": {
+    "heading": "Privacy & Cookies",
+    "text": "This site performs 100% client-side calculations. Your birthdates are never sent to a server, never stored in cookies, and never tracked.",
+    "accept": "Accept Essential",
+    "learnMore": "Learn More"
+  }
+}

@@ -1,0 +1,116 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Calculator from '../../components/Calculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const entry = await getEntry('editorial', lang);
+const { Content } = entry ? await entry.render() : { Content: null };
+
+const title = entry?.data.title || t.nav.calculator;
+const description = entry?.data.description || t.results.ageTitle;
+
+const faqItems = entry?.data.faq || [];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang={lang}
+  currentPath={`/${lang}/`}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        {lang === 'es' ? 'Calculadora de Edad: ¿Cuántos Años Tengo Hoy?' : lang === 'pt' ? 'Calculadora de Idade: Quantos Anos Eu Tenho Hoje?' : title}
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        {description}
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        {lang === 'es' && (
+          <>
+            Una <strong class="text-[#f7f8f8]">calculadora de edad</strong> responde con exactitud a la pregunta <em>"¿cuántos años tengo hoy?"</em> determinando el tiempo cronológico transcurrido entre tu fecha de nacimiento y la fecha actual o una fecha límite específica. Expresa la duración en años cumplidos, meses y días exactos, considerando las irregularidades del calendario gregoriano como años bisiestos y meses de diferente duración.
+          </>
+        )}
+        {lang === 'pt' && (
+          <>
+            Uma <strong class="text-[#f7f8f8]">calculadora de idade</strong> responde com precisão à pergunta <em>"quantos anos eu tenho hoje?"</em> computando o intervalo cronológico exato entre a data de nascimento e a data atual ou uma data de referência. O resultado é decomposto em anos completos, meses e dias restantes, compensando automaticamente anos bissextos e durações variáveis dos meses no calendário gregoriano.
+          </>
+        )}
+        {lang !== 'es' && lang !== 'pt' && (
+          <>
+            An <strong class="text-[#f7f8f8]">age calculator</strong> determines the exact elapsed chronological time between your date of birth and the current date (or a chosen target date) in discrete calendar years, months, and days.
+          </>
+        )}
+      </p>
+    </div>
+
+    <Calculator client:load lang={lang} />
+
+    {entry && (
+      <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-6 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+        {Content && <Content />}
+
+        {faqItems.length > 0 && (
+          <div class="pt-6 border-t border-[#18191a]">
+            <h2 class="text-xl font-semibold text-[#f7f8f8] mb-4 tracking-tight">
+              {lang === 'es' ? 'Preguntas Frecuentes' : lang === 'pt' ? 'Perguntas Frequentes' : 'FAQ'}
+            </h2>
+            <div class="space-y-3">
+              {faqItems.map((item) => (
+                <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+                  <h3 class="font-medium text-[#f7f8f8] text-sm">
+                    {item.q}
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="pt-4 border-t border-[#18191a] flex flex-wrap items-center justify-between text-xs text-[#62666d] font-mono">
+          <span>Reviewed by: <strong class="text-[#8a8f98]">{entry.data.author}</strong></span>
+          <span>Last verified: <time datetime={entry.data.lastUpdated} class="text-[#8a8f98]">{entry.data.lastUpdated}</time></span>
+        </div>
+      </article>
+    )}
+
+    <ToolsHub lang={lang} />
+  </div>
+</BaseLayout>
+

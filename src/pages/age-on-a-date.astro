@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Calculator from '../components/Calculator';
+import ToolsHub from '../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/age-on-a-date/',
+  es: '/es/edad-en-una-fecha/',
+  pt: '/pt/idade-em-uma-data/',
+};
+
+const title = 'Age on a Specific Date Calculator: Cutoff & Past Age';
+const description = 'Calculate your exact age on any past, present, or future cutoff date. Ideal for civil service exams, school admissions, job applications, and retirement.';
+
+const faqItems = [
+  {
+    q: 'How does the calculator determine age on a specific target date?',
+    a: 'The tool calculates the elapsed duration between your date of birth and your chosen reference date using the exact Gregorian borrow algorithm. It returns completed years, months, and days without rounding errors.',
+  },
+  {
+    q: 'What is an "Age as on" cutoff date in official applications?',
+    a: 'An age cutoff date is a mandatory statutory reference date set by exam boards or employers (such as August 1 or January 1). Applicants must meet minimum and maximum age criteria as of that specific day, regardless of when they submit the form.',
+  },
+  {
+    q: 'Can I calculate my age on a past historical date?',
+    a: 'Yes. You can select any historical date after your birth date to see exactly how old you were during key life events, graduations, or past statutory deadlines.',
+  },
+  {
+    q: 'How are leap years handled when projecting age to future dates?',
+    a: 'The engine accounts for all intercalary leap days (February 29) between your birth date and the target date. For individuals born on February 29, it applies the standard February 28 civil progression in common years.',
+  },
+  {
+    q: 'Does this tool transmit my birth date to a remote server?',
+    a: 'No. All date calculations run 100% client-side in your local browser sandbox. No dates are logged, tracked, or sent across the network.',
+  },
+  {
+    q: 'What happens if the target date is before the birth date?',
+    a: 'If you select a target date that precedes the birth date, the calculator notifies you that the target date cannot be prior to the date of birth.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/age-on-a-date/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Age on a Specific Date' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Age on a Specific Date Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Determine your exact chronological age on any past or future calendar date. 100% private and client-side.
+      </p>
+    </div>
+
+    {/* Featured Snippet Direct Answer Definition Block */}
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        An <strong class="text-[#f7f8f8]">age on a specific date calculator</strong> computes your exact chronological age at any selected calendar date in the past or future. It compares your date of birth against an arbitrary reference point, providing the precise elapsed duration in completed years, months, and days required for statutory eligibility and administrative applications.
+      </p>
+    </div>
+
+    <Calculator client:load lang="en" initialMode="on-date" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How to Calculate Your Age on a Cutoff Date
+        </h2>
+        <p class="text-[#8a8f98]">
+          Determining your age on an arbitrary calendar date requires comparing two discrete calendar timestamps: your birth date and the designated target date. Rather than dividing total days by an average year length (which causes rounding discrepancies), the calculation follows discrete calendar borrow arithmetic:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Day Comparison:</strong> Subtract the birth day from the target day. If the target day is smaller, borrow the complete day count of the month immediately preceding the target month.</li>
+          <li><strong>Month Comparison:</strong> Adjust the target month for any borrowed days, then subtract the birth month. If negative, borrow 12 months from the target year.</li>
+          <li><strong>Year Comparison:</strong> Subtract the birth year from the adjusted target year to establish completed full years of life.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Worked Example: Civil Service Eligibility Cutoff
+        </h2>
+        <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2 text-xs">
+          <p class="font-medium text-[#f7f8f8]">Scenario:</p>
+          <ul class="space-y-1 text-[#8a8f98]">
+            <li>• <strong>Date of Birth:</strong> August 15, 1998</li>
+            <li>• <strong>Target Cutoff Date:</strong> August 1, 2024</li>
+          </ul>
+          <p class="text-[#8a8f98] pt-1">
+            <strong>Calculation:</strong> Because August 1 precedes August 15, the candidate has not yet reached their 26th birthday on the cutoff date. Borrowing 31 days from July (the month preceding August), the day count is <code>1 + 31 - 15 = 17 days</code>. The adjusted month is <code>7 - 8 = -1</code>; borrowing 12 months from 2024 yields <code>7 - 1 + 12 - 8 = 10 months</code>. The adjusted year is <code>2023 - 1998 = 25 years</code>.
+          </p>
+          <p class="text-[#f7f8f8] font-mono pt-1">
+            Verified Age as on August 1, 2024: <strong>25 years, 11 months, and 17 days</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Administrative &amp; Exam Cutoff Context
+        </h2>
+        <p class="text-[#8a8f98]">
+          In competitive entrance examinations, civil service posts, and public recruitment drives worldwide, age criteria are strictly evaluated on a fixed statutory cutoff date. For example, major public bodies such as the Union Public Service Commission (<a href="https://upsc.gov.in" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:underline">upsc.gov.in</a>) and the Staff Selection Commission (<a href="https://ssc.gov.in" target="_blank" rel="noopener noreferrer" class="text-[#5e6ad2] hover:underline">ssc.gov.in</a>) in India prescribe explicit qualifying dates (frequently August 1 or January 1).
+        </p>
+        <p class="text-[#8a8f98]">
+          Candidates must meet minimum and maximum age thresholds on that exact date. You can also explore our <a href="/" class="text-[#5e6ad2] hover:underline">Age Calculator</a> for your current age, or use the <a href="/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Days Between Dates Calculator</a> to audit notice windows.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">
+                {item.q}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" />
+  </div>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getTranslations, type SupportedLocale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const launchLangs = (process.env.LAUNCH_LANGS || 'en,es,pt')
+    .split(',')
+    .map((l) => l.trim().toLowerCase());
+
+  return launchLangs
+    .filter((l) => l !== 'en')
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = getTranslations(lang);
+
+const titles: Record<string, string> = {
+  es: 'Política de Cookies - Calculadora de Edad',
+  pt: 'Política de Cookies - Calculadora de Idade',
+  de: 'Cookie-Richtlinie - Altersrechner',
+  fr: 'Politique relative aux Cookies - Calculateur d\'Âge',
+  it: 'Politica sui Cookie - Calcolatore di Età',
+  tr: 'Çerez Politikası - Yaş Hesaplama',
+};
+
+const title = titles[lang] || `${t.nav.cookies} - YearsDays`;
+---
+
+<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/cookies/`}>
+  <div class="space-y-6">
+    <Breadcrumbs lang={lang} items={[{ label: t.nav.cookies }]} />
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 shadow-sm space-y-6 text-sm text-[#d0d6e0] leading-relaxed">
+      <h1 class="text-3xl font-semibold text-[#f7f8f8] tracking-tight">
+        {t.nav.cookies}
+      </h1>
+      <p class="text-xs font-mono text-[#62666d]">2026-11-09</p>
+
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold text-[#f7f8f8]">
+          {lang === 'es' ? '1. Cookies Técnicas y Almacenamiento Local' : lang === 'pt' ? '1. Armazenamento Técnico e Cookies' : '1. Technical Storage'}
+        </h2>
+        <p class="text-[#8a8f98]">
+          {lang === 'es' && 'No utilizamos cookies de seguimiento de datos personales. Las fechas ingresadas se calculan al 100% en cliente.'}
+          {lang === 'pt' && 'Não utilizamos cookies para rastreamento de dados pessoais ou histórico. Os cálculos rodam 100% no cliente.'}
+          {lang !== 'es' && lang !== 'pt' && 'We do not track user identities. All calculations run strictly client-side.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

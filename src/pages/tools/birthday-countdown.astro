@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import BirthdayCountdownCalculator from '../../components/tools/BirthdayCountdownCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Birthday Countdown - Live Ticking Clock';
+const description = 'Live ticking countdown to your next birthday in days, hours, minutes, and seconds. See upcoming milestone ages and next 5 birthday weekdays.';
+
+const faqItems = [
+  {
+    q: 'How many days until my birthday?',
+    a: 'Enter your birth date above and the calculator instantly displays the exact days, hours, minutes, and seconds remaining until your next birthday, ticking in real time.',
+  },
+  {
+    q: 'Does the live countdown drain device battery?',
+    a: 'No. The timer listens to page visibility events. When you minimize the browser or switch tabs, the tick interval automatically pauses, immediately resuming with exact synchronization when you return.',
+  },
+  {
+    q: 'How does the countdown handle February 29 leap day birthdays?',
+    a: 'In non-leap years, the countdown targets February 28 (the common civil birthday observation). During leap years (such as 2028 or 2032), it accurately targets February 29.',
+  },
+  {
+    q: 'Why does my birthday fall on a different day of the week each year?',
+    a: 'A standard calendar year has 365 days, which equals 52 weeks plus 1 day. Therefore, your birthday shifts forward by 1 weekday every standard year, and by 2 weekdays when crossing a leap day.',
+  },
+  {
+    q: 'Can I share my birthday countdown without exposing my private birth year?',
+    a: 'Yes. The countdown displays time remaining to your upcoming celebration. No personal birth records or timestamps are transmitted or stored.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/birthday-countdown/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Birthday Countdown' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Birthday Countdown Timer
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Live ticking countdown to your next birthday celebration with upcoming milestone ages and future weekday schedules.
+      </p>
+    </div>
+
+    <BirthdayCountdownCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How the Live Birthday Countdown Works
+        </h2>
+        <p class="text-[#8a8f98]">
+          Whether you are planning a milestone birthday party, tracking the final days until legal adulthood, or simply anticipating a personal day of celebration, our <strong>live birthday countdown</strong> calculates the precise interval remaining down to the second.
+        </p>
+        <p class="text-[#8a8f98]">
+          Unlike static calendars, our ticking engine computes the exact millisecond delta between the current system second and midnight on the morning of your upcoming birthday in your local time zone.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Why Weekdays Shift: The Math of Solar Drift
+        </h2>
+        <p class="text-[#8a8f98]">
+          Have you ever wondered why your birthday is on a Tuesday one year and a Thursday two years later?
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-xs text-[#8a8f98]">
+          <li><strong>Standard Years:</strong> 365 days divided by 7 equals 52 weeks and <strong>1 remainder day</strong>. Each standard year advances your birthday by exactly one day of the week (e.g. Monday to Tuesday).</li>
+          <li><strong>Leap Years:</strong> 366 days divided by 7 yields 52 weeks and <strong>2 remainder days</strong>. Passing through a leap year skips an extra weekday (e.g. Wednesday jumps directly to Friday).</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Major Milestone Birthdays to Track
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">18th & 21st Birthdays</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Legal age of majority, civil franchise, driving licenses, and contract independence across most worldwide jurisdictions.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">30th, 40th, 50th Jubilees</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Decade milestones that mark significant career maturity, personal development, and generational transitions.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">60th & 65th Milestones</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Statutory retirement eligibility, pension vesting, senior travel concessions, and long-term leisure planning.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1.5">
+              <h3 class="text-sm font-medium text-[#f7f8f8]">{item.q}</h3>
+              <p class="text-xs text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="birthday-countdown" />
+  </div>
+</BaseLayout>

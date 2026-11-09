@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DaysBetweenCalculator from '../../components/tools/DaysBetweenCalculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const title = 'Days Between Dates Calculator - Duration';
+const description = 'Calculate exact calendar days, business days, and elapsed weeks between two dates. Free, private, and precise leap-year calculations.';
+
+const faqItems = [
+  {
+    q: 'How do you calculate the exact number of days between two dates?',
+    a: 'To calculate the exact days between two dates, convert both dates into UTC midnight timestamps and subtract the start timestamp from the end timestamp. Divide the resulting millisecond difference by 86,400,000 (the exact number of milliseconds in a 24-hour day). This avoids daylight saving time (DST) errors.',
+  },
+  {
+    q: 'Does this date difference calculator include or exclude the end date?',
+    a: 'By default, standard calendar duration counts elapsed intervals (excluding the start day or counting from midnight to midnight). Our tool displays both the elapsed days and the inclusive count (adding 1 day), which is frequently required in legal contracts, leave applications, and civil deadlines.',
+  },
+  {
+    q: 'How are business days and working days calculated?',
+    a: 'Our calculator iterates through every calendar day between the start and end dates, identifying and filtering out Saturdays and Sundays. The remaining count represents standard Monday-through-Friday business working days.',
+  },
+  {
+    q: 'How does leap year affect the day count between two dates?',
+    a: 'Whenever the interval spans February 29 of a leap year (such as 2024, 2028, or 2032), the additional leap day is counted as a full calendar day. Century leap years (divisible by 400 like 2000) are counted as leap years, while non-leap century years (1900, 2100) are correctly treated as 365-day years.',
+  },
+  {
+    q: 'Why does dividing total days by 30 give an inaccurate monthly count?',
+    a: 'Because Gregorian months have varying lengths (28, 29, 30, or 31 days). A casual 30-day division produces cumulative rounding errors. Discrete calendar math tracks exact month rollovers for complete accuracy.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/tools/days-between-dates/"
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Days Between Dates' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Days Between Dates Calculator
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Calculate the exact number of days, weeks, business days, and weekend days between any two calendar dates. 100% private and client-side.
+      </p>
+    </div>
+
+    <DaysBetweenCalculator client:load lang="en" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How to Calculate Days Between Two Dates Accurately
+        </h2>
+        <p class="text-[#8a8f98]">
+          Determining the elapsed time between two calendar dates is one of the most frequent date calculations in project scheduling, legal compliance, financial interest calculations, and travel planning. However, casual estimation often causes costly errors due to calendar irregularities:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-[#8a8f98]">
+          <li><strong>Variable Month Lengths:</strong> Months fluctuate from 28 to 31 days.</li>
+          <li><strong>Leap Years:</strong> February contains 29 days in leap years, adding an extra day every 4 years (with century exceptions).</li>
+          <li><strong>Daylight Saving Time (DST) Transitions:</strong> Spring forward and fall back shifts produce 23-hour and 25-hour days that break naive timestamp math.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Inclusive vs. Exclusive Date Counting
+        </h2>
+        <p class="text-[#8a8f98]">
+          When calculating duration, you must identify whether your use case requires <em>exclusive</em> or <em>inclusive</em> counting:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Exclusive Counting (Duration)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Counts the elapsed nights or 24-hour periods between the two dates (e.g., hotel reservations, rental periods, elapsed age). May 1 to May 3 equals 2 elapsed days.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Inclusive Counting (Calendar Days)</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Includes both the first day and the final day in the tally (e.g., event passes, statutory filing windows, employee leave). May 1 to May 3 equals 3 calendar days.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Common Real-World Use Cases
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1">
+            <strong class="text-[#f7f8f8] block">Legal &amp; Statutory Deadlines</strong>
+            <span class="text-[#8a8f98]">Notice periods, court filings, contractual grace periods, and statute of limitations cutoffs.</span>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1">
+            <strong class="text-[#f7f8f8] block">Project Management (SLA)</strong>
+            <span class="text-[#8a8f98]">Sprint timelines, delivery milestones, business working days, and product turnaround windows.</span>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-1">
+            <strong class="text-[#f7f8f8] block">Personal Milestones</strong>
+            <span class="text-[#8a8f98]">Wedding anniversaries, relationship duration, fitness streaks, and pregnancy due date intervals.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-[#18191a] space-y-4">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">{item.q}</h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" />
+  </div>
+</BaseLayout>

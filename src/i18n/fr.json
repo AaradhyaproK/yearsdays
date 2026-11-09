@@ -1,0 +1,99 @@
+{
+  "modes": {
+    "ageToday": "Âge Aujourd'hui",
+    "ageOnDate": "Âge à une date précise",
+    "compareTwo": "Comparer deux personnes"
+  },
+  "labels": {
+    "birthDate": "Date de naissance",
+    "targetDate": "Date cible",
+    "person1": "Première personne",
+    "person2": "Deuxième personne",
+    "day": "Jour",
+    "month": "Mois",
+    "year": "Année",
+    "calculate": "Calculer l'âge",
+    "clear": "Effacer",
+    "today": "Aujourd'hui"
+  },
+  "results": {
+    "ageTitle": "Âge Calculé",
+    "years": "ans",
+    "months": "mois",
+    "days": "jours",
+    "yearsOld": "ans",
+    "bornOn": "Né(e) le",
+    "targetDateIs": "À la date du"
+  },
+  "totals": {
+    "title": "Totaux cumulés de vie",
+    "totalMonths": "Total de mois",
+    "totalWeeks": "Total de semaines",
+    "totalDays": "Total de jours",
+    "totalHours": "Total d'heures",
+    "totalMinutes": "Total de minutes",
+    "totalSeconds": "Total de secondes",
+    "remainingDays": "jours"
+  },
+  "nextBirthday": {
+    "title": "Compte à rebours du prochain anniversaire",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Min",
+    "seconds": "Sec",
+    "todayIsBirthday": "Joyeux anniversaire ! C'est votre journée spéciale !"
+  },
+  "milestones": {
+    "title": "Grandes étapes de vie",
+    "upcoming": "À venir",
+    "passed": "Atteint",
+    "date": "Date"
+  },
+  "funFacts": {
+    "title": "Astrologie et données vitales",
+    "weekdayBorn": "Jour de naissance",
+    "westernZodiac": "Signe astrologique",
+    "chineseZodiac": "Signe chinois",
+    "element": "Élément",
+    "modality": "Modalité",
+    "heartbeats": "Battements de cœur estimés",
+    "breaths": "Respirations estimées",
+    "roughEstimate": "estimation approximative (fréquence moyenne au repos)"
+  },
+  "share": {
+    "shareResults": "Partager le résumé",
+    "copyText": "Copier le texte",
+    "downloadImage": "Télécharger la carte",
+    "copied": "Copié dans le presse-papiers !"
+  },
+  "compare": {
+    "title": "Comparaison d'âges",
+    "olderBy": "est plus âgé(e) de",
+    "sameAge": "Les deux personnes sont nées exactement le même jour."
+  },
+  "errors": {
+    "invalidDate": "Veuillez saisir une date valide.",
+    "futureBirth": "La date de naissance ne peut pas être postérieure à la date cible.",
+    "yearRange": "L'année doit être comprise entre 1900 et 2100."
+  },
+  "ad": {
+    "advertisement": "Publicité"
+  },
+  "nav": {
+    "home": "Accueil",
+    "calculator": "Calculateur d'Âge",
+    "tools": "Tous les outils",
+    "about": "À propos",
+    "contact": "Contact",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "cookies": "Politique des cookies",
+    "methodology": "Méthodologie éditoriale"
+  },
+  "cookie": {
+    "heading": "Confidentialité & Cookies",
+    "text": "Ce site effectue ses calculs exclusivement sur votre appareil. Vos dates ne sont jamais transmises à des serveurs.",
+    "accept": "Accepter l'essentiel",
+    "learnMore": "En savoir plus"
+  }
+}

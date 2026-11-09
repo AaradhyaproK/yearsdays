@@ -1,0 +1,99 @@
+{
+  "modes": {
+    "ageToday": "Età Oggi",
+    "ageOnDate": "Età a una data specifica",
+    "compareTwo": "Confronta due persone"
+  },
+  "labels": {
+    "birthDate": "Data di nascita",
+    "targetDate": "Data di riferimento",
+    "person1": "Prima persona",
+    "person2": "Seconda persona",
+    "day": "Giorno",
+    "month": "Mese",
+    "year": "Anno",
+    "calculate": "Calcola età",
+    "clear": "Cancella",
+    "today": "Oggi"
+  },
+  "results": {
+    "ageTitle": "Età Calcolata",
+    "years": "anni",
+    "months": "mesi",
+    "days": "giorni",
+    "yearsOld": "anni compiuti",
+    "bornOn": "Nato/a il",
+    "targetDateIs": "Al giorno"
+  },
+  "totals": {
+    "title": "Totali di vita accumulati",
+    "totalMonths": "Mesi totali",
+    "totalWeeks": "Settimane totali",
+    "totalDays": "Giorni totali",
+    "totalHours": "Ore totali",
+    "totalMinutes": "Minuti totali",
+    "totalSeconds": "Secondi totali",
+    "remainingDays": "giorni"
+  },
+  "nextBirthday": {
+    "title": "Conto alla rovescia prossimo compleanno",
+    "days": "Giorni",
+    "hours": "Ore",
+    "minutes": "Min",
+    "seconds": "Sec",
+    "todayIsBirthday": "Buon Compleanno! Oggi è il tuo giorno speciale!"
+  },
+  "milestones": {
+    "title": "Traguardi di vita",
+    "upcoming": "In arrivo",
+    "passed": "Raggiunto",
+    "date": "Data"
+  },
+  "funFacts": {
+    "title": "Astrologia e stime vitali",
+    "weekdayBorn": "Giorno della settimana",
+    "westernZodiac": "Segno zodiacale",
+    "chineseZodiac": "Zodiaco cinese",
+    "element": "Elemento",
+    "modality": "Modalità",
+    "heartbeats": "Battiti cardiaci stimati",
+    "breaths": "Respiri stimati",
+    "roughEstimate": "stima approssimativa (frequenza media a riposo)"
+  },
+  "share": {
+    "shareResults": "Condividi riepilogo",
+    "copyText": "Copia testo",
+    "downloadImage": "Scarica scheda",
+    "copied": "Copiato negli appunti!"
+  },
+  "compare": {
+    "title": "Confronto d'età",
+    "olderBy": "è più anziano/a di",
+    "sameAge": "Entrambe le persone sono nate esattamente lo stesso giorno."
+  },
+  "errors": {
+    "invalidDate": "Inserisci una data valida dal calendario.",
+    "futureBirth": "La data di nascita non può essere successiva alla data di riferimento.",
+    "yearRange": "L'anno deve essere compreso tra il 1900 e il 2100."
+  },
+  "ad": {
+    "advertisement": "Pubblicità"
+  },
+  "nav": {
+    "home": "Home",
+    "calculator": "Calcolatore Età",
+    "tools": "Tutti gli strumenti",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "privacy": "Privacy Policy",
+    "terms": "Termini di servizio",
+    "cookies": "Informativa Cookie",
+    "methodology": "Metodologia Editoriale"
+  },
+  "cookie": {
+    "heading": "Privacy & Cookie",
+    "text": "Questo sito esegue calcoli 100% nel tuo browser. Le date di nascita non vengono mai inviate a server esterni.",
+    "accept": "Accetta essenziali",
+    "learnMore": "Maggiori informazioni"
+  }
+}
