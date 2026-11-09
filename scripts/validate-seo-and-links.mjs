@@ -128,13 +128,20 @@ if (!fs.existsSync(notFoundPath)) {
   console.log('✓ dist/404.html exists.');
 }
 
-// 7. Verify Sitemap Index
+// 7. Verify Sitemap Index & Direct Sitemap
 const sitemapPath = path.join(DIST_DIR, 'sitemap-index.xml');
+const directSitemapPath = path.join(DIST_DIR, 'sitemap.xml');
 if (!fs.existsSync(sitemapPath)) {
   console.error('❌ dist/sitemap-index.xml does not exist!');
   errorsCount++;
 } else {
   console.log('✓ dist/sitemap-index.xml exists.');
+}
+if (!fs.existsSync(directSitemapPath)) {
+  console.error('❌ dist/sitemap.xml does not exist!');
+  errorsCount++;
+} else {
+  console.log('✓ dist/sitemap.xml exists (with all URLs).');
 }
 
 // 8. Verify robots.txt
