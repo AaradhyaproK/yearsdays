@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Calculator from '../../components/Calculator';
+import ToolsHub from '../../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/age-difference/',
+  es: '/es/diferencia-de-edad/',
+  pt: '/pt/diferenca-de-idade/',
+};
+
+const title = 'Calculadora de Diferença de Idade Entre Duas Pessoas';
+const description = 'Calcule a diferença de idade exata entre duas pessoas em anos, meses, dias e total de dias. Ferramenta gratuita e 100% privada no navegador.';
+
+const faqItems = [
+  {
+    q: 'Como calcular a diferença de idade exata entre duas pessoas?',
+    a: 'Nossa calculadora compara a data de nascimento mais antiga com a mais recente usando aritmética de empréstimo do calendário gregoriano, exibindo anos, meses, dias e o total exato de dias corridos entre elas.',
+  },
+  {
+    q: 'Por que subtrair apenas o ano de nascimento gera erro?',
+    a: 'Duas pessoas nascidas em dezembro de 1995 e janeiro de 1996 possuem diferença de 1 na subtração dos anos, mas têm apenas alguns dias de diferença real de idade.',
+  },
+  {
+    q: 'A ordem em que informo as datas interfere no resultado?',
+    a: 'Não. O sistema identifica automaticamente quem é mais velho e calcula o intervalo cronológico exato entre as duas datas.',
+  },
+  {
+    q: 'Anos bissextos entram na contagem da diferença de idade?',
+    a: 'Sim. Todos os dias 29 de fevereiro entre as duas datas de nascimento são contabilizados tanto no cálculo composto quanto no total de dias.',
+  },
+  {
+    q: 'As datas digitadas ficam salvas em algum servidor?',
+    a: 'Não. Todo o processamento acontece 100% localmente no seu navegador, sem envio de dados ou gravação em cookies.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="pt"
+  currentPath="/pt/diferenca-de-idade/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="pt" items={[{ label: 'Ferramentas', href: '/pt/tools/' }, { label: 'Diferença de Idade' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Calculadora de Diferença de Idade Entre Duas Pessoas
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Descubra a diferença cronológica exata entre duas datas de nascimento em anos, meses e total de dias. 100% privada.
+      </p>
+    </div>
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        A <strong class="text-[#f7f8f8]">calculadora de diferença de idade</strong> compara duas datas de nascimento para apontar quem é mais velho e calcular a distância exata em anos completos, meses, dias restantes e total de dias corridos.
+      </p>
+    </div>
+
+    <Calculator client:load lang="pt" initialMode="compare" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Como Funciona o Cálculo de Diferença de Idade
+        </h2>
+        <p class="text-[#8a8f98]">
+          Ao contrário de estimativas baseadas apenas no ano civil, nosso algoritmo considera a duração exata de cada mês (28, 29, 30 ou 31 dias) e a passagem de anos bissextos, entregando a distância cronológica real entre duas pessoas.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Principais Aplicações no Dia a Dia
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Casais</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Veja a diferença exata de idade do casal em anos, meses e dias corridos.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Irmãos e Família</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Calcule o espaçamento exato entre irmãos, pais, filhos e registros de genealogia.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Categorias e Prazos</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Confira diferenças de dias em categorias esportivas, pesquisas e comparações históricas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Calculadoras Relacionadas
+        </h2>
+        <p class="text-[#8a8f98]">
+          Confira também a <a href="/pt/" class="text-[#5e6ad2] hover:underline">Calculadora de Idade</a> principal, verifique a <a href="/pt/idade-em-uma-data/" class="text-[#5e6ad2] hover:underline">Idade em uma Data</a> ou calcule intervalos em <a href="/pt/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Dias Entre Duas Datas</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Perguntas Frequentes
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">{item.q}</h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="pt" currentTool="age-difference" />
+  </div>
+</BaseLayout>
+

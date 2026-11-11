@@ -28,6 +28,11 @@ export async function getStaticPaths() {
   const paths: { params: { lang: string; tool: string } }[] = [];
   for (const lang of launchLangs.filter((l) => l !== 'en')) {
     for (const tool of tools) {
+      // /es/tools/days-alive/ and /pt/tools/days-alive/ permanently 301-redirect
+      // to /es/dias-de-vida/ and /pt/dias-de-vida/ via public/_redirects.
+      if (tool === 'days-alive' && (lang === 'es' || lang === 'pt')) {
+        continue;
+      }
       paths.push({ params: { lang, tool } });
     }
   }

@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'Hakkımızda - YearsDays',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Conoce la misión de YearsDays, nuestros estándares matemáticos de precisión cronológica y nuestra arquitectura de privacidad 100% local.',
+  pt: 'Conheça a missão do YearsDays, nossos padrões matemáticos de precisão cronológica e nossa arquitetura de privacidade 100% local.',
+  de: 'Erfahren Sie mehr über YearsDays, unsere mathematischen Standards und lokale Datensicherheit.',
+  fr: 'Découvrez la mission de YearsDays, nos normes mathématiques et notre confidentialité 100% locale.',
+  it: 'Scopri la missione di YearsDays, gli standard matematici e la privacy 100% locale.',
+  tr: 'YearsDays misyonunu, matematiksel standartlarımızı ve %100 yerel gizlilik mimarimizi öğrenin.',
+};
+
 const title = titles[lang] || `${t.nav.about} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/about/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/about/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.about }]} />
 

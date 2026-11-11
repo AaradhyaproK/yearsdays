@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'Çerez Politikası - Yaş Hesaplama',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Información detallada sobre el almacenamiento local funcional, cookies técnicas esenciales y controles de consentimiento publicitario.',
+  pt: 'Explicação detalhada sobre armazenamento local técnico, cookies essenciais e controles de consentimento de publicidade.',
+  de: 'Informationen zu technischen Cookies, lokaler Speicherung und Werbeeinwilligung.',
+  fr: 'Détails sur le stockage local technique, les cookies essentiels et la gestion du consentement.',
+  it: 'Dettagli su archiviazione locale tecnica, cookie essenziali e gestione del consenso.',
+  tr: 'Teknik yerel depolama, temel çerezler ve reklam onay mekanizmaları hakkında ayrıntılar.',
+};
+
 const title = titles[lang] || `${t.nav.cookies} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/cookies/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/cookies/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.cookies }]} />
 

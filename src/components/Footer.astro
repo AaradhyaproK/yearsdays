@@ -16,6 +16,38 @@ const links = [
   { href: getLocalizedPath('cookies', lang), label: t.nav.cookies },
   { href: getLocalizedPath('methodology', lang), label: t.nav.methodology },
 ];
+
+const footerCopy: Record<
+  string,
+  { badge: string; privacyNote: string; legalNote: string; rights: string }
+> = {
+  en: {
+    badge: 'Zero Data Retention Guarantee',
+    privacyNote:
+      'Calculations execute 100% locally in your browser. Birthdates and target dates are never stored, logged, or transmitted across any network.',
+    legalNote:
+      'Legal Notice: Chronological thresholds and statutory milestones vary across jurisdictions. Always consult official government gazettes for legal and administrative requirements.',
+    rights: 'All rights reserved. Engineered with discrete calendar mathematics.',
+  },
+  es: {
+    badge: 'Garantía de Cero Retención de Datos',
+    privacyNote:
+      'Todos los cálculos se ejecutan al 100% en tu navegador. Las fechas introducidas nunca se almacenan, registran ni envían por la red.',
+    legalNote:
+      'Aviso legal: Los plazos administrativos y requisitos de edad varían según cada jurisdicción. Consulta siempre los boletines oficiales vigentes.',
+    rights: 'Todos los derechos reservados. Cálculo cronológico de alta precisión.',
+  },
+  pt: {
+    badge: 'Garantia de Zero Retenção de Dados',
+    privacyNote:
+      'Todos os cálculos são executados 100% no seu navegador. Suas datas nunca são armazenadas, registradas ou enviadas pela rede.',
+    legalNote:
+      'Aviso legal: Prazos administrativos e requisitos etários variam conforme a legislação vigente. Consulte sempre os órgãos e diários oficiais.',
+    rights: 'Todos os direitos reservados. Matemática de calendário discreta e exata.',
+  },
+};
+
+const copy = footerCopy[lang] || footerCopy.en;
 ---
 
 <footer class="mt-20 border-t border-[#23252a] bg-[#010102] py-12 sm:py-16 text-xs text-[#8a8f98]">
@@ -38,16 +70,12 @@ const links = [
         <svg class="w-3.5 h-3.5 text-[#5e6ad2]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
         </svg>
-        <span class="font-medium text-[#d0d6e0]">Zero Data Retention Guarantee</span>
+        <span class="font-medium text-[#d0d6e0]">{copy.badge}</span>
       </div>
-      <p>
-        Calculations execute 100% locally in your browser. Birthdates and target dates are never stored, logged, or transmitted across any network.
-      </p>
-      <p class="text-[11px] text-[#62666d]">
-        Legal Notice: Chronological thresholds and statutory milestones vary across jurisdictions. Always consult official government gazettes for legal and administrative requirements.
-      </p>
+      <p>{copy.privacyNote}</p>
+      <p class="text-[11px] text-[#62666d]">{copy.legalNote}</p>
       <p class="pt-2 text-[11px] font-mono text-[#62666d]">
-        &copy; {new Date().getFullYear()} YearsDays (yearsdays.com). All rights reserved. Engineered with discrete calendar mathematics.
+        &copy; {new Date().getFullYear()} YearsDays (yearsdays.com). {copy.rights}
       </p>
     </div>
   </div>

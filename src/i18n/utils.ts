@@ -59,6 +59,21 @@ export const SLUG_MAP: Record<string, Partial<Record<SupportedLocale, string>>> 
     es: 'edad-en-una-fecha',
     pt: 'idade-em-uma-data',
   },
+  'age-difference': {
+    en: 'age-difference',
+    es: 'diferencia-de-edad',
+    pt: 'diferenca-de-idade',
+  },
+  'diferencia-de-edad': {
+    en: 'age-difference',
+    es: 'diferencia-de-edad',
+    pt: 'diferenca-de-idade',
+  },
+  'diferenca-de-idade': {
+    en: 'age-difference',
+    es: 'diferencia-de-edad',
+    pt: 'diferenca-de-idade',
+  },
 };
 
 /**

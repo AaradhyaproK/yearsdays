@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Calculator from '../components/Calculator';
+import ToolsHub from '../components/ToolsHub.astro';
+
+const alternateUrls = {
+  en: '/age-difference/',
+  es: '/es/diferencia-de-edad/',
+  pt: '/pt/diferenca-de-idade/',
+};
+
+const title = 'Age Difference Calculator: Exact Age Gap Between Two People';
+const description = 'Calculate the exact age gap between two birthdates in years, months, days, and total days. Ideal for couples, siblings, and generational comparisons.';
+
+const faqItems = [
+  {
+    q: 'How is the exact age difference between two people calculated?',
+    a: 'The calculator compares the earlier birthdate (older person) against the later birthdate (younger person) using discrete Gregorian calendar borrow arithmetic. It outputs completed years, months, days, and exact total calendar days separating them.',
+  },
+  {
+    q: 'Why does total days difference matter when comparing ages?',
+    a: 'Two people born in the same calendar year can still differ by up to 364 days, while two people born in December and January may appear a year apart by birth year yet be only days apart in chronological age.',
+  },
+  {
+    q: 'Does the age gap calculator handle leap years accurately?',
+    a: 'Yes. Every February 29 leap day occurring between the two birthdates is included in both the discrete calendar difference and the total elapsed days count.',
+  },
+  {
+    q: 'Does the order in which I enter the two birthdates matter?',
+    a: 'No. The calculator automatically identifies which person is older and computes the positive chronological gap between the two dates.',
+  },
+  {
+    q: 'Are the birthdates I compare stored or sent to a server?',
+    a: 'Never. All comparisons run 100% locally inside your browser. Neither birthdate is logged, stored in cookies, or transmitted over the network.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  currentPath="/age-difference/"
+  alternateUrls={alternateUrls}
+  jsonLd={[faqJsonLd]}
+>
+  <div class="space-y-10">
+    <Breadcrumbs lang="en" items={[{ label: 'Tools', href: '/tools/' }, { label: 'Age Difference Calculator' }]} />
+
+    <div class="text-center max-w-2xl mx-auto space-y-2.5">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-[#f7f8f8] tracking-tight">
+        Age Difference Calculator: Compare Two Ages
+      </h1>
+      <p class="text-sm sm:text-base text-[#8a8f98] leading-relaxed">
+        Find the exact chronological age gap between two people in years, months, days, and total elapsed days. 100% private and client-side.
+      </p>
+    </div>
+
+    <div class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-5 sm:p-6 text-xs sm:text-sm text-[#d0d6e0] leading-relaxed shadow-sm">
+      <p>
+        An <strong class="text-[#f7f8f8]">age difference calculator</strong> measures the exact chronological gap between two dates of birth. By applying calendar-aware subtraction between the older and younger birthdates, it determines who is older and expresses the exact age difference in completed years, months, remaining days, and total calendar days.
+      </p>
+    </div>
+
+    <Calculator client:load lang="en" initialMode="compare" />
+
+    <article class="bg-[#0f1011] border border-[#23252a] rounded-[12px] p-6 sm:p-10 space-y-8 text-sm text-[#d0d6e0] leading-relaxed shadow-sm mt-10 sm:mt-14">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          How to Calculate the Age Gap Between Two Birthdates
+        </h2>
+        <p class="text-[#8a8f98]">
+          Subtracting birth years alone often creates misleading age gap estimates. For example, someone born on December 28, 1995 and someone born on January 4, 1996 differ by one calendar year number, yet their actual age difference is only <strong>7 days</strong>.
+        </p>
+        <p class="text-[#8a8f98]">
+          To eliminate calendar ambiguity, our engine orders the two birthdates chronologically and applies discrete month-length borrowing from the earlier date to the later date, alongside a UTC midnight day-count difference.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Common Age Gap Comparison Use Cases
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Partners &amp; Couples</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Measure the exact age gap in years, months, and days between partners, regardless of which birth month falls first in the calendar year.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Siblings &amp; Family Trees</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Calculate exact spacing between siblings, parents, and children for family timelines, genealogy, and milestone planning.
+            </p>
+          </div>
+          <div class="p-4 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+            <h3 class="font-medium text-sm text-[#f7f8f8]">Sports &amp; Age Brackets</h3>
+            <p class="text-xs text-[#8a8f98]">
+              Verify exact day-level age differences for youth athletics, eligibility brackets, and historical biography comparisons.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Related Chronological Calculators
+        </h2>
+        <p class="text-[#8a8f98]">
+          Check your individual age with our <a href="/" class="text-[#5e6ad2] hover:underline">Age Calculator</a>, determine eligibility on a cutoff date with <a href="/age-on-a-date/" class="text-[#5e6ad2] hover:underline">Age on a Specific Date</a>, or count calendar and working days via <a href="/tools/days-between-dates/" class="text-[#5e6ad2] hover:underline">Days Between Dates</a>.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-6 border-t border-[#18191a]">
+        <h2 class="text-xl font-semibold text-[#f7f8f8] tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3 pt-2">
+          {faqItems.map((item) => (
+            <div class="p-5 bg-[#141516] border border-[#23252a] rounded-[8px] space-y-2">
+              <h3 class="font-medium text-[#f7f8f8] text-sm">{item.q}</h3>
+              <p class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <ToolsHub lang="en" currentTool="age-difference" />
+  </div>
+</BaseLayout>
+

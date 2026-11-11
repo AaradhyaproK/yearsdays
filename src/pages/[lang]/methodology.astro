@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'Hesaplama Metodolojisi - Yaş Hesaplama',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Metodología matemática de YearsDays: algoritmo de préstamo de calendario, reglas de años bisiestos, cálculo UTC y fuentes astronómicas.',
+  pt: 'Metodologia matemática do YearsDays: algoritmo de empréstimo de calendário, anos bissextos, cálculo UTC e fontes astronômicas.',
+  de: 'Mathematische Methodik von YearsDays: Kalender-Algorithmen, Schaltjahre und UTC-Berechnung.',
+  fr: 'Méthodologie mathématique de YearsDays: algorithmes calendaires, années bissextiles et calcul UTC.',
+  it: 'Metodologia matematica di YearsDays: algoritmi di calendario, anni bisestili e calcolo UTC.',
+  tr: 'YearsDays matematiksel metodolojisi: takvim algoritmaları, artık yıllar ve UTC hesaplaması.',
+};
+
 const title = titles[lang] || `${t.nav.methodology} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/methodology/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/methodology/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.methodology }]} />
 

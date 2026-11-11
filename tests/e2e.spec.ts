@@ -17,7 +17,7 @@ const routesToTest = [
   { path: '/pt/', name: 'home-pt' },
   { path: '/tools/', name: 'tools' },
   { path: '/tools/days-between-dates/', name: 'tool-days-between' },
-  { path: '/es/tools/days-alive/', name: 'tool-days-alive-es' },
+  { path: '/es/dias-de-vida/', name: 'tool-days-alive-es' },
   { path: '/pt/tools/pet-age/', name: 'tool-pet-age-pt' },
   { path: '/about/', name: 'about' },
   { path: '/privacy/', name: 'privacy' },

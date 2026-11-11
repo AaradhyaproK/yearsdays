@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'Kullanım Koşulları - Yaş Hesaplama',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Términos y condiciones de uso de las calculadoras cronológicas y guías informativas de YearsDays.',
+  pt: 'Termos e condições de uso das calculadoras cronológicas e conteúdos informativos do YearsDays.',
+  de: 'Nutzungsbedingungen für die chronologischen Rechner und Leitfäden von YearsDays.',
+  fr: 'Conditions d\'utilisation des calculateurs chronologiques et guides d\'information de YearsDays.',
+  it: 'Termini e condizioni d\'uso dei calcolatori cronologici e delle guide di YearsDays.',
+  tr: 'YearsDays kronolojik hesaplayıcıları ve bilgilendirme kılavuzlarının kullanım koşulları.',
+};
+
 const title = titles[lang] || `${t.nav.terms} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/terms/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/terms/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.terms }]} />
 

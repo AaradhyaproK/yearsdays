@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'İletişim - Yaş Hesaplama',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Contacta con el equipo editorial y técnico de YearsDays para consultas, sugerencias de herramientas o soporte.',
+  pt: 'Entre em contato com a equipe editorial e técnica do YearsDays para dúvidas, sugestões ou suporte.',
+  de: 'Kontaktieren Sie das Redaktions- und Technikteam von YearsDays für Feedback und Support.',
+  fr: 'Contactez l\'équipe éditoriale et technique de YearsDays pour toute question ou suggestion.',
+  it: 'Contatta il team editoriale e tecnico di YearsDays per domande, feedback o supporto.',
+  tr: 'Sorularınız, araç önerileriniz veya teknik destek için YearsDays ekibiyle iletişime geçin.',
+};
+
 const title = titles[lang] || `${t.nav.contact} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/contact/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/contact/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.contact }]} />
 

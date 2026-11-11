@@ -25,10 +25,20 @@ const titles: Record<string, string> = {
   tr: 'Gizlilik Politikası - Yaş Hesaplama',
 };
 
+const descriptions: Record<string, string> = {
+  es: 'Política de privacidad transparente: cálculos 100% locales sin retención de fechas de nacimiento, RGPD, LGPD, CCPA y preferencias de anuncios.',
+  pt: 'Política de privacidade transparente: cálculos 100% locais sem retenção de datas, conformidade com LGPD, RGPD e opções de anúncios.',
+  de: 'Transparente Datenschutzerklärung: 100% lokale Berechnung ohne Datenspeicherung nach DSGVO.',
+  fr: 'Politique de confidentialité transparente: calculs 100% locaux sans conservation de données (RGPD).',
+  it: 'Informativa sulla privacy trasparente: calcoli 100% locali senza conservazione dei dati (GDPR).',
+  tr: 'Şeffaf gizlilik politikası: veri saklamadan %100 yerel hesaplama, KVKK ve GDPR uyumu.',
+};
+
 const title = titles[lang] || `${t.nav.privacy} - YearsDays`;
+const description = descriptions[lang] || t.cookie.text;
 ---
 
-<BaseLayout title={title} description={t.cookie.text} lang={lang} currentPath={`/${lang}/privacy/`}>
+<BaseLayout title={title} description={description} lang={lang} currentPath={`/${lang}/privacy/`} isAppPage={false}>
   <div class="space-y-6">
     <Breadcrumbs lang={lang} items={[{ label: t.nav.privacy }]} />
 

@@ -5,14 +5,14 @@ const title = '404 - Page Not Found';
 const description = 'The requested chronological resource or calculator could not be found.';
 
 const popularTools = [
-  { slug: 'days-between-dates', name: 'Days Between Dates Calculator', desc: 'Exact calendar difference with or without end day inclusion.' },
-  { slug: 'birthday-countdown', name: 'Birthday Countdown', desc: 'Real-time live countdown down to the exact second.' },
-  { slug: 'days-alive', name: 'Days Alive Calculator', desc: 'Discover your 10,000-day and 20,000-day milestone dates.' },
-  { slug: 'pet-age', name: 'Pet Age in Human Years', desc: 'Veterinary non-linear age curves for cats and dogs.' },
+  { href: '/tools/days-between-dates/', name: 'Days Between Dates Calculator', desc: 'Exact calendar difference with or without end day inclusion.' },
+  { href: '/tools/birthday-countdown/', name: 'Birthday Countdown', desc: 'Real-time live countdown down to the exact second.' },
+  { href: '/days-alive/', name: 'Days Alive Calculator', desc: 'Discover your 10,000-day and 20,000-day milestone dates.' },
+  { href: '/tools/pet-age/', name: 'Pet Age in Human Years', desc: 'Veterinary non-linear age curves for cats and dogs.' },
 ];
 ---
 
-<BaseLayout title={title} description={description} lang="en" currentPath="/404/">
+<BaseLayout title={title} description={description} lang="en" currentPath="/404/" noindex={true} isAppPage={false}>
   <div class="py-12 max-w-2xl mx-auto space-y-8 text-center">
     <div class="text-7xl font-bold text-[#5e6ad2] font-mono tracking-tight">404</div>
     <div class="space-y-2">
@@ -40,7 +40,7 @@ const popularTools = [
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {popularTools.map((tool) => (
           <a
-            href={`/tools/${tool.slug}/`}
+            href={tool.href}
             class="p-4 rounded-[8px] border border-[#23252a] bg-[#0f1011] hover:bg-[#141516] hover:border-[#34343a] transition-all"
           >
             <div class="font-medium text-sm text-[#f7f8f8]">

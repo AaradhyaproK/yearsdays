@@ -9,6 +9,5 @@ Allow: /
 User-agent: Mediapartners-Google
 Allow: /
 
-# Canonical host sitemaps
+# Canonical host sitemap
 Sitemap: https://yearsdays.com/sitemap.xml
-Sitemap: https://yearsdays.com/sitemap-index.xml

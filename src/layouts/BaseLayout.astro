@@ -13,6 +13,8 @@ interface Props {
   currentPath?: string;
   jsonLd?: Record<string, any>[];
   alternateUrls?: Partial<Record<SupportedLocale, string>>;
+  noindex?: boolean;
+  isAppPage?: boolean;
 }
 
 const {
@@ -22,6 +24,8 @@ const {
   currentPath = '/',
   jsonLd = [],
   alternateUrls,
+  noindex = false,
+  isAppPage = true,
 } = Astro.props;
 
 const siteUrl = Astro.site?.origin || process.env.SITE_URL || 'https://yearsdays.com';
@@ -45,11 +49,6 @@ const websiteJsonLd = {
   alternateName: 'YearsDays - Age & Date Calculator',
   url: siteUrl,
   inLanguage: bcp47,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${siteUrl}/tools/?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 const organizationJsonLd = {
@@ -65,22 +64,25 @@ const organizationJsonLd = {
   },
 };
 
-// Base WebApplication JSON-LD
-const webAppJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'YearsDays - Exact Chronological & Age Calculator',
-  url: canonicalUrl,
-  applicationCategory: 'UtilityApplication',
-  operatingSystem: 'All',
-  browserRequirements: 'Requires JavaScript for interactive calculation. Fully accessible static fallback.',
-  inLanguage: bcp47,
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-};
+// Base WebApplication JSON-LD (only emitted on actual calculator/tool pages)
+const webAppJsonLd = isAppPage
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: title,
+      description,
+      url: canonicalUrl,
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires JavaScript for interactive calculation.',
+      inLanguage: bcp47,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -90,26 +92,35 @@ const webAppJsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
-    {/* Self-Referencing Canonical Link (Strict Trailing Slash) */}
-    <link rel="canonical" href={canonicalUrl} />
+    {!noindex && (
+      <>
+        {/* Self-Referencing Canonical Link (Strict Trailing Slash) */}
+        <link rel="canonical" href={canonicalUrl} />
 
-    {/* Reciprocal Hreflang Alternates */}
-    {launchLangs.map((l) => {
-      const pathForLang = alternateUrls?.[l] || getLocalizedPath(currentPath, l);
-      const altUrl = new URL(pathForLang, siteUrl).href;
-      const altBcp47 = LOCALES[l]?.bcp47 || l;
-      return <link rel="alternate" hreflang={altBcp47} href={altUrl} />;
-    })}
-    <link rel="alternate" hreflang="x-default" href={new URL(alternateUrls?.['en'] || getLocalizedPath(currentPath, 'en'), siteUrl).href} />
+        {/* Reciprocal Hreflang Alternates */}
+        {launchLangs.map((l) => {
+          const pathForLang = alternateUrls?.[l] || getLocalizedPath(currentPath, l);
+          const altUrl = new URL(pathForLang, siteUrl).href;
+          const altBcp47 = LOCALES[l]?.bcp47 || l;
+          return <link rel="alternate" hreflang={altBcp47} href={altUrl} />;
+        })}
+        <link rel="alternate" hreflang="x-default" href={new URL(alternateUrls?.['en'] || getLocalizedPath(currentPath, 'en'), siteUrl).href} />
+      </>
+    )}
 
     {/* Open Graph Localized */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={bcp47.replace('-', '_')} />
+    {launchLangs
+      .filter((l) => l !== lang)
+      .map((l) => (
+        <meta property="og:locale:alternate" content={(LOCALES[l]?.bcp47 || l).replace('-', '_')} />
+      ))}
     <meta property="og:site_name" content="YearsDays" />
     <meta property="og:image" content={`${siteUrl}/og/og-${lang}.svg`} />
     <meta property="og:image:width" content="1200" />
@@ -161,7 +172,7 @@ const webAppJsonLd = {
     {/* Structured Data (JSON-LD) */}
     <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(webAppJsonLd)} />
+    {webAppJsonLd && <script type="application/ld+json" set:html={JSON.stringify(webAppJsonLd)} />}
     {jsonLd.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}

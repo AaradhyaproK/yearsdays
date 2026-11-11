@@ -14,42 +14,50 @@ interface Props {
 const { lang, items } = Astro.props;
 const t = getTranslations(lang);
 const homePath = getLocalizedPath('', lang);
+const siteUrl = Astro.site?.origin || process.env.SITE_URL || 'https://yearsdays.com';
 
 const allItems: BreadcrumbItem[] = [
   { label: t.nav.home, href: homePath },
   ...items,
 ];
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: allItems.map((item, index) => {
+    const entry: Record<string, any> = {
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+    };
+    if (item.href) {
+      entry.item = new URL(item.href, siteUrl).href;
+    }
+    return entry;
+  }),
+};
 ---
 
 <nav aria-label="Breadcrumb" class="py-2 text-xs text-[#8a8f98]">
-  <ol class="flex flex-wrap items-center gap-1.5 list-none p-0 m-0" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <ol class="flex flex-wrap items-center gap-1.5 list-none p-0 m-0">
     {allItems.map((item, index) => {
       const isLast = index === allItems.length - 1;
       return (
-        <li
-          class="flex items-center gap-1.5"
-          itemprop="itemListElement"
-          itemscope
-          itemtype="https://schema.org/ListItem"
-        >
+        <li class="flex items-center gap-1.5">
           {index > 0 && <span class="text-[#62666d] select-none text-[10px]" aria-hidden="true">/</span>}
           {isLast || !item.href ? (
-            <span class="font-medium text-[#f7f8f8]" itemprop="name">
-              {item.label}
-            </span>
+            <span class="font-medium text-[#f7f8f8]">{item.label}</span>
           ) : (
             <a
               href={item.href}
               class="text-[#8a8f98] hover:text-[#f7f8f8] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#5e6ad2] rounded"
-              itemprop="item"
             >
-              <span itemprop="name">{item.label}</span>
+              {item.label}
             </a>
           )}
-          <meta itemprop="position" content={String(index + 1)} />
         </li>
       );
     })}
   </ol>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 </nav>
-
